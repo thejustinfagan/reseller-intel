@@ -47,6 +47,7 @@ export default function ResellerIntel() {
   const fetchCompanies = async () => {
     setLoading(true);
     try {
+      console.log('Fetching companies with filters:', filters);
       const params = new URLSearchParams();
       params.append('page', currentPage.toString());
       params.append('limit', '50');
@@ -54,14 +55,27 @@ export default function ResellerIntel() {
         if (value) params.append(key, value);
       });
       
+      console.log('Making request to:', `/api/companies?${params}`);
       const response = await fetch(`/api/companies?${params}`);
-      const data = await response.json();
       
-      setCompanies(data.companies);
-      setTotalPages(data.totalPages);
-      setTotalCount(data.totalCount);
+      if (!response.ok) {
+        console.error('API response not ok:', response.status, response.statusText);
+        const errorText = await response.text();
+        console.error('Error response body:', errorText);
+        throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      console.log('API response data:', data);
+      
+      setCompanies(data.companies || []);
+      setTotalPages(data.pagination?.totalPages || data.totalPages || 1);
+      setTotalCount(data.pagination?.totalCount || data.totalCount || 0);
     } catch (error) {
       console.error('Failed to fetch companies:', error);
+      setCompanies([]);
+      setTotalPages(1);
+      setTotalCount(0);
     }
     setLoading(false);
   };
