@@ -29,6 +29,7 @@ interface Filters {
 export default function ResellerIntel() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [filters, setFilters] = useState<Filters>({
     search: '',
@@ -46,6 +47,7 @@ export default function ResellerIntel() {
 
   const fetchCompanies = async () => {
     setLoading(true);
+    setError(null);
     try {
       console.log('Fetching companies with filters:', filters);
       const params = new URLSearchParams();
@@ -71,8 +73,9 @@ export default function ResellerIntel() {
       setCompanies(data.companies || []);
       setTotalPages(data.pagination?.totalPages || data.totalPages || 1);
       setTotalCount(data.pagination?.totalCount || data.totalCount || 0);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to fetch companies:', error);
+      setError(error.message || 'Failed to fetch companies');
       setCompanies([]);
       setTotalPages(1);
       setTotalCount(0);
@@ -221,6 +224,28 @@ export default function ResellerIntel() {
                   <div className="p-8 text-center">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
                     <p className="mt-2 text-gray-500">Loading companies...</p>
+                  </div>
+                ) : error ? (
+                  <div className="p-8 text-center">
+                    <div className="text-red-500 mb-4">
+                      <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.732 15.5c-.77.833.192 2.5 1.732 2.5z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Error Loading Data</h3>
+                    <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
+                    <button
+                      onClick={() => {
+                        setError(null);
+                        fetchCompanies();
+                      }}
+                      className="btn-primary"
+                    >
+                      Try Again
+                    </button>
+                    <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900 rounded border-l-4 border-blue-500 text-sm">
+                      <strong>Debug Info:</strong> API Test Page: <a href="/test" className="text-blue-600 underline">Click here</a> to verify data access
+                    </div>
                   </div>
                 ) : companies.length === 0 ? (
                   <div className="p-8 text-center text-gray-500">
