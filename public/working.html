@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reseller Intel - Working Data Access</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f8f9fa; }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-width: 1200px; margin: 0 auto; }
+        .success { color: #28a745; font-weight: bold; }
+        .search { margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 6px; }
+        .search input, .search select { padding: 8px; margin: 5px; border: 1px solid #ddd; border-radius: 4px; }
+        .search button { padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .search button:hover { background: #0056b3; }
+        #results { margin-top: 20px; }
+        .company { border: 1px solid #ddd; margin: 10px 0; padding: 15px; border-radius: 6px; background: #fff; }
+        .company h3 { margin: 0 0 10px 0; color: #333; }
+        .company p { margin: 5px 0; color: #666; }
+        .loading { text-align: center; padding: 20px; color: #666; }
+        .error { color: #dc3545; padding: 20px; background: #f8d7da; border-radius: 6px; }
+        .stats { background: #d4edda; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #28a745; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ Reseller Intel - Working Data Interface</h1>
+        
+        <div class="stats">
+            <h3>Database Status: <span class="success">OPERATIONAL</span></h3>
+            <p><strong>Total Service Centers:</strong> <span id="totalCount">46,046</span> records</p>
+            <p><strong>Data Access:</strong> All service center records available via direct API</p>
+        </div>
+
+        <div class="search">
+            <h3>Search Service Centers</h3>
+            <input type="text" id="searchInput" placeholder="Search by company name or location">
+            <select id="stateFilter">
+                <option value="">All States</option>
+                <option value="CA">California</option>
+                <option value="TX">Texas</option>
+                <option value="FL">Florida</option>
+                <option value="NY">New York</option>
+                <option value="IL">Illinois</option>
+                <option value="PA">Pennsylvania</option>
+                <option value="OH">Ohio</option>
+                <option value="MI">Michigan</option>
+                <option value="GA">Georgia</option>
+                <option value="NC">North Carolina</option>
+            </select>
+            <button onclick="searchCompanies()">Search</button>
+            <button onclick="exportData()">Export CSV</button>
+        </div>
+
+        <div id="results">
+            <div class="loading" id="loading">Loading initial data...</div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        let totalPages = 1;
+
+        async function searchCompanies() {
+            const search = document.getElementById('searchInput').value;
+            const state = document.getElementById('stateFilter').value;
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+            
+            loading.style.display = 'block';
+            results.innerHTML = '<div class="loading">Searching...</div>';
+            
+            try {
+                const params = new URLSearchParams();
+                if (search) params.append('search', search);
+                if (state) params.append('state', state);
+                params.append('limit', '20');
+                params.append('page', '1');
+                
+                const response = await fetch(`/api/companies?${params}`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                const data = await response.json();
+                displayResults(data);
+                
+            } catch (error) {
+                results.innerHTML = `<div class="error">Error loading data: ${error.message}</div>`;
+            }
+        }
+
+        function displayResults(data) {
+            const results = document.getElementById('results');
+            const companies = data.companies || [];
+            const pagination = data.pagination || {};
+            
+            if (companies.length === 0) {
+                results.innerHTML = '<p>No companies found matching your search.</p>';
+                return;
+            }
+
+            let html = `<h3>Results: ${(pagination.totalCount || companies.length).toLocaleString()} companies</h3>`;
+            
+            companies.forEach(company => {
+                html += `
+                    <div class="company">
+                        <h3>${company.company_name}</h3>
+                        <p><strong>Location:</strong> ${company.city}, ${company.state} ${company.zip_code}</p>
+                        <p><strong>Phone:</strong> ${company.primary_phone || 'N/A'}</p>
+                        <p><strong>Service:</strong> ${company.input_service_type} - ${company.input_sub_service_type || 'General'}</p>
+                        ${company.features ? `<p><strong>Features:</strong> ${company.features.substring(0, 200)}...</p>` : ''}
+                    </div>
+                `;
+            });
+            
+            results.innerHTML = html;
+        }
+
+        async function exportData() {
+            try {
+                const search = document.getElementById('searchInput').value;
+                const state = document.getElementById('stateFilter').value;
+                const params = new URLSearchParams();
+                if (search) params.append('search', search);
+                if (state) params.append('state', state);
+                
+                const response = await fetch(`/api/companies/export?${params}`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `reseller-intel-export-${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            } catch (error) {
+                alert(`Export failed: ${error.message}`);
+            }
+        }
+
+        // Load initial data
+        window.onload = function() {
+            searchCompanies();
+        };
+    </script>
+</body>
+</html>
