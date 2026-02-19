@@ -1,16 +1,8 @@
-import { NextResponse } from 'next/server';
-
 // Simple server-side rendered test page
 export default async function TestPage() {
   try {
     // Fetch data server-side
-    const baseUrl = process.env.VERCEL_URL 
-      ? `https://${process.env.VERCEL_URL}`
-      : process.env.NODE_ENV === 'production' 
-        ? 'https://trustworthy-integrity-production.up.railway.app'
-        : 'http://localhost:3000';
-        
-    const response = await fetch(`${baseUrl}/api/companies?limit=10`, {
+    const response = await fetch('/api/companies?limit=10', {
       headers: { 'User-Agent': 'Reseller-Intel-TestPage' }
     });
     

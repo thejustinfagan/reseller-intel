@@ -33,3 +33,7 @@ yarn-error.log*
 
 # TypeScript
 *.tsbuildinfo
+
+# Local databases
+/db
+/data/reseller_intel.db

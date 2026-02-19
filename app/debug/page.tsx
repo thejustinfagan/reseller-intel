@@ -2,7 +2,7 @@ import Database from 'better-sqlite3';
 import path from 'path';
 
 export default function DebugPage() {
-  let data = { status: 'error', message: 'Unknown error', companies: [], total: 0 };
+  let data: { status: string; message: string; companies: any[]; total: number } = { status: 'error', message: 'Unknown error', companies: [], total: 0 };
   
   try {
     const DB_PATH = path.join(process.cwd(), 'data', 'reseller-intel.db');

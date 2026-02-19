@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Search, Filter, Download, MapPin, Phone, Globe, Building2 } from 'lucide-react';
+import { Search, Download, MapPin, Phone, Globe, Building2 } from 'lucide-react';
 
 interface Company {
   id: number;
@@ -22,7 +22,6 @@ interface Company {
 interface Filters {
   search: string;
   state: string;
-  serviceType: string;
   subServiceType: string;
 }
 
@@ -34,16 +33,37 @@ export default function ResellerIntel() {
   const [filters, setFilters] = useState<Filters>({
     search: '',
     state: '',
-    serviceType: '',
     subServiceType: ''
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
+  const [stateOptions, setStateOptions] = useState<string[]>([]);
+  const [subServiceTypeOptions, setSubServiceTypeOptions] = useState<string[]>([]);
 
   useEffect(() => {
     fetchCompanies();
   }, [filters, currentPage]);
+
+  useEffect(() => {
+    const fetchFilters = async () => {
+      try {
+        const response = await fetch('/api/filters');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch filters: ${response.status}`);
+        }
+        const data = await response.json();
+        setStateOptions(data.states || []);
+        setSubServiceTypeOptions(data.subServiceTypes || []);
+      } catch (error) {
+        console.error('Failed to fetch filters:', error);
+        setStateOptions([]);
+        setSubServiceTypeOptions([]);
+      }
+    };
+
+    fetchFilters();
+  }, []);
 
   const fetchCompanies = async () => {
     setLoading(true);
@@ -140,7 +160,7 @@ export default function ResellerIntel() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Filters */}
         <div className="card p-4 mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Search Companies
@@ -167,27 +187,11 @@ export default function ResellerIntel() {
                 onChange={(e) => handleFilterChange('state', e.target.value)}
               >
                 <option value="">All States</option>
-                <option value="AL">Alabama</option>
-                <option value="CA">California</option>
-                <option value="FL">Florida</option>
-                <option value="TX">Texas</option>
-                {/* Add more states as needed */}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Service Type
-              </label>
-              <select
-                className="input-field w-full"
-                value={filters.serviceType}
-                onChange={(e) => handleFilterChange('serviceType', e.target.value)}
-              >
-                <option value="">All Services</option>
-                <option value="Dealer-Trailer">Dealer-Trailer</option>
-                <option value="Service Center">Service Center</option>
-                <option value="Parts Supplier">Parts Supplier</option>
+                {stateOptions.map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -201,8 +205,11 @@ export default function ResellerIntel() {
                 onChange={(e) => handleFilterChange('subServiceType', e.target.value)}
               >
                 <option value="">All Sub-Types</option>
-                <option value="Thermo King">Thermo King</option>
-                <option value="Carrier Transicold">Carrier Transicold</option>
+                {subServiceTypeOptions.map((subType) => (
+                  <option key={subType} value={subType}>
+                    {subType}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
