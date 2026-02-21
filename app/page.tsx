@@ -143,7 +143,7 @@ export default function ResellerIntel() {
             </div>
             <div className="flex items-center space-x-3">
               <span className="text-sm text-gray-600 dark:text-gray-300">
-                {totalCount.toLocaleString()} service centers
+                {loading ? 'Loading service centers…' : `${totalCount.toLocaleString()} service centers`}
               </span>
               <button
                 onClick={exportCompanies}
@@ -222,7 +222,7 @@ export default function ResellerIntel() {
             <div className="card">
               <div className="p-4 border-b border-gray-200 dark:border-gray-700">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Service Centers ({totalCount.toLocaleString()})
+                  {loading ? 'Service Centers (loading...)' : `Service Centers (${totalCount.toLocaleString()})`}
                 </h2>
               </div>
               
