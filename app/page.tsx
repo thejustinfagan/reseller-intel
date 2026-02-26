@@ -297,34 +297,51 @@ export default function ResellerIntel() {
                   companies.map((company) => (
                     <div
                       key={company.id}
-                      className="p-4 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
-                      onClick={() => setSelectedCompany(company)}
+                      className="p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     >
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1 min-w-0">
-                          <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
-                            {company.company_name}
-                          </h3>
-                          <div className="mt-1 flex items-center text-sm text-gray-500">
-                            <MapPin className="h-4 w-4 mr-1" />
-                            <span>{company.city}, {company.state} {company.zip_code}</span>
+                      <div 
+                        className="cursor-pointer"
+                        onClick={() => setSelectedCompany(company)}
+                      >
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
+                              {company.company_name}
+                            </h3>
+                            <div className="mt-1 flex items-center text-sm text-gray-500">
+                              <MapPin className="h-4 w-4 mr-1" />
+                              <span>{company.city}, {company.state} {company.zip_code}</span>
+                            </div>
+                            <div className="mt-1 flex items-center text-sm text-gray-500">
+                              <Building2 className="h-4 w-4 mr-1" />
+                              <span>{company.input_service_type}</span>
+                              {company.input_sub_service_type && (
+                                <span> • {company.input_sub_service_type}</span>
+                              )}
+                            </div>
                           </div>
-                          <div className="mt-1 flex items-center text-sm text-gray-500">
-                            <Building2 className="h-4 w-4 mr-1" />
-                            <span>{company.input_service_type}</span>
-                            {company.input_sub_service_type && (
-                              <span> • {company.input_sub_service_type}</span>
+                          <div className="ml-4 flex-shrink-0">
+                            {company.primary_phone && (
+                              <div className="flex items-center text-sm text-gray-500">
+                                <Phone className="h-4 w-4 mr-1" />
+                                <span>{company.primary_phone}</span>
+                              </div>
                             )}
                           </div>
                         </div>
-                        <div className="ml-4 flex-shrink-0">
-                          {company.primary_phone && (
-                            <div className="flex items-center text-sm text-gray-500">
-                              <Phone className="h-4 w-4 mr-1" />
-                              <span>{company.primary_phone}</span>
-                            </div>
-                          )}
-                        </div>
+                      </div>
+                      {/* Map button directly on card */}
+                      <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            fetchMapData(company.full_address);
+                          }}
+                          className="w-full sm:w-auto btn-secondary text-sm flex items-center justify-center"
+                        >
+                          <MapIcon className="h-4 w-4 mr-2" />
+                          View Map
+                        </button>
                       </div>
                     </div>
                   ))
