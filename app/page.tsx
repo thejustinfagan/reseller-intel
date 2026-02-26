@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Search, Download, MapPin, Phone, Globe, Building2 } from 'lucide-react';
+import { Search, Download, MapPin, Phone, Globe, Building2, Map as MapIcon, X } from 'lucide-react';
 
 interface Company {
   id: number;
@@ -25,6 +25,18 @@ interface Filters {
   subServiceType: string;
 }
 
+interface MapsImageryResponse {
+  location: string;
+  interactiveSatelliteUrl: string;
+  interactiveStreetViewUrl: string;
+  satelliteStaticUrl?: string;
+  streetViewStaticUrl?: string;
+  satelliteEmbedUrl?: string;
+  streetViewEmbedUrl?: string;
+  openStreetMapUrl?: string;
+  usesApiKey: boolean;
+}
+
 export default function ResellerIntel() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
@@ -40,6 +52,11 @@ export default function ResellerIntel() {
   const [totalCount, setTotalCount] = useState(0);
   const [stateOptions, setStateOptions] = useState<string[]>([]);
   const [subServiceTypeOptions, setSubServiceTypeOptions] = useState<string[]>([]);
+  
+  // Map state
+  const [showMapModal, setShowMapModal] = useState(false);
+  const [mapData, setMapData] = useState<MapsImageryResponse | null>(null);
+  const [loadingMap, setLoadingMap] = useState(false);
 
   useEffect(() => {
     fetchCompanies();
@@ -126,6 +143,24 @@ export default function ResellerIntel() {
       document.body.removeChild(a);
     } catch (error) {
       console.error('Export failed:', error);
+    }
+  };
+
+  const fetchMapData = async (address: string) => {
+    setLoadingMap(true);
+    try {
+      const response = await fetch(`/api/maps/imagery?location=${encodeURIComponent(address)}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch map data');
+      }
+      const data = await response.json();
+      setMapData(data);
+      setShowMapModal(true);
+    } catch (error) {
+      console.error('Failed to fetch map data:', error);
+      alert('Failed to load map. Please try again.');
+    } finally {
+      setLoadingMap(false);
     }
   };
 
@@ -411,6 +446,18 @@ export default function ResellerIntel() {
                         </p>
                       </div>
                     )}
+
+                    {/* View Map Button */}
+                    <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                      <button
+                        onClick={() => fetchMapData(selectedCompany.full_address)}
+                        disabled={loadingMap}
+                        className="w-full btn-primary flex items-center justify-center"
+                      >
+                        <MapIcon className="h-4 w-4 mr-2" />
+                        {loadingMap ? 'Loading Map...' : 'View Map'}
+                      </button>
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -423,6 +470,117 @@ export default function ResellerIntel() {
           </div>
         </div>
       </div>
+
+      {/* Map Modal */}
+      {showMapModal && mapData && (
+        <div className="fixed inset-0 z-50 overflow-y-auto" onClick={() => setShowMapModal(false)}>
+          <div className="flex min-h-screen items-center justify-center p-4">
+            <div className="fixed inset-0 bg-black bg-opacity-50" />
+            
+            <div 
+              className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    <MapIcon className="inline h-5 w-5 mr-2" />
+                    Map View: {mapData.location}
+                  </h3>
+                  <button
+                    onClick={() => setShowMapModal(false)}
+                    className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-6 space-y-6">
+                {/* Embedded Maps */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Satellite View */}
+                  {mapData.satelliteEmbedUrl && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Satellite View
+                      </label>
+                      <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-600">
+                        <iframe
+                          src={mapData.satelliteEmbedUrl}
+                          width="100%"
+                          height="400"
+                          style={{ border: 0 }}
+                          allowFullScreen
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          title="Satellite Map"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Street View */}
+                  {mapData.streetViewEmbedUrl && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Street View
+                      </label>
+                      <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-600">
+                        <iframe
+                          src={mapData.streetViewEmbedUrl}
+                          width="100%"
+                          height="400"
+                          style={{ border: 0 }}
+                          allowFullScreen
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          title="Street View Map"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Interactive Links */}
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href={mapData.interactiveSatelliteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary flex items-center"
+                  >
+                    <MapIcon className="h-4 w-4 mr-2" />
+                    Open in Google Maps (Satellite)
+                  </a>
+                  <a
+                    href={mapData.interactiveStreetViewUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary flex items-center"
+                  >
+                    <MapIcon className="h-4 w-4 mr-2" />
+                    Open Street View
+                  </a>
+                  {mapData.openStreetMapUrl && (
+                    <a
+                      href={mapData.openStreetMapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-secondary flex items-center"
+                    >
+                      <MapIcon className="h-4 w-4 mr-2" />
+                      Open in OpenStreetMap
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
