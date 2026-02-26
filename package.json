@@ -4,12 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "import:csv": "node scripts/import-csv.js"
+    "import:csv": "node scripts/import-csv.js",
+    "batch:enrichment": "node --experimental-strip-types scripts/batch-enrichment.ts",
+    "prisma:generate": "prisma generate --schema prisma/schema.prisma",
+    "prisma:validate": "prisma validate --schema prisma/schema.prisma",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@prisma/client": "^7.4.0",
     "better-sqlite3": "^11.5.0",
     "csv-parser": "^3.0.0",
     "lucide-react": "^0.469.0",
@@ -26,6 +31,7 @@
     "eslint": "^9.17.0",
     "eslint-config-next": "15.1.0",
     "postcss": "^8.5.0",
+    "prisma": "^7.4.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2"
   }

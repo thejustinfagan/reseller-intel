@@ -1,0 +1,61 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model ServiceCenter {
+  id                 Int                       @id @default(autoincrement())
+  companyName        String                    @map("company_name")
+  normalizedName     String                    @map("normalized_name")
+  fullAddress        String?                   @map("full_address")
+  city               String?
+  state              String?
+  zipCode            String?                   @map("zip_code")
+  primaryPhone       String?                   @map("primary_phone")
+  secondaryPhone     String?                   @map("secondary_phone")
+  companyDetailUrl   String?                   @map("company_detail_url")
+  inputServiceType   String?                   @map("input_service_type")
+  inputSubServiceType String?                  @map("input_sub_service_type")
+  enrichments        ServiceCenterEnrichment[]
+
+  @@map("companies")
+}
+
+model ServiceCenterEnrichment {
+  id                   String   @id @default(cuid())
+  serviceCenterId      Int      @unique(map: "idx_service_center_enrichment_center_id_unique") @map("service_center_id")
+  serviceCenter        ServiceCenter @relation(fields: [serviceCenterId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  googlePlaceId        String?  @map("google_place_id")
+  googleBusinessName   String?  @map("google_business_name")
+  googleBusinessAddress String? @map("google_business_address")
+  googleBusinessPhone  String?  @map("google_business_phone")
+  googleBusinessWebsite String? @map("google_business_website")
+
+  googleRating         Float?   @map("google_rating")
+  sentimentScore       Float?   @map("sentiment_score")
+  imageUrl             String?  @map("image_url")
+  reviewCount          Int?     @map("review_count")
+
+  facilityType         String?  @map("facility_type")
+  yardSize             String?  @map("yard_size")
+  estimatedBays        Int?     @map("estimated_bays")
+  trucksVisible        Int?     @map("trucks_visible")
+  trailersVisible      Int?     @map("trailers_visible")
+  equipmentSummary     String?  @map("equipment_summary")
+  activityLevel        String?  @map("activity_level")
+  confidence           String?  @map("confidence")
+  salesIntel           String?  @map("sales_intel")
+  surroundingArea      String?  @map("surrounding_area")
+  facilityAnalysisRaw  String?  @map("facility_analysis_raw")
+
+  lastEnriched         DateTime @default(now()) @map("last_enriched")
+  analysisError        String?  @map("analysis_error")
+
+  @@index([lastEnriched], map: "idx_service_center_enrichment_last_enriched")
+  @@map("service_center_enrichment")
+}
