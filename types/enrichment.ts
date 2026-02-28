@@ -49,6 +49,7 @@ export interface SatelliteImageryMetadata {
 export interface FacilityAnalysisData {
   facilityType: string | null;
   yardSize: string | null;
+  estimatedAcreage: number | null;
   estimatedBays: number | null;
   trucksVisible: number | null;
   trailersVisible: number | null;
@@ -74,6 +75,7 @@ export interface EnrichmentRecord {
   reviewCount: number | null;
   facilityType: string | null;
   yardSize: string | null;
+  estimatedAcreage: number | null;
   estimatedBays: number | null;
   trucksVisible: number | null;
   trailersVisible: number | null;

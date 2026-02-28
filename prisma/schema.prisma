@@ -43,6 +43,7 @@ model ServiceCenterEnrichment {
 
   facilityType         String?  @map("facility_type")
   yardSize             String?  @map("yard_size")
+  estimatedAcreage     Float?   @map("estimated_acreage")
   estimatedBays        Int?     @map("estimated_bays")
   trucksVisible        Int?     @map("trucks_visible")
   trailersVisible      Int?     @map("trailers_visible")

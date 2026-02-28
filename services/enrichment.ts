@@ -51,6 +51,7 @@ type EnrichmentRow = {
   review_count: number | null;
   facility_type: string | null;
   yard_size: string | null;
+  estimated_acreage: number | null;
   estimated_bays: number | null;
   trucks_visible: number | null;
   trailers_visible: number | null;
@@ -84,6 +85,7 @@ function ensureEnrichmentTable(db: Database.Database): void {
       review_count INTEGER,
       facility_type TEXT,
       yard_size TEXT,
+      estimated_acreage REAL,
       estimated_bays INTEGER,
       trucks_visible INTEGER,
       trailers_visible INTEGER,
@@ -143,6 +145,7 @@ function mapEnrichmentRecord(row: EnrichmentRow): EnrichmentRecord {
     reviewCount: row.review_count,
     facilityType: row.facility_type,
     yardSize: row.yard_size,
+    estimatedAcreage: row.estimated_acreage,
     estimatedBays: row.estimated_bays,
     trucksVisible: row.trucks_visible,
     trailersVisible: row.trailers_visible,
@@ -333,6 +336,7 @@ function upsertFacilityEnrichment(
   data: {
     facilityType: string | null;
     yardSize: string | null;
+    estimatedAcreage: number | null;
     estimatedBays: number | null;
     trucksVisible: number | null;
     trailersVisible: number | null;
@@ -357,6 +361,7 @@ function upsertFacilityEnrichment(
         service_center_id,
         facility_type,
         yard_size,
+        estimated_acreage,
         estimated_bays,
         trucks_visible,
         trailers_visible,
@@ -368,10 +373,11 @@ function upsertFacilityEnrichment(
         facility_analysis_raw,
         last_enriched,
         analysis_error
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       ON CONFLICT(service_center_id) DO UPDATE SET
         facility_type = excluded.facility_type,
         yard_size = excluded.yard_size,
+        estimated_acreage = excluded.estimated_acreage,
         estimated_bays = excluded.estimated_bays,
         trucks_visible = excluded.trucks_visible,
         trailers_visible = excluded.trailers_visible,
@@ -389,6 +395,7 @@ function upsertFacilityEnrichment(
       serviceCenterId,
       data.facilityType,
       data.yardSize,
+      data.estimatedAcreage,
       data.estimatedBays,
       data.trucksVisible,
       data.trailersVisible,

@@ -13,6 +13,7 @@ type FacilityAnalysisContext = {
 type PartialFacilityResponse = {
   facilityType?: unknown;
   yardSize?: unknown;
+  estimatedAcreage?: unknown;
   estimatedBays?: unknown;
   trucksVisible?: unknown;
   trailersVisible?: unknown;
@@ -57,6 +58,7 @@ function sanitizeFacilityPayload(payload: PartialFacilityResponse, rawText: stri
   return {
     facilityType: toNullableString(payload.facilityType),
     yardSize,
+    estimatedAcreage: payload.estimatedAcreage !== undefined ? toNullableInteger(payload.estimatedAcreage) : null,
     estimatedBays: toNullableInteger(payload.estimatedBays),
     trucksVisible: toNullableInteger(payload.trucksVisible),
     trailersVisible: toNullableInteger(payload.trailersVisible),
@@ -125,6 +127,7 @@ function parseFallbackText(rawText: string): PartialFacilityResponse {
   return {
     facilityType: extract(/facility type[:\s-]+(.+?)(?:\n|$)/i),
     yardSize: extract(/yard size[:\s-]+(.+?)(?:\n|$)/i),
+    estimatedAcreage: extractNumber(/estimated acreage[:\s-]+([\d.]+)/i),
     estimatedBays: extractNumber(/(?:estimated\s+)?bays?[:\s-]+(\d+)/i),
     trucksVisible: extractNumber(/trucks?(?:\s+visible)?[:\s-]+(\d+)/i),
     trailersVisible: extractNumber(/trailers?(?:\s+visible)?[:\s-]+(\d+)/i),
@@ -162,6 +165,7 @@ Use the provided satellite and street-view images and return STRICT JSON only:
 {
   "facilityType": "string",
   "yardSize": "small|medium|large",
+  "estimatedAcreage": number,
   "estimatedBays": number,
   "trucksVisible": number,
   "trailersVisible": number,
