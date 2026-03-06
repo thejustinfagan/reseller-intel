@@ -3,9 +3,7 @@ import { requireJwtAuth } from "@/lib/jwt";
 import { EnrichmentServiceError, enrichFacilityForServiceCenter } from "@/services/enrichment";
 
 type RouteContext = {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 };
 
 function parseServiceCenterId(rawId: string): number {
@@ -16,14 +14,15 @@ function parseServiceCenterId(rawId: string): number {
   return value;
 }
 
-export async function POST(request: Request, context: RouteContext): Promise<NextResponse> {
+export async function POST(request: Request, { params }: RouteContext): Promise<NextResponse> {
   const auth = requireJwtAuth(request);
   if (!auth.ok) {
     return NextResponse.json({ error: auth.error }, { status: auth.status });
   }
 
   try {
-    const serviceCenterId = parseServiceCenterId(decodeURIComponent(context.params.id ?? "").trim());
+    const { id } = await params;
+    const serviceCenterId = parseServiceCenterId(decodeURIComponent(id ?? "").trim());
     const data = await enrichFacilityForServiceCenter(serviceCenterId);
     return NextResponse.json({ success: true, data });
   } catch (error) {

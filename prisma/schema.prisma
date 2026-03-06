@@ -60,3 +60,24 @@ model ServiceCenterEnrichment {
   @@index([lastEnriched], map: "idx_service_center_enrichment_last_enriched")
   @@map("service_center_enrichment")
 }
+
+model OemDealer {
+  id          String   @id @default(cuid())
+  companyName String   @map("company_name")
+  address     String?
+  city        String
+  state       String
+  zip         String?
+  phone       String?
+  website     String?
+  dealerType  String?  @map("dealer_type")
+  brand       String
+  latitude    Float?
+  longitude   Float?
+  scrapedAt   DateTime @default(now()) @map("scraped_at")
+
+  @@unique([companyName, zip], map: "idx_oem_dealers_company_zip")
+  @@index([brand], map: "idx_oem_dealers_brand")
+  @@index([state, city], map: "idx_oem_dealers_state_city")
+  @@map("oem_dealers")
+}
