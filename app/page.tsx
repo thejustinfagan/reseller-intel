@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Search, Download, MapPin, Phone, Globe, Building2, Map as MapIcon, X } from 'lucide-react';
 
 interface Company {
@@ -37,22 +37,32 @@ interface MapsImageryResponse {
   usesApiKey: boolean;
 }
 
+const ZIP_SEARCH_PATTERN = /^\d{5}$/;
+const DEFAULT_RADIUS_MILES = 50;
+
 export default function ResellerIntel() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
-  const [filters, setFilters] = useState<Filters>({
+  const [draftFilters, setDraftFilters] = useState<Filters>({
     search: '',
     state: '',
     subServiceType: ''
   });
+  const [appliedFilters, setAppliedFilters] = useState<Filters>({
+    search: '',
+    state: '',
+    subServiceType: ''
+  });
+  const [radiusMiles, setRadiusMiles] = useState(DEFAULT_RADIUS_MILES);
+  const [appliedRadiusMiles, setAppliedRadiusMiles] = useState(DEFAULT_RADIUS_MILES);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [stateOptions, setStateOptions] = useState<string[]>([]);
   const [subServiceTypeOptions, setSubServiceTypeOptions] = useState<string[]>([]);
-  
+
   // Map state
   const [showMapModal, setShowMapModal] = useState(false);
   const [mapData, setMapData] = useState<MapsImageryResponse | null>(null);
@@ -60,7 +70,7 @@ export default function ResellerIntel() {
 
   useEffect(() => {
     fetchCompanies();
-  }, [filters, currentPage]);
+  }, [appliedFilters, appliedRadiusMiles, currentPage]);
 
   useEffect(() => {
     const fetchFilters = async () => {
@@ -82,37 +92,84 @@ export default function ResellerIntel() {
     fetchFilters();
   }, []);
 
+  const buildFilterParams = (activeFilters: Filters, activeRadiusMiles: number) => {
+    const params = new URLSearchParams();
+    const trimmedSearch = activeFilters.search.trim();
+
+    if (ZIP_SEARCH_PATTERN.test(trimmedSearch)) {
+      params.append('nearZip', trimmedSearch);
+      params.append('radiusMiles', String(activeRadiusMiles));
+    } else if (trimmedSearch) {
+      params.append('search', trimmedSearch);
+    }
+
+    if (activeFilters.state) {
+      params.append('state', activeFilters.state);
+    }
+
+    if (activeFilters.subServiceType) {
+      params.append('subServiceType', activeFilters.subServiceType);
+    }
+
+    return params;
+  };
+
+  const applyDraftFilters = () => {
+    const nextRadius = Number.isFinite(radiusMiles) && radiusMiles > 0
+      ? Math.round(radiusMiles)
+      : DEFAULT_RADIUS_MILES;
+
+    setRadiusMiles(nextRadius);
+    setAppliedRadiusMiles(nextRadius);
+    setAppliedFilters({ ...draftFilters });
+    setCurrentPage(1);
+  };
+
+  const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    applyDraftFilters();
+  };
+
+  const handleDraftFilterChange = (key: keyof Filters, value: string) => {
+    setDraftFilters((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleRadiusChange = (value: string) => {
+    const parsed = Number.parseInt(value, 10);
+    setRadiusMiles(Number.isFinite(parsed) ? parsed : 0);
+  };
+
   const fetchCompanies = async () => {
     setLoading(true);
     setError(null);
     try {
-      console.log('Fetching companies with filters:', filters);
-      const params = new URLSearchParams();
+      const params = buildFilterParams(appliedFilters, appliedRadiusMiles);
       params.append('page', currentPage.toString());
       params.append('limit', '50');
-      Object.entries(filters).forEach(([key, value]) => {
-        if (value) params.append(key, value);
-      });
-      
-      console.log('Making request to:', `/api/companies?${params}`);
       const response = await fetch(`/api/companies?${params}`);
-      
+
       if (!response.ok) {
-        console.error('API response not ok:', response.status, response.statusText);
-        const errorText = await response.text();
-        console.error('Error response body:', errorText);
-        throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        let errorMessage = `API request failed: ${response.status} ${response.statusText}`;
+        try {
+          const errorData = await response.json();
+          if (typeof errorData?.error === 'string' && errorData.error.trim()) {
+            errorMessage = errorData.error;
+          }
+        } catch {
+          // Keep fallback error message when response body is not JSON.
+        }
+        throw new Error(errorMessage);
       }
-      
+
       const data = await response.json();
-      console.log('API response data:', data);
-      
+
       setCompanies(data.companies || []);
       setTotalPages(data.pagination?.totalPages || data.totalPages || 1);
       setTotalCount(data.pagination?.totalCount || data.totalCount || 0);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to fetch companies:', error);
-      setError(error.message || 'Failed to fetch companies');
+      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch companies';
+      setError(errorMessage);
       setCompanies([]);
       setTotalPages(1);
       setTotalCount(0);
@@ -120,18 +177,13 @@ export default function ResellerIntel() {
     setLoading(false);
   };
 
-  const handleFilterChange = (key: keyof Filters, value: string) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
-    setCurrentPage(1);
-  };
-
   const exportCompanies = async () => {
     try {
-      const params = new URLSearchParams();
-      Object.entries(filters).forEach(([key, value]) => {
-        if (value) params.append(key, value);
-      });
+      const params = buildFilterParams(appliedFilters, appliedRadiusMiles);
       const response = await fetch(`/api/companies/export?${params}`);
+      if (!response.ok) {
+        throw new Error(`Export failed: ${response.status} ${response.statusText}`);
+      }
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -195,59 +247,85 @@ export default function ResellerIntel() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Filters */}
         <div className="card p-4 mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Search Companies
-              </label>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <form onSubmit={handleSearchSubmit}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 items-end">
+              <div className="sm:col-span-2 lg:col-span-4 min-w-0">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Search Companies or ZIP
+                </label>
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Company name, city, or 5-digit ZIP"
+                    className="input-field pl-10 w-full"
+                    value={draftFilters.search}
+                    onChange={(e) => handleDraftFilterChange('search', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="lg:col-span-2 min-w-0">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  State
+                </label>
+                <select
+                  className="input-field w-full"
+                  value={draftFilters.state}
+                  onChange={(e) => handleDraftFilterChange('state', e.target.value)}
+                >
+                  <option value="">All States</option>
+                  {stateOptions.map((state) => (
+                    <option key={state} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="lg:col-span-3 min-w-0">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Sub-Service Type
+                </label>
+                <select
+                  className="input-field w-full"
+                  value={draftFilters.subServiceType}
+                  onChange={(e) => handleDraftFilterChange('subServiceType', e.target.value)}
+                >
+                  <option value="">All Sub-Types</option>
+                  {subServiceTypeOptions.map((subType) => (
+                    <option key={subType} value={subType}>
+                      {subType}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="lg:col-span-1 min-w-0">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Radius (mi)
+                </label>
                 <input
-                  type="text"
-                  placeholder="Company name, city..."
-                  className="input-field pl-10 w-full"
-                  value={filters.search}
-                  onChange={(e) => handleFilterChange('search', e.target.value)}
+                  type="number"
+                  min={1}
+                  step={1}
+                  className="input-field w-full"
+                  value={radiusMiles}
+                  onChange={(e) => handleRadiusChange(e.target.value)}
                 />
               </div>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                State
-              </label>
-              <select
-                className="input-field w-full"
-                value={filters.state}
-                onChange={(e) => handleFilterChange('state', e.target.value)}
-              >
-                <option value="">All States</option>
-                {stateOptions.map((state) => (
-                  <option key={state} value={state}>
-                    {state}
-                  </option>
-                ))}
-              </select>
-            </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Sub-Service Type
-              </label>
-              <select
-                className="input-field w-full"
-                value={filters.subServiceType}
-                onChange={(e) => handleFilterChange('subServiceType', e.target.value)}
-              >
-                <option value="">All Sub-Types</option>
-                {subServiceTypeOptions.map((subType) => (
-                  <option key={subType} value={subType}>
-                    {subType}
-                  </option>
-                ))}
-              </select>
+              <div className="sm:col-span-2 lg:col-span-2 min-w-0">
+                <button
+                  type="submit"
+                  className="btn-primary w-full flex items-center justify-center space-x-2"
+                >
+                  <Search className="h-4 w-4" />
+                  <span>Search</span>
+                </button>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
 
         {/* Results */}
