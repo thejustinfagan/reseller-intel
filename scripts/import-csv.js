@@ -5,6 +5,7 @@ const path = require('path');
 
 const CSV_PATH = path.join(__dirname, '..', 'data', 'CustomerScrape - WDs, ServiceCenters, Dealers.csv');
 const DB_PATH = path.join(__dirname, '..', 'data', 'reseller-intel.db');
+const ZIP_REGEX = /\b(\d{5})(?:-\d{4})?\b/;
 
 // Ensure data directory exists
 const dataDir = path.dirname(DB_PATH);
@@ -39,6 +40,21 @@ function validateZipCode(zip) {
   return digits.length >= 5 ? digits.slice(0, 5) : zip.toString();
 }
 
+function extractZip5(value) {
+  if (!value) return null;
+  const match = value.toString().match(ZIP_REGEX);
+  return match ? match[1] : null;
+}
+
+function ensureZip5CleanColumn(db) {
+  const columns = db.prepare('PRAGMA table_info(companies)').all();
+  const hasZip5Clean = columns.some((column) => column.name === 'zip5_clean');
+
+  if (!hasZip5Clean) {
+    db.exec('ALTER TABLE companies ADD COLUMN zip5_clean TEXT');
+  }
+}
+
 async function run() {
   console.log('Starting CSV import...');
   console.log(`CSV file: ${CSV_PATH}`);
@@ -62,6 +78,7 @@ async function run() {
       city TEXT,
       state TEXT,
       zip_code TEXT,
+      zip5_clean TEXT,
       primary_phone TEXT,
       secondary_phone TEXT,
       fax TEXT,
@@ -74,12 +91,15 @@ async function run() {
     )
   `);
 
+  ensureZip5CleanColumn(db);
+
   // Create indexes
   db.exec(`
     CREATE INDEX IF NOT EXISTS idx_companies_normalized_name ON companies(normalized_name);
     CREATE INDEX IF NOT EXISTS idx_companies_city_state ON companies(city, state);
     CREATE INDEX IF NOT EXISTS idx_companies_state ON companies(state);
     CREATE INDEX IF NOT EXISTS idx_companies_service_type ON companies(input_service_type);
+    CREATE INDEX IF NOT EXISTS idx_companies_zip5_clean ON companies(zip5_clean);
     CREATE UNIQUE INDEX IF NOT EXISTS idx_companies_unique 
       ON companies(normalized_name, city, state);
   `);
@@ -92,6 +112,7 @@ async function run() {
       city,
       state,
       zip_code,
+      zip5_clean,
       primary_phone,
       secondary_phone,
       fax,
@@ -99,7 +120,7 @@ async function run() {
       input_service_type,
       input_sub_service_type,
       features
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
   const insertMany = db.transaction((companies) => {
@@ -144,13 +165,19 @@ async function run() {
           return;
         }
 
+        const fullAddress = (row.full_address || '').trim();
+        const rawZipCode = (row['Zip Code'] || '').toString();
+        const zipCode = validateZipCode(rawZipCode);
+        const zip5Clean = extractZip5(fullAddress) || extractZip5(rawZipCode);
+
         const company = [
           companyName,
           normalizedName,
-          (row.full_address || '').trim(),
+          fullAddress,
           city,
           state,
-          validateZipCode(row['Zip Code']),
+          zipCode,
+          zip5Clean,
           formatPhone(row['Primary Phone']),
           formatPhone(row['Secondary Phone']),
           (row.fax || '').trim(),

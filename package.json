@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "next lint",
     "import:csv": "node scripts/import-csv.js",
+    "normalize:zip5": "node scripts/normalize-zip5-clean.js",
     "import:oem": "node --experimental-strip-types scripts/import-oem-dealers.ts",
     "batch:enrichment": "node --experimental-strip-types scripts/batch-enrichment.ts",
     "scrape:oem:peterbilt": "node --experimental-strip-types scripts/oem-scrapers/peterbilt.ts",
