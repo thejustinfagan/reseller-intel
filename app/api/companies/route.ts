@@ -6,7 +6,7 @@ import { buildChunkedInClause, getZipCodesWithinRadius, normalizeZip } from '@/l
 
 const DB_PATH = path.join(process.cwd(), 'data', 'reseller-intel.db');
 const DEFAULT_RADIUS_MILES = 50;
-const NORMALIZED_ZIP_SQL = "substr(printf('%05d', CAST(REPLACE(zip_code, '-', '') AS INTEGER)), 1, 5)";
+const ZIP5_CLEAN_COLUMN_SQL = 'zip5_clean';
 
 export const runtime = 'nodejs';
 
@@ -108,7 +108,8 @@ export async function GET(request: NextRequest) {
           filters.nearZip,
           filters.radiusMiles || DEFAULT_RADIUS_MILES
         );
-        const { clause, params: zipParams } = buildChunkedInClause(NORMALIZED_ZIP_SQL, nearbyZips);
+        whereConditions.push("zip5_clean IS NOT NULL AND TRIM(zip5_clean) != ''");
+        const { clause, params: zipParams } = buildChunkedInClause(ZIP5_CLEAN_COLUMN_SQL, nearbyZips);
         whereConditions.push(clause);
         params.push(...zipParams);
       } catch (zipError) {
