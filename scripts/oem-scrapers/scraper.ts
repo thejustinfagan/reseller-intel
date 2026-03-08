@@ -14,7 +14,9 @@ import {
   writeJsonFile,
 } from "./utils.ts";
 import type {
+  BrandDataSource,
   BrandScraperConfig,
+  ExtractionStrategy,
   ParsedArguments,
   ScrapedDealerRecord,
   ScraperRunOptions,
@@ -55,10 +57,99 @@ function withDefaultOptions(overrides?: Partial<ScraperRunOptions>): ScraperRunO
   };
 }
 
+function normalizeUrlForLookup(url: string): string {
+  try {
+    return new URL(url).toString();
+  } catch {
+    return url.trim();
+  }
+}
+
+function collectInitialSourceUrls(config: BrandScraperConfig): string[] {
+  const sources = [
+    config.locatorUrl,
+    ...(config.seedUrls ?? []),
+    ...(config.dataSources ?? []).map((source) => source.url),
+  ];
+
+  const unique = new Set<string>();
+  for (const source of sources) {
+    const normalized = normalizeUrlForLookup(source);
+    if (normalized) {
+      unique.add(normalized);
+    }
+  }
+
+  return [...unique];
+}
+
+function sourceExtractionStrategy(
+  source: BrandDataSource,
+  fallback: ExtractionStrategy
+): ExtractionStrategy {
+  return source.extractionStrategy ?? fallback;
+}
+
+function buildExtractionStrategyByUrl(config: BrandScraperConfig): Map<string, ExtractionStrategy> {
+  const fallback = config.extractionStrategy ?? "generic";
+  const byUrl = new Map<string, ExtractionStrategy>();
+  byUrl.set(normalizeUrlForLookup(config.locatorUrl), fallback);
+
+  for (const source of config.dataSources ?? []) {
+    byUrl.set(normalizeUrlForLookup(source.url), sourceExtractionStrategy(source, fallback));
+  }
+
+  return byUrl;
+}
+
+function mergeHeaders(
+  globalHeaders: Record<string, string> | undefined,
+  localHeaders: Record<string, string> | undefined
+): Record<string, string> | undefined {
+  const merged = {
+    ...(globalHeaders ?? {}),
+    ...(localHeaders ?? {}),
+  };
+
+  return Object.keys(merged).length > 0 ? merged : undefined;
+}
+
+function buildHeadersByUrl(config: BrandScraperConfig): Map<string, Record<string, string>> {
+  const byUrl = new Map<string, Record<string, string>>();
+
+  const locatorHeaders = mergeHeaders(config.headers, undefined);
+  if (locatorHeaders) {
+    byUrl.set(normalizeUrlForLookup(config.locatorUrl), locatorHeaders);
+  }
+
+  for (const source of config.dataSources ?? []) {
+    const merged = mergeHeaders(config.headers, source.headers);
+    if (merged) {
+      byUrl.set(normalizeUrlForLookup(source.url), merged);
+    }
+  }
+
+  return byUrl;
+}
+
+function buildAllowedHosts(config: BrandScraperConfig): Set<string> {
+  const hosts = new Set<string>();
+
+  for (const url of collectInitialSourceUrls(config)) {
+    try {
+      hosts.add(new URL(url).hostname.replace(/^www\./, ""));
+    } catch {
+      continue;
+    }
+  }
+
+  return hosts;
+}
+
 function initialState(config: BrandScraperConfig): ScraperState {
   return {
     brand: config.slug,
-    queue: [config.locatorUrl, ...(config.seedUrls ?? [])],
+    queue: collectInitialSourceUrls(config),
     seen: [],
     nextIndex: 0,
     processed: 0,
@@ -180,7 +271,11 @@ function loadExistingDealers(outputPath: string, enabled: boolean): ScrapedDeale
   return result;
 }
 
-function normalizeDiscoveredUrl(candidate: string, locatorUrl: string): string | null {
+function normalizeDiscoveredUrl(candidate: string, allowedHosts: Set<string>): string | null {
+  if (candidate.includes("{{") || candidate.includes("}}") || candidate.includes("%7B%7B")) {
+    return null;
+  }
+
   let resolved: URL;
   try {
     resolved = new URL(candidate);
@@ -188,10 +283,9 @@ function normalizeDiscoveredUrl(candidate: string, locatorUrl: string): string |
     return null;
   }
 
-  const locatorHost = new URL(locatorUrl).hostname.replace(/^www\./, "");
   const candidateHost = resolved.hostname.replace(/^www\./, "");
 
-  if (candidateHost !== locatorHost) {
+  if (allowedHosts.size > 0 && !allowedHosts.has(candidateHost)) {
     return null;
   }
 
@@ -262,8 +356,11 @@ export async function runBrandScraper(
 
   const state = loadedState && loadedState.brand === config.slug ? loadedState : initialState(config);
 
-  if (!state.queue.includes(config.locatorUrl)) {
-    state.queue.unshift(config.locatorUrl);
+  const configuredSourceUrls = collectInitialSourceUrls(config);
+  for (const sourceUrl of configuredSourceUrls) {
+    if (!state.queue.includes(sourceUrl)) {
+      state.queue.push(sourceUrl);
+    }
   }
 
   state.updatedAt = nowIso();
@@ -274,6 +371,9 @@ export async function runBrandScraper(
 
   const limitRequest = createRateLimitedRequester(options.rateLimitPerMinute);
   const maxQueueSize = Math.max(options.maxSources, state.queue.length);
+  const extractionStrategyByUrl = buildExtractionStrategyByUrl(config);
+  const headersByUrl = buildHeadersByUrl(config);
+  const allowedDiscoveryHosts = buildAllowedHosts(config);
 
   while (state.nextIndex < state.queue.length && state.processed < options.maxSources) {
     const sourceUrl = state.queue[state.nextIndex];
@@ -292,17 +392,21 @@ export async function runBrandScraper(
     }
 
     try {
+      const sourceLookupUrl = normalizeUrlForLookup(sourceUrl);
+      const sourceHeaders = headersByUrl.get(sourceLookupUrl) ?? config.headers;
       const fetched = await limitRequest(() =>
         fetchText({
           url: sourceUrl,
           timeoutMs: options.timeoutMs,
-          headers: config.headers,
+          headers: sourceHeaders,
         })
       );
 
       state.fetched += 1;
 
       const scrapedAt = nowIso();
+      const extractionStrategy =
+        extractionStrategyByUrl.get(sourceLookupUrl) ?? config.extractionStrategy ?? "generic";
       const extracted = extractFromResponse({
         body: fetched.body,
         contentType: fetched.contentType,
@@ -310,13 +414,14 @@ export async function runBrandScraper(
         brand: config.brand,
         defaultDealerType: config.defaultDealerType,
         scrapedAt,
+        extractionStrategy,
       });
 
       const addedDealers = dedupeDealers(dealerMap, extracted.dealers, config);
       const discoveredUrls: string[] = [];
 
       for (const candidate of extracted.discoveredUrls) {
-        const normalized = normalizeDiscoveredUrl(candidate, config.locatorUrl);
+        const normalized = normalizeDiscoveredUrl(candidate, allowedDiscoveryHosts);
         if (!normalized) {
           continue;
         }

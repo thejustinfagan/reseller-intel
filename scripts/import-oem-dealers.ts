@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { pathToFileURL } from "url";
+import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import { PrismaClient } from "@prisma/client";
 import type { ScrapedDealerRecord } from "./oem-scrapers/types.ts";
 import {
@@ -373,7 +374,9 @@ async function importOemDealers(options: ImportOptions): Promise<ImportSummary> 
   let prisma: PrismaClient | null = null;
 
   if (!options.dryRun) {
-    prisma = new PrismaClient();
+    const dbPath = path.resolve(process.cwd(), "data/reseller-intel.db");
+    const adapter = new PrismaBetterSqlite3({ url: `file:${dbPath}` });
+    prisma = new PrismaClient({ adapter });
   }
 
   try {

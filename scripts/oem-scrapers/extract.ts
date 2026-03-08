@@ -7,7 +7,7 @@ import {
   normalizeZip,
   normalizeWhitespace,
 } from "./utils.ts";
-import type { ScrapedDealerRecord } from "./types.ts";
+import type { ExtractionStrategy, ScrapedDealerRecord } from "./types.ts";
 
 type JsonValue = Record<string, unknown> | Array<unknown>;
 
@@ -249,6 +249,219 @@ function safeJsonParse(raw: string): JsonValue | null {
   }
 }
 
+type InheritedLocationContext = {
+  city: string;
+  state: string;
+};
+
+function nestedContextFromObject(
+  obj: Record<string, unknown>,
+  inherited: InheritedLocationContext
+): InheritedLocationContext {
+  const city = getStringField(obj, ["city", "cityName", "town", "locality"]) || inherited.city;
+  const state =
+    normalizeState(
+      getStringField(obj, [
+        "state",
+        "stateCode",
+        "stateAbbrev",
+        "stateAbbreviation",
+        "stateName",
+        "province",
+        "region",
+      ])
+    ) || inherited.state;
+
+  return {
+    city,
+    state,
+  };
+}
+
+function nestedObjectToDealerRecord(
+  obj: Record<string, unknown>,
+  inherited: InheritedLocationContext,
+  context: ExtractContext
+): ScrapedDealerRecord | null {
+  const companyName = getStringField(obj, [
+    "dealerName",
+    "companyName",
+    "locationName",
+    "branchName",
+    "dealershipName",
+    "COMPANY_DBA_NAME",
+    "dealer",
+    "name",
+    "title",
+  ]);
+  if (!companyName) {
+    return null;
+  }
+
+  const addressFields = getAddressFields(obj);
+  const city =
+    getStringField(obj, ["city", "cityName", "town", "locality", "MAIN_CITY_NM"]) ||
+    addressFields.city ||
+    inherited.city;
+  const state =
+    normalizeState(
+      getStringField(obj, [
+        "state",
+        "stateCode",
+        "stateAbbrev",
+        "stateAbbreviation",
+        "stateName",
+        "province",
+        "region",
+        "MAIN_STATE_PROV_CD",
+      ])
+    ) ||
+    addressFields.state ||
+    inherited.state;
+
+  if (!city || !state) {
+    return null;
+  }
+
+  const address =
+    addressFields.address ||
+    mergeAddressLines([
+      getStringField(obj, [
+        "address",
+        "address1",
+        "addressLine1",
+        "street",
+        "street1",
+        "line1",
+        "streetAddress",
+        "MAIN_ADDRESS_LINE_1_TXT",
+        "MAIN_ADDRESS_LINE_2_TXT",
+      ]),
+      getStringField(obj, ["address2", "addressLine2", "street2", "line2", "suite"]),
+    ]);
+
+  const zip = normalizeZip(
+    getStringField(obj, [
+      "zip",
+      "zipCode",
+      "postalCode",
+      "postal",
+      "postCode",
+      "postcode",
+      "MAIN_POSTAL_CD",
+    ]) || addressFields.zip
+  );
+  const phone = normalizePhone(
+    getStringField(obj, [
+      "phone",
+      "phoneNumber",
+      "dealerPhone",
+      "telephone",
+      "tel",
+      "primaryPhone",
+      "contactNumber",
+      "REG_PHONE_NUMBER",
+      "SLS_PHONE_NUMBER",
+      "SVC_PHONE_NUMBER",
+      "TF_PHONE_NUMBER",
+    ])
+  );
+
+  const websiteCandidate = getStringField(obj, [
+    "website",
+    "websiteUrl",
+    "dealerWebsite",
+    "dealerUrl",
+    "WEB_ADDRESS",
+    "url",
+    "web",
+    "link",
+    "href",
+  ]);
+  const website = websiteCandidate
+    ? maybeAbsoluteUrl(websiteCandidate, context.sourceUrl) ?? websiteCandidate
+    : "";
+
+  const coordinatesRaw = findFieldValue(obj, ["coordinates", "coordinate", "geo", "geolocation", "location"]);
+  const coordinates = isPlainObject(coordinatesRaw) ? coordinatesRaw : null;
+
+  const latitude =
+    getNumberField(obj, ["latitude", "lat", "geoLat", "y", "MAIN_LATITUDE"]) ??
+    (coordinates ? getNumberField(coordinates, ["latitude", "lat", "geoLat", "y", "MAIN_LATITUDE"]) : null);
+  const longitude =
+    getNumberField(obj, ["longitude", "lon", "lng", "geoLng", "x", "MAIN_LONGITUDE"]) ??
+    (coordinates ? getNumberField(coordinates, ["longitude", "lon", "lng", "geoLng", "x", "MAIN_LONGITUDE"]) : null);
+
+  const dealerType =
+    getStringField(obj, ["dealerType", "locationType", "type", "category", "segment"]) ||
+    context.defaultDealerType;
+
+  return {
+    companyName,
+    address,
+    city,
+    state,
+    zip,
+    phone,
+    website,
+    dealerType,
+    brand: context.brand,
+    latitude,
+    longitude,
+    scrapedAt: context.scrapedAt,
+    sourceUrl: context.sourceUrl,
+  };
+}
+
+function extractNestedCountryStateDealers(body: string, context: ExtractContext): ScrapedDealerRecord[] {
+  const trimmedBody = body.trim();
+  if (!trimmedBody.startsWith("{") && !trimmedBody.startsWith("[")) {
+    return [];
+  }
+
+  const parsedRoot = safeJsonParse(trimmedBody);
+  if (!parsedRoot) {
+    return [];
+  }
+
+  const dealers: ScrapedDealerRecord[] = [];
+
+  function walk(node: unknown, inherited: InheritedLocationContext, depth = 0): void {
+    if (depth > 25 || dealers.length > 25_000) {
+      return;
+    }
+
+    if (Array.isArray(node)) {
+      for (const item of node) {
+        walk(item, inherited, depth + 1);
+      }
+      return;
+    }
+
+    if (!isPlainObject(node)) {
+      return;
+    }
+
+    const nextContext = nestedContextFromObject(node, inherited);
+    const asDealer = nestedObjectToDealerRecord(node, nextContext, context);
+    if (asDealer) {
+      dealers.push(asDealer);
+    }
+
+    for (const child of Object.values(node)) {
+      walk(child, nextContext, depth + 1);
+    }
+  }
+
+  try {
+    walk(parsedRoot, { city: "", state: "" });
+  } catch {
+    return [];
+  }
+
+  return dealers;
+}
+
 function extractBalancedJson(text: string, startIndex: number): string | null {
   const openChar = text[startIndex];
   if (openChar !== "{" && openChar !== "[") {
@@ -447,6 +660,7 @@ export function extractFromResponse(params: {
   brand: string;
   defaultDealerType: string;
   scrapedAt: string;
+  extractionStrategy?: ExtractionStrategy;
 }): {
   dealers: ScrapedDealerRecord[];
   discoveredUrls: string[];
@@ -474,13 +688,22 @@ export function extractFromResponse(params: {
     collectObjects(root, objects);
   }
 
-  const dealers: ScrapedDealerRecord[] = [];
   const context: ExtractContext = {
     brand: params.brand,
     defaultDealerType: params.defaultDealerType,
     sourceUrl: params.sourceUrl,
     scrapedAt: params.scrapedAt,
   };
+
+  const dealers: ScrapedDealerRecord[] = [];
+
+  if (params.extractionStrategy === "nestedCountryStateDealersJson") {
+    try {
+      dealers.push(...extractNestedCountryStateDealers(params.body, context));
+    } catch {
+      // Keep the generic extraction fallback if strategy-specific parsing fails.
+    }
+  }
 
   for (const obj of objects) {
     const dealer = objectToDealerRecord(obj, context);

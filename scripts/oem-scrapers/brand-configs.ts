@@ -11,9 +11,20 @@ export const OEM_BRAND_CONFIGS: Record<BrandSlug, BrandScraperConfig> = {
   freightliner: {
     slug: "freightliner",
     brand: "Freightliner",
-    locatorUrl: "https://www.freightlinertrucks.com/dealers",
+    locatorUrl: "https://www.freightliner.com/dealer-search/",
     defaultDealerType: "Sales & Service",
-    seedUrls: ["https://www.freightlinertrucks.com/"],
+    seedUrls: ["https://www.freightliner.com/"],
+    dataSources: [
+      {
+        url: "https://www.freightliner.com/umbraco/backoffice/dealers/geo-search",
+      },
+      {
+        url: "https://www.freightliner.com/umbraco/backoffice/dealers/geo-search?lat=39.8283&lng=-98.5795&radius=5000",
+      },
+      {
+        url: "https://www.freightliner.com/umbraco/backoffice/dealers/geo-search?latitude=39.8283&longitude=-98.5795&distance=5000",
+      },
+    ],
   },
   kenworth: {
     slug: "kenworth",
@@ -32,16 +43,28 @@ export const OEM_BRAND_CONFIGS: Record<BrandSlug, BrandScraperConfig> = {
   mack: {
     slug: "mack",
     brand: "Mack Trucks",
-    locatorUrl: "https://www.macktrucks.com/dealers",
+    locatorUrl: "https://dealerlocator.macktrucks.com/Mack_DealerJson.ashx",
+    extractionStrategy: "nestedCountryStateDealersJson",
     defaultDealerType: "Sales & Service",
-    seedUrls: ["https://www.macktrucks.com/"],
+    dataSources: [
+      {
+        url: "https://dealerlocator.macktrucks.com/Mack_DealerJson.ashx",
+        extractionStrategy: "nestedCountryStateDealersJson",
+      },
+    ],
   },
   volvo: {
     slug: "volvo",
     brand: "Volvo Trucks",
-    locatorUrl: "https://www.volvotrucks.us/dealers",
+    locatorUrl: "https://dealerlocator.volvotrucks.us/Volvo_DealerJson.ashx",
+    extractionStrategy: "nestedCountryStateDealersJson",
     defaultDealerType: "Sales & Service",
-    seedUrls: ["https://www.volvotrucks.us/"],
+    dataSources: [
+      {
+        url: "https://dealerlocator.volvotrucks.us/Volvo_DealerJson.ashx",
+        extractionStrategy: "nestedCountryStateDealersJson",
+      },
+    ],
   },
 };
 

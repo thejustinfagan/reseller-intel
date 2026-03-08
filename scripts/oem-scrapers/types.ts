@@ -14,11 +14,21 @@ export type OemBrandName =
   | "Mack Trucks"
   | "Volvo Trucks";
 
+export type ExtractionStrategy = "generic" | "nestedCountryStateDealersJson";
+
+export interface BrandDataSource {
+  url: string;
+  extractionStrategy?: ExtractionStrategy;
+  headers?: Record<string, string>;
+}
+
 export interface BrandScraperConfig {
   slug: BrandSlug;
   brand: OemBrandName;
   locatorUrl: string;
   seedUrls?: string[];
+  dataSources?: BrandDataSource[];
+  extractionStrategy?: ExtractionStrategy;
   defaultDealerType: string;
   headers?: Record<string, string>;
 }
