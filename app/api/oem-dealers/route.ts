@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     const params: any[] = [];
 
     if (brand) {
-      conditions.push('brand = ?');
+      conditions.push('LOWER(brand) = ?');
       params.push(brand.toLowerCase());
     }
     if (state) {
