@@ -103,29 +103,45 @@ function getAddressFields(obj: Record<string, unknown>): {
   state: string;
   zip: string;
 } {
-  const rawAddress = findFieldValue(obj, ["address", "streetAddress", "street", "address1", "line1"]);
+  const rawAddress = findFieldValue(obj, [
+    "address",
+    "streetAddress",
+    "street",
+    "address1",
+    "line1",
+    "MAIN_ADDRESS_LINE_1_TXT",
+  ]);
 
   if (typeof rawAddress === "string") {
     return {
       address: cleanString(rawAddress),
-      city: getStringField(obj, ["city", "town", "locality"]),
-      state: normalizeState(getStringField(obj, ["state", "stateCode", "province", "region"])),
-      zip: normalizeZip(getStringField(obj, ["zip", "postalCode", "postcode", "postal"])),
+      city: getStringField(obj, ["city", "town", "locality", "MAIN_CITY_NM"]),
+      state: normalizeState(
+        getStringField(obj, ["state", "stateCode", "province", "region", "MAIN_STATE_PROV_CD"])
+      ),
+      zip: normalizeZip(getStringField(obj, ["zip", "postalCode", "postcode", "postal", "MAIN_POSTAL_CD"])),
     };
   }
 
   if (isPlainObject(rawAddress)) {
-    const line1 = getStringField(rawAddress, ["line1", "address1", "street", "street1", "streetAddress"]);
-    const line2 = getStringField(rawAddress, ["line2", "address2", "suite"]);
+    const line1 = getStringField(rawAddress, [
+      "line1",
+      "address1",
+      "street",
+      "street1",
+      "streetAddress",
+      "MAIN_ADDRESS_LINE_1_TXT",
+    ]);
+    const line2 = getStringField(rawAddress, ["line2", "address2", "suite", "MAIN_ADDRESS_LINE_2_TXT"]);
     const city =
-      getStringField(rawAddress, ["city", "town", "locality"]) ||
-      getStringField(obj, ["city", "town", "locality"]);
+      getStringField(rawAddress, ["city", "town", "locality", "MAIN_CITY_NM"]) ||
+      getStringField(obj, ["city", "town", "locality", "MAIN_CITY_NM"]);
     const state =
-      normalizeState(getStringField(rawAddress, ["state", "stateCode", "province", "region"])) ||
-      normalizeState(getStringField(obj, ["state", "stateCode", "province", "region"]));
+      normalizeState(getStringField(rawAddress, ["state", "stateCode", "province", "region", "MAIN_STATE_PROV_CD"])) ||
+      normalizeState(getStringField(obj, ["state", "stateCode", "province", "region", "MAIN_STATE_PROV_CD"]));
     const zip =
-      normalizeZip(getStringField(rawAddress, ["zip", "postalCode", "postcode", "postal"])) ||
-      normalizeZip(getStringField(obj, ["zip", "postalCode", "postcode", "postal"]));
+      normalizeZip(getStringField(rawAddress, ["zip", "postalCode", "postcode", "postal", "MAIN_POSTAL_CD"])) ||
+      normalizeZip(getStringField(obj, ["zip", "postalCode", "postcode", "postal", "MAIN_POSTAL_CD"]));
 
     return {
       address: mergeAddressLines([line1, line2]),
@@ -136,15 +152,15 @@ function getAddressFields(obj: Record<string, unknown>): {
   }
 
   const address = mergeAddressLines([
-    getStringField(obj, ["address1", "line1", "street", "streetAddress"]),
-    getStringField(obj, ["address2", "line2", "suite"]),
+    getStringField(obj, ["address1", "line1", "street", "streetAddress", "MAIN_ADDRESS_LINE_1_TXT"]),
+    getStringField(obj, ["address2", "line2", "suite", "MAIN_ADDRESS_LINE_2_TXT"]),
   ]);
 
   return {
     address,
-    city: getStringField(obj, ["city", "town", "locality"]),
-    state: normalizeState(getStringField(obj, ["state", "stateCode", "province", "region"])),
-    zip: normalizeZip(getStringField(obj, ["zip", "postalCode", "postcode", "postal"])),
+    city: getStringField(obj, ["city", "town", "locality", "MAIN_CITY_NM"]),
+    state: normalizeState(getStringField(obj, ["state", "stateCode", "province", "region", "MAIN_STATE_PROV_CD"])),
+    zip: normalizeZip(getStringField(obj, ["zip", "postalCode", "postcode", "postal", "MAIN_POSTAL_CD"])),
   };
 }
 
@@ -158,6 +174,9 @@ function objectToDealerRecord(obj: Record<string, unknown>, context: ExtractCont
     "title",
     "locationName",
     "branchName",
+    "COMPANY_DBA_NAME",
+    "COMPANY_NAME",
+    "DEALER_NAME",
   ]);
 
   if (!companyName) {
@@ -170,25 +189,31 @@ function objectToDealerRecord(obj: Record<string, unknown>, context: ExtractCont
   const coordinates = isPlainObject(coordinatesRaw) ? coordinatesRaw : null;
 
   const latitude =
-    getNumberField(obj, ["latitude", "lat", "geoLat", "y"]) ??
-    (coordinates ? getNumberField(coordinates, ["latitude", "lat", "y"]) : null);
+    getNumberField(obj, ["latitude", "lat", "geoLat", "y", "MAIN_LATITUDE"]) ??
+    (coordinates ? getNumberField(coordinates, ["latitude", "lat", "y", "MAIN_LATITUDE"]) : null);
   const longitude =
-    getNumberField(obj, ["longitude", "lon", "lng", "geoLng", "x"]) ??
-    (coordinates ? getNumberField(coordinates, ["longitude", "lon", "lng", "x"]) : null);
+    getNumberField(obj, ["longitude", "lon", "lng", "geoLng", "x", "MAIN_LONGITUDE"]) ??
+    (coordinates ? getNumberField(coordinates, ["longitude", "lon", "lng", "x", "MAIN_LONGITUDE"]) : null);
 
   const phone = normalizePhone(
     getStringField(obj, ["phone", "phoneNumber", "telephone", "tel", "primaryPhone"]) ||
-      getStringField(obj, ["contactNumber"])
+      getStringField(obj, [
+        "contactNumber",
+        "REG_PHONE_NUMBER",
+        "SLS_PHONE_NUMBER",
+        "SVC_PHONE_NUMBER",
+        "TF_PHONE_NUMBER",
+      ])
   );
 
   const websiteCandidate =
-    getStringField(obj, ["website", "url", "dealerWebsite", "link", "href", "web"]) || "";
+    getStringField(obj, ["website", "url", "dealerWebsite", "link", "href", "web", "WEB_ADDRESS"]) || "";
   const website = websiteCandidate
     ? maybeAbsoluteUrl(websiteCandidate, context.sourceUrl) ?? websiteCandidate
     : "";
 
   const dealerType =
-    getStringField(obj, ["dealerType", "locationType", "type", "category", "segment"]) ||
+    getStringField(obj, ["dealerType", "locationType", "type", "category", "segment", "DEALER_TYPE_DESC"]) ||
     context.defaultDealerType;
 
   const city = addressFields.city;

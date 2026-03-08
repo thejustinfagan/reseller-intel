@@ -11,7 +11,8 @@ export const OEM_BRAND_CONFIGS: Record<BrandSlug, BrandScraperConfig> = {
   freightliner: {
     slug: "freightliner",
     brand: "Freightliner",
-    locatorUrl: "https://www.freightliner.com/dealer-search/",
+    locatorUrl: "https://www.freightliner.com/umbraco/backoffice/dealers/geo-search?north=49&south=24&east=-66&west=-125",
+
     defaultDealerType: "Sales & Service",
     seedUrls: ["https://www.freightliner.com/"],
     dataSources: [
@@ -44,6 +45,7 @@ export const OEM_BRAND_CONFIGS: Record<BrandSlug, BrandScraperConfig> = {
     slug: "mack",
     brand: "Mack Trucks",
     locatorUrl: "https://dealerlocator.macktrucks.com/Mack_DealerJson.ashx",
+
     extractionStrategy: "nestedCountryStateDealersJson",
     defaultDealerType: "Sales & Service",
     dataSources: [
@@ -57,6 +59,7 @@ export const OEM_BRAND_CONFIGS: Record<BrandSlug, BrandScraperConfig> = {
     slug: "volvo",
     brand: "Volvo Trucks",
     locatorUrl: "https://dealerlocator.volvotrucks.us/Volvo_DealerJson.ashx",
+
     extractionStrategy: "nestedCountryStateDealersJson",
     defaultDealerType: "Sales & Service",
     dataSources: [
