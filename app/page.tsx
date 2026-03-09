@@ -25,6 +25,38 @@ interface Filters {
   subServiceType: string;
 }
 
+interface OemDealer {
+  id: number;
+  company_name: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string | null;
+  phone: string | null;
+  website: string | null;
+  dealer_type: string | null;
+  brand: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  scraped_at: string | null;
+}
+
+interface OemFilters {
+  search: string;
+  state: string;
+  brand: string;
+}
+
+interface OemBrandSummary {
+  brand: string;
+  count: number;
+}
+
+interface FeedbackMessage {
+  type: 'success' | 'error';
+  message: string;
+}
+
 interface MapsImageryResponse {
   location: string;
   interactiveSatelliteUrl: string;
@@ -39,6 +71,8 @@ interface MapsImageryResponse {
 
 const ZIP_SEARCH_PATTERN = /^\d{5}$/;
 const DEFAULT_RADIUS_MILES = 50;
+const DEFAULT_PAGE_SIZE = 50;
+const OEM_EXPORT_LIMIT = 5000;
 
 export default function ResellerIntel() {
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -63,10 +97,26 @@ export default function ResellerIntel() {
   const [stateOptions, setStateOptions] = useState<string[]>([]);
   const [subServiceTypeOptions, setSubServiceTypeOptions] = useState<string[]>([]);
   const [isExporting, setIsExporting] = useState(false);
-  const [exportFeedback, setExportFeedback] = useState<{
-    type: 'success' | 'error';
-    message: string;
-  } | null>(null);
+  const [exportFeedback, setExportFeedback] = useState<FeedbackMessage | null>(null);
+  const [oemDealers, setOemDealers] = useState<OemDealer[]>([]);
+  const [oemLoading, setOemLoading] = useState(true);
+  const [oemError, setOemError] = useState<string | null>(null);
+  const [oemDraftFilters, setOemDraftFilters] = useState<OemFilters>({
+    search: '',
+    state: '',
+    brand: ''
+  });
+  const [oemAppliedFilters, setOemAppliedFilters] = useState<OemFilters>({
+    search: '',
+    state: '',
+    brand: ''
+  });
+  const [oemCurrentPage, setOemCurrentPage] = useState(1);
+  const [oemTotalPages, setOemTotalPages] = useState(1);
+  const [oemTotalCount, setOemTotalCount] = useState(0);
+  const [oemBrandOptions, setOemBrandOptions] = useState<OemBrandSummary[]>([]);
+  const [oemIsExporting, setOemIsExporting] = useState(false);
+  const [oemExportFeedback, setOemExportFeedback] = useState<FeedbackMessage | null>(null);
 
   // Map state
   const [showMapModal, setShowMapModal] = useState(false);
@@ -76,6 +126,10 @@ export default function ResellerIntel() {
   useEffect(() => {
     fetchCompanies();
   }, [appliedFilters, appliedRadiusMiles, currentPage]);
+
+  useEffect(() => {
+    fetchOemDealers();
+  }, [oemAppliedFilters, oemCurrentPage]);
 
   useEffect(() => {
     const fetchFilters = async () => {
@@ -119,6 +173,25 @@ export default function ResellerIntel() {
     return params;
   };
 
+  const buildOemFilterParams = (activeFilters: OemFilters) => {
+    const params = new URLSearchParams();
+    const trimmedSearch = activeFilters.search.trim();
+
+    if (trimmedSearch) {
+      params.append('search', trimmedSearch);
+    }
+
+    if (activeFilters.state) {
+      params.append('state', activeFilters.state);
+    }
+
+    if (activeFilters.brand) {
+      params.append('brand', activeFilters.brand);
+    }
+
+    return params;
+  };
+
   const applyDraftFilters = () => {
     const nextRadius = Number.isFinite(radiusMiles) && radiusMiles > 0
       ? Math.round(radiusMiles)
@@ -131,13 +204,28 @@ export default function ResellerIntel() {
     setCurrentPage(1);
   };
 
+  const applyOemDraftFilters = () => {
+    setOemAppliedFilters({ ...oemDraftFilters });
+    setOemExportFeedback(null);
+    setOemCurrentPage(1);
+  };
+
   const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     applyDraftFilters();
   };
 
+  const handleOemSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    applyOemDraftFilters();
+  };
+
   const handleDraftFilterChange = (key: keyof Filters, value: string) => {
     setDraftFilters((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleOemDraftFilterChange = (key: keyof OemFilters, value: string) => {
+    setOemDraftFilters((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleRadiusChange = (value: string) => {
@@ -151,7 +239,7 @@ export default function ResellerIntel() {
     try {
       const params = buildFilterParams(appliedFilters, appliedRadiusMiles);
       params.append('page', currentPage.toString());
-      params.append('limit', '50');
+      params.append('limit', DEFAULT_PAGE_SIZE.toString());
       const response = await fetch(`/api/companies?${params}`);
 
       if (!response.ok) {
@@ -181,6 +269,46 @@ export default function ResellerIntel() {
       setTotalCount(0);
     }
     setLoading(false);
+  };
+
+  const fetchOemDealers = async () => {
+    setOemLoading(true);
+    setOemError(null);
+    try {
+      const params = buildOemFilterParams(oemAppliedFilters);
+      params.append('page', oemCurrentPage.toString());
+      params.append('limit', DEFAULT_PAGE_SIZE.toString());
+      const response = await fetch(`/api/oem-dealers?${params.toString()}`);
+
+      if (!response.ok) {
+        let errorMessage = `OEM API request failed: ${response.status} ${response.statusText}`;
+        try {
+          const errorData = await response.json();
+          if (typeof errorData?.error === 'string' && errorData.error.trim()) {
+            errorMessage = errorData.error;
+          }
+        } catch {
+          // Keep fallback error message when response body is not JSON.
+        }
+        throw new Error(errorMessage);
+      }
+
+      const data = await response.json();
+      setOemDealers(data.dealers || []);
+      setOemBrandOptions(data.brands || []);
+      setOemTotalPages(data.pagination?.totalPages || 1);
+      setOemTotalCount(data.pagination?.totalCount || 0);
+    } catch (error: unknown) {
+      console.error('Failed to fetch OEM dealers:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch OEM dealers';
+      setOemError(errorMessage);
+      setOemDealers([]);
+      setOemTotalPages(1);
+      setOemTotalCount(0);
+      setOemBrandOptions([]);
+    } finally {
+      setOemLoading(false);
+    }
   };
 
   const exportCompanies = async () => {
@@ -237,6 +365,71 @@ export default function ResellerIntel() {
     } finally {
       setIsExporting(false);
     }
+  };
+
+  const exportOemDealers = async () => {
+    if (oemIsExporting) {
+      return;
+    }
+
+    setOemIsExporting(true);
+    setOemExportFeedback(null);
+
+    try {
+      const params = buildOemFilterParams(oemAppliedFilters);
+      params.append('limit', OEM_EXPORT_LIMIT.toString());
+      const response = await fetch(`/api/oem-dealers/export?${params.toString()}`);
+      if (!response.ok) {
+        let errorMessage = `OEM export failed: ${response.status} ${response.statusText}`;
+
+        try {
+          const errorData = await response.json();
+          if (typeof errorData?.error === 'string' && errorData.error.trim()) {
+            errorMessage = errorData.error;
+          }
+        } catch {
+          // Keep fallback error when body is not JSON.
+        }
+
+        throw new Error(errorMessage);
+      }
+
+      const blob = await response.blob();
+      const contentDisposition = response.headers.get('content-disposition');
+      const filenameFromHeader = contentDisposition?.match(/filename="?([^"]+)"?/i)?.[1];
+      const fallbackFilename = `oem-dealers-export-${new Date().toISOString().split('T')[0]}.csv`;
+      const filename = filenameFromHeader || fallbackFilename;
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+
+      setOemExportFeedback({
+        type: 'success',
+        message: `Export complete. Downloaded ${filename} using the currently applied OEM filters.`
+      });
+    } catch (error: unknown) {
+      console.error('OEM export failed:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to export OEM dealers';
+      setOemExportFeedback({
+        type: 'error',
+        message: errorMessage
+      });
+    } finally {
+      setOemIsExporting(false);
+    }
+  };
+
+  const toWebsiteHref = (website: string) => {
+    if (website.startsWith('http://') || website.startsWith('https://')) {
+      return website;
+    }
+
+    return `https://${website}`;
   };
 
   const fetchMapData = async (address: string) => {
@@ -623,6 +816,219 @@ export default function ResellerIntel() {
                 </div>
               )}
             </div>
+          </div>
+        </div>
+
+        {/* OEM Dealers */}
+        <div className="mt-8">
+          <div className="card">
+            <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  OEM Dealers
+                </h2>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  {oemLoading ? 'Loading OEM dealers…' : `${oemTotalCount.toLocaleString()} OEM dealers`}
+                </p>
+              </div>
+              <div className="flex flex-col items-start sm:items-end">
+                <button
+                  onClick={exportOemDealers}
+                  disabled={oemIsExporting}
+                  className="btn-primary flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Download className="h-4 w-4" />
+                  <span>{oemIsExporting ? 'Exporting...' : 'Export OEM CSV'}</span>
+                </button>
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  Uses currently applied OEM filters. Export status: {oemIsExporting ? 'Exporting' : 'Idle'}.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+              <form onSubmit={handleOemSearchSubmit}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 items-end">
+                  <div className="sm:col-span-2 lg:col-span-5 min-w-0">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Search Dealers
+                    </label>
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <input
+                        type="text"
+                        placeholder="Company, city, or address"
+                        className="input-field pl-10 w-full"
+                        value={oemDraftFilters.search}
+                        onChange={(e) => handleOemDraftFilterChange('search', e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="lg:col-span-3 min-w-0">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Brand
+                    </label>
+                    <select
+                      className="input-field w-full"
+                      value={oemDraftFilters.brand}
+                      onChange={(e) => handleOemDraftFilterChange('brand', e.target.value)}
+                    >
+                      <option value="">All Brands</option>
+                      {oemBrandOptions.map((brandOption) => (
+                        <option key={brandOption.brand} value={brandOption.brand}>
+                          {brandOption.brand} ({brandOption.count.toLocaleString()})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="lg:col-span-2 min-w-0">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      State
+                    </label>
+                    <select
+                      className="input-field w-full"
+                      value={oemDraftFilters.state}
+                      onChange={(e) => handleOemDraftFilterChange('state', e.target.value)}
+                    >
+                      <option value="">All States</option>
+                      {stateOptions.map((state) => (
+                        <option key={`oem-${state}`} value={state}>
+                          {state}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="sm:col-span-2 lg:col-span-2 min-w-0">
+                    <button
+                      type="submit"
+                      className="btn-primary w-full flex items-center justify-center space-x-2"
+                    >
+                      <Search className="h-4 w-4" />
+                      <span>Search</span>
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              {oemExportFeedback && (
+                <div
+                  role={oemExportFeedback.type === 'error' ? 'alert' : 'status'}
+                  aria-live="polite"
+                  className={`mt-4 rounded-md border px-4 py-3 text-sm ${
+                    oemExportFeedback.type === 'success'
+                      ? 'border-green-200 bg-green-50 text-green-800 dark:border-green-700 dark:bg-green-900/30 dark:text-green-300'
+                      : 'border-red-200 bg-red-50 text-red-800 dark:border-red-700 dark:bg-red-900/30 dark:text-red-300'
+                  }`}
+                >
+                  {oemExportFeedback.message}
+                </div>
+              )}
+            </div>
+
+            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              {oemLoading ? (
+                <div className="p-8 text-center">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                  <p className="mt-2 text-gray-500">Loading OEM dealers...</p>
+                </div>
+              ) : oemError ? (
+                <div className="p-8 text-center">
+                  <div className="text-red-500 mb-4">
+                    <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.732 15.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Error Loading OEM Dealers</h3>
+                  <p className="text-red-600 dark:text-red-400 mb-4">{oemError}</p>
+                  <button
+                    onClick={() => {
+                      setOemError(null);
+                      fetchOemDealers();
+                    }}
+                    className="btn-primary"
+                  >
+                    Try Again
+                  </button>
+                </div>
+              ) : oemDealers.length === 0 ? (
+                <div className="p-8 text-center text-gray-500">
+                  No OEM dealers found matching your criteria.
+                </div>
+              ) : (
+                oemDealers.map((dealer) => (
+                  <div key={dealer.id} className="p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
+                          {dealer.company_name}
+                        </h3>
+                        <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-gray-500">
+                          <span className="inline-flex rounded-full bg-gray-100 px-2.5 py-0.5 font-medium text-gray-700 dark:bg-gray-600 dark:text-gray-100">
+                            {dealer.brand || 'Unknown Brand'}
+                          </span>
+                          {dealer.dealer_type && <span>{dealer.dealer_type}</span>}
+                        </div>
+                        <div className="mt-1 flex items-center text-sm text-gray-500">
+                          <MapPin className="h-4 w-4 mr-1" />
+                          <span>
+                            {dealer.city}, {dealer.state}
+                            {dealer.zip ? ` ${dealer.zip}` : ''}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="shrink-0 text-right space-y-1">
+                        {dealer.phone && (
+                          <div className="flex items-center justify-end text-sm text-gray-500">
+                            <Phone className="h-4 w-4 mr-1" />
+                            <span>{dealer.phone}</span>
+                          </div>
+                        )}
+                        {dealer.website && (
+                          <a
+                            href={toWebsiteHref(dealer.website)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800"
+                          >
+                            <Globe className="h-4 w-4 mr-1" />
+                            Website
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+
+            {oemTotalPages > 1 && (
+              <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between">
+                  <div className="text-sm text-gray-500">
+                    Page {oemCurrentPage} of {oemTotalPages}
+                  </div>
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => setOemCurrentPage((prev) => Math.max(1, prev - 1))}
+                      disabled={oemCurrentPage === 1}
+                      className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      Previous
+                    </button>
+                    <button
+                      onClick={() => setOemCurrentPage((prev) => Math.min(oemTotalPages, prev + 1))}
+                      disabled={oemCurrentPage === oemTotalPages}
+                      className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
