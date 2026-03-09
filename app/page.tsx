@@ -62,6 +62,11 @@ export default function ResellerIntel() {
   const [totalCount, setTotalCount] = useState(0);
   const [stateOptions, setStateOptions] = useState<string[]>([]);
   const [subServiceTypeOptions, setSubServiceTypeOptions] = useState<string[]>([]);
+  const [isExporting, setIsExporting] = useState(false);
+  const [exportFeedback, setExportFeedback] = useState<{
+    type: 'success' | 'error';
+    message: string;
+  } | null>(null);
 
   // Map state
   const [showMapModal, setShowMapModal] = useState(false);
@@ -122,6 +127,7 @@ export default function ResellerIntel() {
     setRadiusMiles(nextRadius);
     setAppliedRadiusMiles(nextRadius);
     setAppliedFilters({ ...draftFilters });
+    setExportFeedback(null);
     setCurrentPage(1);
   };
 
@@ -178,23 +184,58 @@ export default function ResellerIntel() {
   };
 
   const exportCompanies = async () => {
+    if (isExporting) {
+      return;
+    }
+
+    setIsExporting(true);
+    setExportFeedback(null);
+
     try {
       const params = buildFilterParams(appliedFilters, appliedRadiusMiles);
-      const response = await fetch(`/api/companies/export?${params}`);
+      const response = await fetch(`/api/companies/export?${params.toString()}`);
       if (!response.ok) {
-        throw new Error(`Export failed: ${response.status} ${response.statusText}`);
+        let errorMessage = `Export failed: ${response.status} ${response.statusText}`;
+
+        try {
+          const errorData = await response.json();
+          if (typeof errorData?.error === 'string' && errorData.error.trim()) {
+            errorMessage = errorData.error;
+          }
+        } catch {
+          // Keep fallback error when body is not JSON.
+        }
+
+        throw new Error(errorMessage);
       }
+
       const blob = await response.blob();
+      const contentDisposition = response.headers.get('content-disposition');
+      const filenameFromHeader = contentDisposition?.match(/filename="?([^"]+)"?/i)?.[1];
+      const fallbackFilename = `reseller-intel-export-${new Date().toISOString().split('T')[0]}.csv`;
+      const filename = filenameFromHeader || fallbackFilename;
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `reseller-intel-export-${new Date().toISOString().split('T')[0]}.csv`;
+      a.download = filename;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
-    } catch (error) {
+
+      setExportFeedback({
+        type: 'success',
+        message: `Export complete. Downloaded ${filename} using the currently applied filters.`
+      });
+    } catch (error: unknown) {
       console.error('Export failed:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to export companies';
+      setExportFeedback({
+        type: 'error',
+        message: errorMessage
+      });
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -232,19 +273,39 @@ export default function ResellerIntel() {
               <span className="text-sm text-gray-600 dark:text-gray-300">
                 {loading ? 'Loading service centers…' : `${totalCount.toLocaleString()} service centers`}
               </span>
-              <button
-                onClick={exportCompanies}
-                className="btn-primary flex items-center space-x-2"
-              >
-                <Download className="h-4 w-4" />
-                <span>Export</span>
-              </button>
+              <div className="flex flex-col items-end">
+                <button
+                  onClick={exportCompanies}
+                  disabled={isExporting}
+                  className="btn-primary flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Download className="h-4 w-4" />
+                  <span>{isExporting ? 'Exporting...' : 'Export Filtered CSV'}</span>
+                </button>
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  Uses currently applied filters. Export status: {isExporting ? 'Exporting' : 'Idle'}.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {exportFeedback && (
+          <div
+            role={exportFeedback.type === 'error' ? 'alert' : 'status'}
+            aria-live="polite"
+            className={`mb-4 rounded-md border px-4 py-3 text-sm ${
+              exportFeedback.type === 'success'
+                ? 'border-green-200 bg-green-50 text-green-800 dark:border-green-700 dark:bg-green-900/30 dark:text-green-300'
+                : 'border-red-200 bg-red-50 text-red-800 dark:border-red-700 dark:bg-red-900/30 dark:text-red-300'
+            }`}
+          >
+            {exportFeedback.message}
+          </div>
+        )}
+
         {/* Filters */}
         <div className="card p-4 mb-6">
           <form onSubmit={handleSearchSubmit}>
