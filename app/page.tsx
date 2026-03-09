@@ -642,7 +642,7 @@ export default function ResellerIntel() {
                             </h3>
                             <div className="mt-1 flex items-center text-sm text-gray-500">
                               <MapPin className="h-4 w-4 mr-1" />
-                              <span>{company.city}, {company.state} {company.zip_code}</span>
+                              <span>{company.city}, {company.state}</span>
                             </div>
                             <div className="mt-1 flex items-center text-sm text-gray-500">
                               <Building2 className="h-4 w-4 mr-1" />
