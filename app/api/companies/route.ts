@@ -71,7 +71,10 @@ export async function GET(request: NextRequest) {
       nearZip: nearZip || '',
       radiusMiles: nearZip ? parsedRadiusMiles ?? DEFAULT_RADIUS_MILES : undefined,
       page: parsePositiveInt(searchParams.get('page'), 1),
-      limit: parsePositiveInt(searchParams.get('limit'), 50)
+      limit: parsePositiveInt(
+        searchParams.get('limit') ?? searchParams.get('pageSize'),
+        50
+      )
     };
 
     // Check if database file exists
