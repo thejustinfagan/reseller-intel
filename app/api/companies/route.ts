@@ -3,6 +3,7 @@ import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
 import { buildChunkedInClause, getZipCodesWithinRadius, normalizeZip } from '@/lib/zip-radius';
+import { sanitizeDisplayedZip } from '@/lib/company-zip';
 
 const DB_PATH = path.join(process.cwd(), 'data', 'reseller-intel.db');
 const DEFAULT_RADIUS_MILES = 50;
@@ -187,7 +188,10 @@ export async function GET(request: NextRequest) {
       LIMIT ? OFFSET ?
     `;
 
-    const companies = db.prepare(companiesQuery).all([...params, filters.limit, offset]);
+    const companies = db.prepare(companiesQuery).all([...params, filters.limit, offset]).map((company: any) => ({
+      ...company,
+      zip_code: sanitizeDisplayedZip(company.full_address, company.zip_code),
+    }));
 
     return NextResponse.json({
       companies,
