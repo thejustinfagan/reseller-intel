@@ -2,7 +2,7 @@
 ## Louisville, KY (40217) + 250-Mile Radius Market Research
 
 **Analysis Date:** February 27, 2026  
-**Database:** Reseller Intel – 41,064 total companies  
+**Database:** Reseller Intel – 22,981 live deduped companies in production (from the original 41,064-row scrape)  
 **Geographic Focus:** 40217 zip code + 250-mile radius (KY, IN, OH, TN primary)  
 **Research Quality:** Medium (data quality issues noted; geographic misalignment in structured fields; using full_address as primary source)
 
@@ -10,7 +10,7 @@
 
 ## EXECUTIVE SUMMARY
 
-The Reseller Intel database contains **41,064 companies** primarily focused on **truck-related services**. The Louisville, KY market has **50 unique companies** across 21 service categories, with significant representation in truck parts distribution, trailer repair, and towing. The broader regional market (250-mile radius) contains approximately **2,000+ potential targets** across multiple buyer personas.
+The Reseller Intel database now serves **22,981 live deduped companies** in production (from an original **41,064-row raw scrape**) primarily focused on **truck-related services**. The Louisville, KY market has **50 unique companies** across 21 service categories, with significant representation in truck parts distribution, trailer repair, and towing. The broader regional market (250-mile radius) contains approximately **2,000+ potential targets** across multiple buyer personas.
 
 **Key Finding:** The database under-represents Louisville (only 50 companies) compared to other markets, indicating a significant **scraping and enrichment opportunity**. The regional market is more robust with KY+IN+OH+TN containing 2,000+ established dealers.
 
@@ -22,7 +22,7 @@ The Reseller Intel database contains **41,064 companies** primarily focused on *
 
 | Metric | Value |
 |--------|-------|
-| Total Companies | 41,064 |
+| Total Companies | 22,981 live deduped (41,064 raw pre-dedup) |
 | Unique Service Types | 51 |
 | Geographic Coverage | National (TX, IL, CA, GA, OH leading) |
 | Multi-Location Indicators | ~10% have secondary phone |
@@ -811,7 +811,7 @@ For existing 2,200 companies in DB:
 ### Key Findings
 
 1. **Database Strengths:**
-   - 41,064 total companies with reasonable service type categorization
+   - 22,981 live deduped companies in production (from 41,064 raw scrape rows) with reasonable service type categorization
    - Good coverage of Truck Shops, Towing, Tire Repair (top 3 categories)
    - National reach provides context for regional analysis
 
