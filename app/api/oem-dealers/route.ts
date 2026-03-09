@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const state = searchParams.get('state') || '';
     const search = searchParams.get('search') || '';
     const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '50');
+    const limit = parseInt(searchParams.get('limit') ?? searchParams.get('pageSize') ?? '50');
 
     if (!fs.existsSync(DB_PATH)) {
       return NextResponse.json({ error: 'Database not available' }, { status: 503 });
