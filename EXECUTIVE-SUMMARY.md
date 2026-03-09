@@ -202,7 +202,7 @@
 ## Data Quality Observations
 
 ### Strengths
-- ✅ 41,064 total records (good coverage)
+- ✅ 22,981 live deduped records in production (original raw scrape was 41,064 rows)
 - ✅ 100% have city, state, phone (basic contact info)
 - ✅ 25% have detailed service descriptions (features column)
 - ✅ Multi-location chains well-represented

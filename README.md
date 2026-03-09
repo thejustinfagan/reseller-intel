@@ -6,7 +6,7 @@
 
 ## 📊 What's in This Folder
 
-This market research project analyzed **41,064 reseller service centers** (7,227 in Louisville region) to develop buyer personas and keyword strategies for truck parts suppliers targeting the Louisville, KY market.
+This market research project now references the **22,981-company deduped production dataset** (down from the original 41,064-row pre-dedup scrape, with the same 7,227-company Louisville-region analysis basis) to develop buyer personas and keyword strategies for truck parts suppliers targeting the Louisville, KY market.
 
 ---
 
@@ -62,7 +62,7 @@ This market research project analyzed **41,064 reseller service centers** (7,227
 ## 🎯 Key Findings at a Glance
 
 ### Database Overview
-- **Total records analyzed:** 41,064 nationwide
+- **Current live deduped company count:** 22,981 nationwide (original raw scrape: 41,064 rows)
 - **Louisville region (7 states):** 7,227 companies
 - **Kentucky only:** 935 companies
 - **Database coverage:** ~80% of total market
@@ -194,7 +194,7 @@ If you only have time for 5 searches, prioritize these:
 ## 📊 Data Quality Notes
 
 ### Current State
-- ✅ 41,064 total records (good coverage)
+- ✅ 22,981 live deduped records in production (original raw scrape was 41,064 rows)
 - ✅ 100% have city, state, phone (basic contact info)
 - ✅ 25% have detailed service descriptions (`features` column)
 - ✅ Multi-location chains well-represented
@@ -276,14 +276,14 @@ For questions about this analysis or assistance with execution, contact the proj
 ├── KEYWORD-CHECKLIST.md               # Tactical scraping guide (10KB)
 ├── SQL-QUERY-LIBRARY.md               # Database queries (18KB)
 └── data/
-    └── reseller-intel.db              # SQLite database (41,064 records)
+    └── reseller-intel.db              # SQLite database (22,981 live deduped companies; 41,064 raw rows before dedup)
 ```
 
 **Total Documentation:** 81KB (4 markdown files)  
-**Database Size:** 41,064 companies nationwide, 7,227 in Louisville region
+**Database Size:** 22,981 live deduped companies nationwide (from 41,064 raw rows), 7,227 in Louisville-region analysis
 
 ---
 
 *Analysis completed: February 27, 2026*  
-*Database analyzed: reseller-intel.db (41,064 records)*  
+*Database analyzed: reseller-intel.db (22,981 live deduped companies; 41,064 raw rows before dedup)*  
 *Geographic focus: 40217 zip code (Louisville, KY) + 250-mile radius*

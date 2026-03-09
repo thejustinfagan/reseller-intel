@@ -1,7 +1,7 @@
 # Louisville Market Analysis: Buyer Personas & Search Strategy
 **40217 Zip Code + 250-Mile Radius**  
 **Analysis Date:** February 27, 2026  
-**Database Size:** 41,064 reseller service centers (7,227 in target region)
+**Database Size:** 22,981 live deduped reseller companies in production (from the original 41,064-row scrape; 7,227 in target region)
 
 ---
 
