@@ -53,20 +53,27 @@ def scrape_with_playwright(hub, keyword, radius_miles=300):
             
             for listing in listings[:50]:  # Limit to first 50
                 try:
-                    # Click to expand details (if needed)
-                    name_elem = listing.query_selector('div[role="heading"]') or listing.query_selector('a[aria-label]')
-                    if not name_elem:
-                        continue
+                    # Get full text content first
+                    full_text = listing.inner_text()
                     
-                    company_name = name_elem.inner_text().strip()
+                    # Extract company name from aria-label or first line
+                    name_elem = listing.query_selector('a[aria-label]')
+                    if name_elem:
+                        aria_label = name_elem.get_attribute('aria-label') or ''
+                        # Parse aria-label (format: "Business Name · 4.5★ · Category")
+                        company_name = aria_label.split('·')[0].strip() if '·' in aria_label else aria_label.strip()
+                    else:
+                        # Fallback: first non-empty line
+                        lines = [l.strip() for l in full_text.split('\n') if l.strip()]
+                        company_name = lines[0] if lines else ''
+                    
+                    if not company_name:
+                        continue
                     
                     # Skip if already seen
                     if company_name.lower() in seen_names:
                         continue
                     seen_names.add(company_name.lower())
-                    
-                    # Get full text content
-                    full_text = listing.inner_text()
                     
                     # Extract phone
                     phone_match = re.search(r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}', full_text)

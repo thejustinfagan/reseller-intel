@@ -31,5 +31,16 @@
     "finds": 1,
     "output_file": "2026-04-03-Harrisburg-google-0.json",
     "errors": []
+  },
+  {
+    "timestamp": "2026-04-03T00:48:24.223324",
+    "batch": 1,
+    "hub": "Harrisburg",
+    "state": "PA",
+    "radius_miles": 300,
+    "keyword": "truck parts",
+    "finds": 8,
+    "output_file": "2026-04-03-Harrisburg-google-0.json",
+    "errors": []
   }
 ]
