@@ -185,10 +185,7 @@ export async function GET(request: NextRequest) {
         primary_entity_type,
         confidence_score,
         confidence_label,
-        brands_served,
-        vehicle_types,
-        parts_capabilities,
-        service_capabilities,
+        deep_analysis,
         ai_analyzed_at,
         qa_approved,
         qa_flagged,
@@ -199,10 +196,30 @@ export async function GET(request: NextRequest) {
       LIMIT ? OFFSET ?
     `;
 
-    const companies = db.prepare(companiesQuery).all([...params, filters.limit, offset]).map((company: any) => ({
-      ...company,
-      zip_code: sanitizeDisplayedZip(company.full_address, company.zip_code),
-    }));
+    const companies = db.prepare(companiesQuery).all([...params, filters.limit, offset]).map((company: any) => {
+      let enrichment: any = {};
+      
+      // Parse deep_analysis JSON
+      if (company.deep_analysis) {
+        try {
+          enrichment = JSON.parse(company.deep_analysis);
+        } catch (e) {
+          console.error('Failed to parse deep_analysis for company', company.id, e);
+        }
+      }
+      
+      return {
+        ...company,
+        zip_code: sanitizeDisplayedZip(company.full_address, company.zip_code),
+        brands_served: enrichment.brands_served || [],
+        vehicle_types: enrichment.vehicle_types_mentioned || [],
+        parts_capabilities: enrichment.parts_capabilities || [],
+        service_capabilities: enrichment.service_capabilities || [],
+        mobile_service: enrichment.mobile_service || false,
+        fleet_focus: enrichment.fleet_focus || false,
+        dot_inspection: enrichment.dot_inspection || false,
+      };
+    });
 
     return NextResponse.json({
       companies,
