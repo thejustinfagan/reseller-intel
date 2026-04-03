@@ -1,0 +1,28 @@
+{
+  "core": [
+    "truck parts",
+    "semi truck repair",
+    "commercial truck dealer",
+    "trailer repair",
+    "diesel repair",
+    "heavy duty truck parts",
+    "truck service center"
+  ],
+  "oem": [
+    "Freightliner dealer",
+    "Kenworth dealer",
+    "Peterbilt dealer",
+    "Mack truck dealer",
+    "Volvo truck dealer",
+    "International truck dealer",
+    "Cummins dealer",
+    "Thermo King dealer"
+  ],
+  "specialty": [
+    "refrigerated trailer repair",
+    "fleet maintenance",
+    "commercial tire service",
+    "trailer parts",
+    "heavy duty towing"
+  ]
+}

@@ -1,0 +1,13 @@
+[
+  {
+    "timestamp": "2026-04-03T00:35:55.188926",
+    "batch": 1,
+    "city": "Chicago",
+    "state": "IL",
+    "source": "findtruckservice",
+    "keyword": null,
+    "finds": 0,
+    "output_file": null,
+    "errors": []
+  }
+]
