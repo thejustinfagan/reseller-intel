@@ -189,7 +189,18 @@ export async function GET(request: NextRequest) {
         ai_analyzed_at,
         qa_approved,
         qa_flagged,
-        qa_flag_note
+        qa_flag_note,
+        satellite_image_url,
+        visual_analyzed_at,
+        facility_size_acres,
+        building_count,
+        bay_count,
+        trucks_visible,
+        trailers_visible,
+        cleanliness_score,
+        building_condition,
+        has_signage,
+        has_fencing
       FROM companies 
       ${whereClause}
       ORDER BY CASE WHEN ai_analyzed_at IS NOT NULL THEN 0 ELSE 1 END, confidence_score DESC, company_name
@@ -208,9 +219,17 @@ export async function GET(request: NextRequest) {
         }
       }
       
+      // Extract place_id from satellite_image_url path
+      let place_id = null;
+      if (company.satellite_image_url) {
+        const match = company.satellite_image_url.match(/([^/]+)\.jpg$/);
+        if (match) place_id = match[1];
+      }
+      
       return {
         ...company,
         zip_code: sanitizeDisplayedZip(company.full_address, company.zip_code),
+        place_id,
         brands_served: enrichment.brands_served || [],
         vehicle_types: enrichment.vehicle_types_mentioned || [],
         parts_capabilities: enrichment.parts_capabilities || [],

@@ -88,15 +88,23 @@ export default function ReviewPage() {
   // Initial load
   useEffect(() => {
     async function init() {
-      setLoading(true);
-      const [c, s] = await Promise.all([fetchCompany(), fetch('/api/qa/stats').then(r => r.json())]);
-      setCompany(c);
-      setStats(s);
-      if (!c) setDone(true);
-      setLoading(false);
+      try {
+        setLoading(true);
+        const [c, s] = await Promise.all([
+          fetch('/api/qa/next').then(r => r.json()).then(d => d.company ?? null).catch(() => null),
+          fetch('/api/qa/stats').then(r => r.json()).catch(() => null)
+        ]);
+        setCompany(c);
+        setStats(s);
+        if (!c) setDone(true);
+      } catch(e) {
+        console.error('Init failed:', e);
+      } finally {
+        setLoading(false);
+      }
     }
     init();
-  }, [fetchCompany]);
+  }, []);
 
   // Prefetch next card whenever current changes
   useEffect(() => {

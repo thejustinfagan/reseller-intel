@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Search, X, ExternalLink, MapPin, Phone } from 'lucide-react';
+import { Search, X, ExternalLink, MapPin, Phone, Building2, Truck, Star } from 'lucide-react';
 
 interface Company {
   id: number;
@@ -19,6 +19,15 @@ interface Company {
   service_capabilities: string[];
   vehicle_types: string[];
   ai_analyzed_at: string | null;
+  satellite_image_url: string | null;
+  visual_analyzed_at: string | null;
+  facility_size_acres: number | null;
+  building_count: number | null;
+  bay_count: number | null;
+  trucks_visible: number | null;
+  cleanliness_score: number | null;
+  building_condition: number | null;
+  place_id: string | null;
 }
 
 export default function ResellerIntelDashboard() {
@@ -84,6 +93,19 @@ export default function ResellerIntelDashboard() {
     return 'F';
   }
 
+  function getFacilityImageUrl(placeId: string | null): string | null {
+    if (!placeId) return null;
+    return `/api/facility-image/${placeId}`;
+  }
+
+  function getCleanlinessLabel(score: number | null): string {
+    if (!score) return '—';
+    if (score >= 8) return '✨ Excellent';
+    if (score >= 6) return '✓ Good';
+    if (score >= 4) return '⚠ Fair';
+    return '✗ Poor';
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -125,10 +147,11 @@ export default function ResellerIntelDashboard() {
           <table className="w-full text-sm border-collapse">
             <thead className="bg-gray-100 sticky top-[73px] z-5">
               <tr className="border-b border-gray-300">
+                <th className="text-left p-3 font-semibold text-gray-700">Visual</th>
                 <th className="text-left p-3 font-semibold text-gray-700">Grade</th>
                 <th className="text-left p-3 font-semibold text-gray-700">Company</th>
                 <th className="text-left p-3 font-semibold text-gray-700">Location</th>
-                <th className="text-left p-3 font-semibold text-gray-700">Type</th>
+                <th className="text-left p-3 font-semibold text-gray-700">Facility</th>
                 <th className="text-left p-3 font-semibold text-gray-700">Brands</th>
                 <th className="text-left p-3 font-semibold text-gray-700">Capabilities</th>
                 <th className="text-left p-3 font-semibold text-gray-700">Vehicle Types</th>
@@ -136,115 +159,173 @@ export default function ResellerIntelDashboard() {
               </tr>
             </thead>
             <tbody>
-              {companies.map((company) => (
-                <tr key={company.id} className="border-b border-gray-200 hover:bg-blue-50">
-                  {/* Grade */}
-                  <td className="p-3">
-                    {company.ai_analyzed_at ? (
-                      <span className={`inline-block px-2 py-1 text-xs font-bold rounded ${getGradeColor(company.confidence_score)}`}>
-                        {getGradeLetter(company.confidence_score)}
-                      </span>
-                    ) : (
-                      <span className="text-gray-400 text-xs">—</span>
-                    )}
-                  </td>
+              {companies.map((company) => {
+                const imageUrl = getFacilityImageUrl(company.place_id);
+                return (
+                  <tr key={company.id} className="border-b border-gray-200 hover:bg-blue-50">
+                    {/* Visual */}
+                    <td className="p-3">
+                      {imageUrl && company.visual_analyzed_at ? (
+                        <img 
+                          src={imageUrl} 
+                          alt={company.company_name}
+                          className="w-24 h-24 object-cover rounded border border-gray-300"
+                        />
+                      ) : (
+                        <div className="w-24 h-24 bg-gray-200 rounded flex items-center justify-center text-gray-400 text-xs">
+                          No Image
+                        </div>
+                      )}
+                    </td>
 
-                  {/* Company */}
-                  <td className="p-3">
-                    <div className="font-semibold text-gray-900">{company.company_name}</div>
-                    {company.company_detail_url && (
+                    {/* Grade */}
+                    <td className="p-3">
+                      {company.ai_analyzed_at ? (
+                        <span className={`inline-block px-2 py-1 text-xs font-bold rounded ${getGradeColor(company.confidence_score)}`}>
+                          {getGradeLetter(company.confidence_score)}
+                        </span>
+                      ) : (
+                        <span className="text-gray-400 text-xs">—</span>
+                      )}
+                    </td>
+
+                    {/* Company */}
+                    <td className="p-3">
+                      <div className="font-semibold text-gray-900 max-w-xs">{company.company_name}</div>
+                      {company.company_detail_url && (
+                        <a
+                          href={company.company_detail_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 mt-1"
+                        >
+                          Website <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                    </td>
+
+                    {/* Location */}
+                    <td className="p-3">
+                      <div className="text-gray-900">{company.city}, {company.state}</div>
                       <a
-                        href={company.company_detail_url}
+                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                          `${company.company_name} ${company.city} ${company.state}`
+                        )}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 mt-1"
                       >
-                        Website <ExternalLink className="w-3 h-3" />
+                        <MapPin className="w-3 h-3" /> Map
                       </a>
-                    )}
-                  </td>
+                    </td>
 
-                  {/* Location */}
-                  <td className="p-3">
-                    <div className="text-gray-900">{company.city}, {company.state}</div>
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                        `${company.company_name} ${company.city} ${company.state}`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 mt-1"
-                    >
-                      <MapPin className="w-3 h-3" /> Map
-                    </a>
-                  </td>
+                    {/* Facility Stats */}
+                    <td className="p-3">
+                      {company.visual_analyzed_at ? (
+                        <div className="text-xs space-y-1">
+                          {company.facility_size_acres && (
+                            <div className="flex items-center gap-1">
+                              <Building2 className="w-3 h-3 text-gray-500" />
+                              <span>{company.facility_size_acres} acres</span>
+                            </div>
+                          )}
+                          {company.bay_count && (
+                            <div className="flex items-center gap-1">
+                              <span className="text-gray-500">🏭</span>
+                              <span>{company.bay_count} bays</span>
+                            </div>
+                          )}
+                          {company.trucks_visible && (
+                            <div className="flex items-center gap-1">
+                              <Truck className="w-3 h-3 text-gray-500" />
+                              <span>{company.trucks_visible} trucks</span>
+                            </div>
+                          )}
+                          {company.cleanliness_score !== null && (
+                            <div className="flex items-center gap-1">
+                              <Star className="w-3 h-3 text-gray-500" />
+                              <span>{getCleanlinessLabel(company.cleanliness_score)}</span>
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-gray-400 text-xs">—</span>
+                      )}
+                    </td>
 
-                  {/* Type */}
-                  <td className="p-3">
-                    <span className="text-gray-700 text-xs">{company.primary_entity_type || '—'}</span>
-                  </td>
+                    {/* Brands */}
+                    <td className="p-3">
+                      {company.brands_served && company.brands_served.length > 0 ? (
+                        <div className="flex flex-wrap gap-1 max-w-xs">
+                          {company.brands_served.slice(0, 5).map((brand, i) => (
+                            <span key={i} className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded whitespace-nowrap">
+                              {brand}
+                            </span>
+                          ))}
+                          {company.brands_served.length > 5 && (
+                            <span className="text-xs text-gray-500">+{company.brands_served.length - 5}</span>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-gray-400 text-xs">—</span>
+                      )}
+                    </td>
 
-                  {/* Brands */}
-                  <td className="p-3">
-                    {company.brands_served && company.brands_served.length > 0 ? (
-                      <div className="flex flex-wrap gap-1">
-                        {company.brands_served.map((brand, i) => (
-                          <span key={i} className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded whitespace-nowrap">
-                            {brand}
-                          </span>
-                        ))}
-                      </div>
-                    ) : (
-                      <span className="text-gray-400 text-xs">—</span>
-                    )}
-                  </td>
+                    {/* Capabilities */}
+                    <td className="p-3">
+                      {(company.parts_capabilities?.length > 0 || company.service_capabilities?.length > 0) ? (
+                        <div className="flex flex-wrap gap-1 max-w-xs">
+                          {[...(company.parts_capabilities || []), ...(company.service_capabilities || [])].slice(0, 4).map((cap, i) => (
+                            <span key={i} className="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs rounded whitespace-nowrap">
+                              {cap}
+                            </span>
+                          ))}
+                          {(company.parts_capabilities?.length || 0) + (company.service_capabilities?.length || 0) > 4 && (
+                            <span className="text-xs text-gray-500">
+                              +{(company.parts_capabilities?.length || 0) + (company.service_capabilities?.length || 0) - 4}
+                            </span>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-gray-400 text-xs">—</span>
+                      )}
+                    </td>
 
-                  {/* Capabilities */}
-                  <td className="p-3">
-                    {(company.parts_capabilities?.length > 0 || company.service_capabilities?.length > 0) ? (
-                      <div className="flex flex-wrap gap-1">
-                        {[...(company.parts_capabilities || []), ...(company.service_capabilities || [])].map((cap, i) => (
-                          <span key={i} className="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs rounded whitespace-nowrap">
-                            {cap}
-                          </span>
-                        ))}
-                      </div>
-                    ) : (
-                      <span className="text-gray-400 text-xs">—</span>
-                    )}
-                  </td>
+                    {/* Vehicle Types */}
+                    <td className="p-3">
+                      {company.vehicle_types && company.vehicle_types.length > 0 ? (
+                        <div className="flex flex-wrap gap-1 max-w-xs">
+                          {company.vehicle_types.slice(0, 3).map((type, i) => (
+                            <span key={i} className="px-2 py-0.5 bg-indigo-100 text-indigo-700 text-xs rounded whitespace-nowrap">
+                              {type}
+                            </span>
+                          ))}
+                          {company.vehicle_types.length > 3 && (
+                            <span className="text-xs text-gray-500">+{company.vehicle_types.length - 3}</span>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-gray-400 text-xs">—</span>
+                      )}
+                    </td>
 
-                  {/* Vehicle Types */}
-                  <td className="p-3">
-                    {company.vehicle_types && company.vehicle_types.length > 0 ? (
-                      <div className="flex flex-wrap gap-1">
-                        {company.vehicle_types.map((type, i) => (
-                          <span key={i} className="px-2 py-0.5 bg-indigo-100 text-indigo-700 text-xs rounded whitespace-nowrap">
-                            {type}
-                          </span>
-                        ))}
-                      </div>
-                    ) : (
-                      <span className="text-gray-400 text-xs">—</span>
-                    )}
-                  </td>
-
-                  {/* Contact */}
-                  <td className="p-3">
-                    {company.primary_phone ? (
-                      <a
-                        href={`tel:${company.primary_phone}`}
-                        className="inline-flex items-center gap-1 text-blue-600 hover:underline text-xs"
-                      >
-                        <Phone className="w-3 h-3" />
-                        {company.primary_phone}
-                      </a>
-                    ) : (
-                      <span className="text-gray-400 text-xs">—</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
+                    {/* Contact */}
+                    <td className="p-3">
+                      {company.primary_phone ? (
+                        <a
+                          href={`tel:${company.primary_phone}`}
+                          className="inline-flex items-center gap-1 text-blue-600 hover:underline text-xs"
+                        >
+                          <Phone className="w-3 h-3" />
+                          {company.primary_phone}
+                        </a>
+                      ) : (
+                        <span className="text-gray-400 text-xs">—</span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}
