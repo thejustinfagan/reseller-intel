@@ -1,0 +1,19 @@
+[
+  {
+    "company_name": "",
+    "address": "Truck parts supplier \u00b7 \ue934 \u00b7 1515 S 19th St",
+    "city": "Harrisburg",
+    "state": "PA",
+    "zip": "",
+    "phone": "(717) 939-7873",
+    "website": "",
+    "source_url": "https://www.google.com/maps/search/truck+parts+near+Harrisburg,+PA",
+    "source": "google_maps",
+    "service_type": "truck parts",
+    "brand": null,
+    "rating": null,
+    "review_count": null,
+    "scraped_at": "2026-04-03T00:43:42.122319",
+    "harry_notes": "Hub: Harrisburg, PA, Radius: 300mi"
+  }
+]

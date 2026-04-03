@@ -1,13 +1,35 @@
 [
   {
-    "timestamp": "2026-04-03T00:35:55.188926",
+    "timestamp": "2026-04-03T00:41:29.419008",
     "batch": 1,
-    "city": "Chicago",
-    "state": "IL",
-    "source": "findtruckservice",
-    "keyword": null,
+    "hub": "Harrisburg",
+    "state": "PA",
+    "radius_miles": 300,
+    "keyword": "truck parts",
     "finds": 0,
     "output_file": null,
+    "errors": []
+  },
+  {
+    "timestamp": "2026-04-03T00:43:16.760672",
+    "batch": 1,
+    "hub": "Harrisburg",
+    "state": "PA",
+    "radius_miles": 300,
+    "keyword": "truck parts",
+    "finds": 0,
+    "output_file": null,
+    "errors": []
+  },
+  {
+    "timestamp": "2026-04-03T00:43:42.163832",
+    "batch": 1,
+    "hub": "Harrisburg",
+    "state": "PA",
+    "radius_miles": 300,
+    "keyword": "truck parts",
+    "finds": 1,
+    "output_file": "2026-04-03-Harrisburg-google-0.json",
     "errors": []
   }
 ]

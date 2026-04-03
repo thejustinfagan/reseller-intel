@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Harrisburg",
+    "state": "PA",
+    "lat": 40.2732,
+    "lon": -76.8867,
+    "radius_miles": 300
+  },
+  {
+    "name": "Sparks",
+    "state": "NV",
+    "lat": 39.5349,
+    "lon": -119.7527,
+    "radius_miles": 300
+  }
+]

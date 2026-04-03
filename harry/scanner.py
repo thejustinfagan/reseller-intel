@@ -12,7 +12,7 @@ from pathlib import Path
 # Add harry/sources to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from sources import findtruckservice, yellowpages, yelp, oem_locators, truckpaper
+from sources import google_maps
 
 HARRY_DIR = Path(__file__).parent
 STATE_FILE = HARRY_DIR / "scan-state.json"
@@ -28,27 +28,20 @@ def load_state():
             return json.load(f)
     
     # Initialize fresh state
-    with open(HARRY_DIR / "cities.json") as f:
-        cities = json.load(f)
+    with open(HARRY_DIR / "hubs.json") as f:
+        hubs = json.load(f)
     
     with open(HARRY_DIR / "keywords.json") as f:
         keywords = json.load(f)
     
-    sources = [
-        "findtruckservice",
-        "yellowpages",
-        "yelp",
-        "oem_locators",
-        "truckpaper"
-    ]
+    # Use only core keywords for Google search
+    search_keywords = keywords.get("core", []) + keywords.get("specialty", [])
     
     return {
-        "current_city_idx": 0,
-        "current_source_idx": 0,
+        "current_hub_idx": 0,
         "current_keyword_idx": 0,
-        "cities": cities,
-        "sources": sources,
-        "keywords": keywords,
+        "hubs": hubs,
+        "keywords": search_keywords,
         "batch_count": 0,
         "errors": [],
         "last_run": None
@@ -113,65 +106,46 @@ def run_batch():
     read_feedback()
     
     # Get current position
-    city_idx = state.get("current_city_idx", 0)
-    source_idx = state.get("current_source_idx", 0)
+    hub_idx = state.get("current_hub_idx", 0)
     keyword_idx = state.get("current_keyword_idx", 0)
     
-    cities = state["cities"]
-    sources = state["sources"]
-    keywords_all = state["keywords"]
+    hubs = state["hubs"]
+    keywords = state["keywords"]
     
     # Check if done
-    if city_idx >= len(cities):
-        print("✅ All cities completed!")
+    if hub_idx >= len(hubs):
+        print("✅ All hubs completed!")
         return
     
-    city_info = cities[city_idx]
-    source = sources[source_idx]
+    if keyword_idx >= len(keywords):
+        # Move to next hub
+        state["current_hub_idx"] += 1
+        state["current_keyword_idx"] = 0
+        save_state(state)
+        if state["current_hub_idx"] >= len(hubs):
+            print("✅ All hubs completed!")
+            return
+        print(f"⏭ Finished keywords for hub {hub_idx}, moving to next hub...")
+        return run_batch()
     
-    # Select keywords based on source
-    if source in ["yellowpages", "yelp"]:
-        keywords = keywords_all["core"] + keywords_all["specialty"]
-        if keyword_idx >= len(keywords):
-            # Move to next source
-            state["current_source_idx"] += 1
-            state["current_keyword_idx"] = 0
-            if state["current_source_idx"] >= len(sources):
-                # Move to next city
-                state["current_city_idx"] += 1
-                state["current_source_idx"] = 0
-            save_state(state)
-            print(f"⏭ Finished {source} for {city_info['city']}, moving on...")
-            return run_batch()
-        
-        keyword = keywords[keyword_idx]
-    else:
-        keyword = None
+    hub = hubs[hub_idx]
+    keyword = keywords[keyword_idx]
     
-    print(f"🔍 Scanning: {city_info['city']}, {city_info['state']} | Source: {source} | Keyword: {keyword or 'N/A'}")
+    print(f"🔍 Scanning: {hub['name']}, {hub['state']} ({hub['radius_miles']}mi radius) | Keyword: {keyword}")
     
-    # Run scraper
+    # Run Google search scraper
     finds = []
     errors = []
     
     try:
-        if source == "findtruckservice":
-            finds = findtruckservice.scrape(city_info["city"], city_info["state"])
-        elif source == "yellowpages":
-            finds = yellowpages.scrape(city_info["city"], city_info["state"], keyword)
-        elif source == "yelp":
-            finds = yelp.scrape(city_info["city"], city_info["state"], keyword)
-        elif source == "oem_locators":
-            finds = oem_locators.scrape()  # Scrapes all USA, not city-specific
-        elif source == "truckpaper":
-            finds = truckpaper.scrape(city_info["state"])
+        finds = google_maps.scrape(hub, keyword, hub['radius_miles'])
     except Exception as e:
-        error_msg = f"Error in {source} for {city_info['city']}: {str(e)}"
+        error_msg = f"Error searching '{keyword}' for {hub['name']}: {str(e)}"
         print(f"❌ {error_msg}")
         errors.append({
             "timestamp": datetime.now().isoformat(),
-            "source": source,
-            "city": city_info["city"],
+            "hub": hub["name"],
+            "keyword": keyword,
             "error": str(e)
         })
         state["errors"].extend(errors)
@@ -179,7 +153,7 @@ def run_batch():
     # Write finds
     filename = None
     if finds:
-        filename = write_finds(finds, city_info["city"], city_info["state"], source)
+        filename = write_finds(finds, hub["name"], hub["state"], "google")
         print(f"✅ Found {len(finds)} results, saved to {filename}")
     else:
         print(f"⚠️  No results found")
@@ -187,15 +161,7 @@ def run_batch():
     # Update state
     state["batch_count"] += 1
     state["last_run"] = datetime.now().isoformat()
-    
-    if source in ["yellowpages", "yelp"]:
-        state["current_keyword_idx"] += 1
-    else:
-        # Non-keyword sources: move to next source
-        state["current_source_idx"] += 1
-        if state["current_source_idx"] >= len(sources):
-            state["current_city_idx"] += 1
-            state["current_source_idx"] = 0
+    state["current_keyword_idx"] += 1
     
     save_state(state)
     
@@ -203,9 +169,9 @@ def run_batch():
     append_log({
         "timestamp": datetime.now().isoformat(),
         "batch": state["batch_count"],
-        "city": city_info["city"],
-        "state": city_info["state"],
-        "source": source,
+        "hub": hub["name"],
+        "state": hub["state"],
+        "radius_miles": hub["radius_miles"],
         "keyword": keyword,
         "finds": len(finds),
         "output_file": filename,
