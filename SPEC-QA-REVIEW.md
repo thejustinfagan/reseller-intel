@@ -1,76 +1,108 @@
-# SPEC: Enrichment QA Review UI
+# SPEC: Prospect Intel Card — Swipe QA Review
 **Model: claude-sonnet-4-5**
 
-## Goal
-Add a QA review page to the existing reseller-intel Next.js app that lets Justin review AI-enriched company records one at a time and approve or flag them.
+## Concept
+Tinder for truck parts prospects. A sales rep has 30 seconds to decide if this company is worth a call. The card gives them everything they need to make that call — visual, dense, no fluff. Swipe right (approve) or left (flag).
 
 ## Route
-Add a new page at `/review` in the existing Next.js app.
+New page at `/review` in the existing Next.js app.
 
 ---
 
-## What the Card Shows
+## Card Layout (Mobile-first, full viewport)
 
-Each company gets a single card with these sections:
+### 1. VISUAL HEADER (top 35% of card)
+- **Satellite image** full-width — pulled from satellite_image_url in DB
+- If no satellite image: Google Maps Static API embed using lat/lon
+- If no lat/lon: street view placeholder with address
+- Overlaid bottom-left: facility_type badge (e.g. "SERVICE CENTER", "DEALER LOT", "RURAL SHOP")
+- Overlaid bottom-right: lot_organized + has_fencing indicators as small icons
 
-### Header
+### 2. IDENTITY BLOCK
 - Company name (large, bold)
-- City, State
-- Primary entity type (dealer / parts supplier / repair shop / etc)
-- Confidence score as a colored badge:
-  - 80-100 = green
-  - 50-79 = yellow
-  - 0-49 = red
-- Confidence label (strong / weak / irrelevant)
+- City, State — with highway/urban/rural/suburban tag derived from location data
+- Primary entity type as colored badge (dealer=blue, repair=orange, parts=purple, unknown=gray)
+- One-liner AI verdict: pulled from deep_analysis, the single most important thing a sales rep needs to know. Max 2 sentences.
 
-### Brands Detected
-- Horizontal pill list of brands_served array
-- If empty: "None detected"
+### 3. OPPORTUNITY SCORE
+- Large number 0-100 with color ring (red/yellow/green)
+- Confidence label underneath (strong / weak / irrelevant)
+- is_target_account: YES / NO in bold
 
-### Services
-- Parts capabilities + service capabilities combined
-- Pill list same style as brands
+### 4. PROPERTY INTEL (icon grid, 2 columns)
+- Acreage: facility_size_acres
+- Bays: bay_count
+- Trucks visible: trucks_visible
+- Trailers visible: trailers_visible
+- Building condition: building_condition (1-5 stars)
+- Cleanliness: cleanliness_score (1-5 stars)
+- Signage: has_signage (yes/no)
+- Fenced: has_fencing (yes/no)
+- Building count: building_count
+- If any field is null: show "—" not blank
 
-### Flags (boolean signals)
-- Small icon badges for: mobile_service, fleet_focus, dot_inspection, roadside_service, leasing_rental, used_truck_sales, new_truck_sales
-- Only show ones that are TRUE
+### 5. DIGITAL PRESENCE (horizontal scorecard)
+Five columns, each with an icon and status dot (green=active, yellow=weak, red=dead/none):
+- Website (globe icon) — link to company website, quality inferred from deep_analysis
+- Google (G icon) — rating + review_count
+- Facebook (F icon) — active / none (infer from deep_analysis or features)
+- Instagram (camera icon) — active / none
+- LinkedIn (in icon) — active / none
 
-### Evidence Snippets
-- Show the evidence_snippets array as a list
-- These explain WHY the score is what it is
+### 6. WHAT THEY DO (two pill rows)
+Row 1 — Brands: brands_served as colored pills
+Row 2 — Services: parts_capabilities + service_capabilities combined
 
-### AI Analysis
-- Full deep_analysis JSON rendered as readable text (not raw JSON)
-- Collapsible section — collapsed by default, tap to expand
+### 7. CAPABILITY FLAGS (icon strip)
+Small icon badges, only show TRUE ones:
+- 🚚 Mobile service
+- 🏢 Fleet focus
+- 🔍 DOT inspection
+- 🛣 Roadside service
+- 📋 Leasing/rental
+- 🔄 Used truck sales
+- ✨ New truck sales
 
-### Source
-- company_detail_url as a tappable link (opens in new tab)
+### 8. EVIDENCE (collapsible)
+- "Why this score?" toggle
+- Shows evidence_snippets list
+- Collapsed by default
+
+### 9. QUICK ACTIONS (sticky bottom bar)
+- 📞 Call button (tap to call primary_phone)
+- 🌐 Website button (opens company_detail_url)
+- 📍 Maps button (opens Google Maps with address)
 
 ---
 
-## Actions
+## SWIPE ACTIONS
 
-Two large buttons at the bottom of the card:
+Large buttons above the action bar:
 
-- **Approve** (green) — marks record as qa_approved = true, qa_reviewed_at = now
-- **Flag** (red) — marks record as qa_flagged = true, qa_reviewed_at = now, opens a small text input for a note
+- **✓ APPROVE** (green, right) — marks qa_approved = true, loads next card
+- **✗ FLAG** (red, left) — opens a bottom sheet with:
+  - Pre-set flag reasons: "Wrong business type" / "Closed/moved" / "Bad data" / "Not a prospect"
+  - Optional free text note
+  - Submit → marks qa_flagged = true, saves note, loads next card
+- **→ SKIP** (gray, center small) — no action, loads next
 
-After either action — immediately load the next unreviewed enriched record.
-
----
-
-## Navigation
-
-- Show progress: "12 of 350 reviewed"
-- Skip button (gray) — skips to next without marking
-- Only show records where ai_analyzed_at IS NOT NULL
-- Default order: lowest confidence_score first (most likely to have errors)
+Card transition: slide out left (flag) or right (approve), next card slides in.
 
 ---
 
-## Database Changes
+## CARD ORDER
 
-Add these columns to the companies table:
+Default: confidence_score ASC (lowest first — most likely to have errors, needs most QA)
+Toggle to sort by: highest score, most recent enrichment, alphabetical
+
+---
+
+## PROGRESS BAR
+Sticky top: "47 / 350 reviewed" with a thin progress bar
+
+---
+
+## DATABASE CHANGES
 
 ```sql
 ALTER TABLE companies ADD COLUMN qa_approved BOOLEAN DEFAULT FALSE;
@@ -79,68 +111,81 @@ ALTER TABLE companies ADD COLUMN qa_flag_note TEXT;
 ALTER TABLE companies ADD COLUMN qa_reviewed_at TIMESTAMP;
 ```
 
+Run this as a migration script before the app starts.
+
 ---
 
-## API Endpoints Needed
+## API ENDPOINTS
 
-### GET /api/qa/next
-Returns next unreviewed enriched record (ai_analyzed_at IS NOT NULL AND qa_reviewed_at IS NULL)
-Ordered by confidence_score ASC (lowest first)
-Returns: full company record
+### GET /api/qa/next?sort=asc
+Returns next unreviewed enriched record
+Only records where: ai_analyzed_at IS NOT NULL AND qa_reviewed_at IS NULL
+Returns full company record including all enrichment fields
 
 ### GET /api/qa/stats
-Returns: { total_enriched, total_reviewed, total_approved, total_flagged }
+Returns: { total_enriched, total_reviewed, total_approved, total_flagged, remaining }
 
 ### POST /api/qa/approve
 Body: { id: number }
 Sets qa_approved = true, qa_reviewed_at = now
 
 ### POST /api/qa/flag
-Body: { id: number, note: string }
-Sets qa_flagged = true, qa_flag_note = note, qa_reviewed_at = now
+Body: { id: number, reason: string, note?: string }
+Sets qa_flagged = true, qa_flag_note = reason + note, qa_reviewed_at = now
 
 ### POST /api/qa/skip
 Body: { id: number }
-No DB change — just returns next record
+No DB change, returns next record
 
 ---
 
-## Design
+## DESIGN DIRECTION
 
-- Mobile-first (Justin reviews on iPhone via Telegram screenshots or browser)
-- Dark mode preferred
-- Clean, minimal — no clutter
-- Tailwind CSS (already in project)
-- Single card centered on screen, full viewport height
-- Swipe feel — after approve/flag the card transitions out and next one slides in
-
----
-
-## Constraints
-
-- Do NOT modify existing pages or API routes
-- Use the existing SQLite DB at data/reseller-intel.db
-- Use the existing Prisma setup if possible, otherwise raw sqlite3
-- Keep it simple and shippable — no auth needed
+- Dark background (#0f0f0f or deep navy)
+- Cards feel like a premium intel briefing — not a form
+- Satellite image is the hero, takes up real estate
+- Data is dense but scannable — icons + numbers, not labels + text fields
+- Green/yellow/red color system throughout for instant signal
+- Mobile viewport primary (390px wide)
+- Swipe gestures if feasible (react-swipeable or framer-motion), fallback to buttons
+- Typography: large for key numbers, small tight for detail rows
+- Tailwind CSS — already in project
 
 ---
 
-## Deliverables
+## TECH NOTES
 
-1. /app/review/page.tsx — the review page
-2. /app/api/qa/next/route.ts — next record endpoint
-3. /app/api/qa/stats/route.ts — stats endpoint
-4. /app/api/qa/approve/route.ts
-5. /app/api/qa/flag/route.ts
-6. /app/api/qa/skip/route.ts
-7. Migration SQL or script to add QA columns
-8. Brief testing notes
+- Use existing SQLite DB at data/reseller-intel.db
+- Use existing Prisma setup if schema supports it, otherwise raw better-sqlite3
+- Do NOT modify existing pages or routes
+- Google Maps Static API for satellite fallback — use free tier, no key needed for low volume
+- Keep bundle small — no heavy chart libraries needed
 
-## Acceptance Criteria
+---
 
-- /review loads and shows first unreviewed enriched company
-- Card shows all fields listed above
-- Approve button marks record and loads next
-- Flag button opens note input, saves note, loads next
-- Progress counter updates correctly
-- Works on mobile viewport
+## DELIVERABLES
+
+1. /app/review/page.tsx — main review page
+2. /app/review/components/ProspectCard.tsx — the card component
+3. /app/review/components/FlagSheet.tsx — flag bottom sheet
+4. /app/api/qa/next/route.ts
+5. /app/api/qa/stats/route.ts
+6. /app/api/qa/approve/route.ts
+7. /app/api/qa/flag/route.ts
+8. /app/api/qa/skip/route.ts
+9. /scripts/migrate-qa-columns.ts — run once to add columns
+10. Brief testing notes in TESTING-QA.md
+
+---
+
+## ACCEPTANCE CRITERIA
+
+- /review loads, shows first unreviewed enriched company
+- Satellite image or map renders at top
+- All data blocks visible and populated (nulls show "—")
+- Approve slides card out right, loads next
+- Flag opens bottom sheet, saves reason, slides card out left, loads next
+- Skip loads next with no DB change
+- Progress bar updates correctly
+- Works on 390px mobile viewport
+- Looks like a war room intel card, not a form
