@@ -1,0 +1,4821 @@
+/Users/justinfagan/dev/reseller-intel/visual_facility_analysis.py:223: DeprecationWarning: The default datetime adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+  cursor.execute("""
+============================================================
+🛰️  VISUAL FACILITY ANALYSIS PIPELINE
+============================================================
+📍 Base: Louisville, KY 40217
+📏 Radius: 50 miles
+🗂️  Images: /Users/justinfagan/dev/reseller-intel/facility-images
+📊 Results: /Users/justinfagan/dev/reseller-intel/visual-analysis-results
+
+🔧 Extending database schema for visual analysis...
+  ℹ️  All columns already exist
+
+🎯 Finding facilities within 50 miles of 40217...
+  ✅ Found 361 facilities within 50 miles
+
+🚀 Processing 361 facilities...
+============================================================
+
+[1/361] FleetPride Service Center
+  📍 355 Farmington Ave, Louisville, KY 40209, USA (0.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 1, Bays: 10
+     Vehicles: 10 trucks, 25 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[2/361] Sternberg Commercial Truck Sales
+  📍 3700 Crittenden Dr, Louisville, KY 40209, USA (0.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 15 trucks, 5 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[3/361] SMM TRUCK REPAIR CORP
+  📍 720 Locust Ln, Louisville, KY 40217, USA (1.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 1, Bays: 10
+     Vehicles: 15 trucks, 30 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[4/361] AT Truck & Trailer Service LLC
+  📍 1815 Commerce Rd Suite 1, Louisville, KY 40208, USA (1.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 6, Bays: 0
+     Vehicles: 0 trucks, 1 trailers
+     Condition: 5/10, Cleanliness: 4/10
+  💾 Updating database...
+  ✅ Database updated
+
+[5/361] Dexter's Auto & Truck Service
+  📍 518 Dakota St, Louisville, KY 40209, USA (1.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 6, Bays: 10
+     Vehicles: 2 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[6/361] Goodyear Commercial Tire & Service Center
+  📍 4334 Crittenden Dr, Louisville, KY 40209, USA (1.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 3, Bays: 15
+     Vehicles: 4 trucks, 1 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[7/361] Best-One Louisville
+  📍 1501 S Brook St, Louisville, KY 40208, USA (1.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 10
+     Vehicles: 3 trucks, 3 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[8/361] Tirexpress Truck
+  📍 2220 7th Street Rd, Louisville, KY 40208, USA (1.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 24
+     Vehicles: 0 trucks, 4 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[9/361] Shively Truck Service
+  📍 2756 7th Street Rd, Louisville, KY 40215, USA (1.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 8, Bays: 15
+     Vehicles: 3 trucks, 5 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[10/361] Truck Parts & Service Inc.
+  📍 2758 7th Street Rd, Louisville, KY 40215, USA (1.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 9, Bays: 15
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (10 processed)
+
+[11/361] Autocar Parts LLC
+  📍 1458 S Shelby St, Louisville, KY 40217, USA (1.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 1 trucks, 3 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[12/361] JIT Truck Parts
+  📍 1458 S Shelby St, Louisville, KY 40217, USA (1.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 1 trucks, 2 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[13/361] Tip Top Mobile Detail & Wash
+  📍 2752 7th Street Rd Unit#3, Louisville, KY 40215, USA (1.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 8, Bays: 15
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[14/361] Louisville Roadside & Towing
+  📍 1340 S 3rd St, Louisville, KY 40208, USA (1.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.2 acres
+     Buildings: 5, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[15/361] Peak Trailer Repair Services
+  📍 4601 Allmond Ave Suite 200, Louisville, KY 40209, USA (1.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 1, Bays: 12
+     Vehicles: 2 trucks, 12 trailers
+     Condition: 8/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[16/361] Wiers Fleet Service & Truck Repair Louisville
+  📍 4621 Allmond Ave, Louisville, KY 40209, USA (1.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 3, Bays: 10
+     Vehicles: 12 trucks, 25 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[17/361] Reliable Truck Service
+  📍 3433 S 7th St, Louisville, KY 40216, USA (1.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 10 trucks, 35 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[18/361] 502 HP Diesel
+  📍 121 Badger Ave, Louisville, KY 40214, USA (1.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 5, Bays: 10
+     Vehicles: 0 trucks, 15 trailers
+     Condition: 5/10, Cleanliness: 4/10
+  💾 Updating database...
+  ✅ Database updated
+
+[19/361] Gabriel and Sons Welded Fortress LLC
+  📍 134 E Woodlawn Ave, Louisville, KY 40214, USA (1.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 5, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[20/361] Cardinal Parts | Auto & Truck
+  📍 4710 Allmond Ave, Louisville, KY 40209, USA (2.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (20 processed)
+
+[21/361] Diesel Advantage
+  📍 4710 Allmond Ave, Louisville, KY 40209, USA (2.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[22/361] Diesel USA Group, Inc.
+  📍 4710 Allmond Ave, Louisville, KY 40209, USA (2.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[23/361] Grizzly
+  📍 4710 Allmond Ave, Louisville, KY 40209, USA (2.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[24/361] Tredroc Tire Co
+  📍 4703 Allmond Ave, Louisville, KY 40209, USA (2.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[25/361] AA TRUCK TIRE SERVICES
+  📍 2606 Dixie Hwy, Shively, KY 40216, USA (2.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[26/361] Bob Sumerel Tire Co.
+  📍 4850 Crittenden Dr bldg 1, Louisville, KY 40209, USA (2.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 4, Bays: 10
+     Vehicles: 3 trucks, 4 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[27/361] Mosbys Towing & Transport LLC
+  📍 3119 Dixie Hwy, Louisville, KY 40216, USA (2.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 5 trucks, 10 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[28/361] A Mike's Tire & Trailer Repair
+  📍 301 E Breckinridge St, Louisville, KY 40203, USA (2.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 2 trucks, 3 trailers
+     Condition: 5/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[29/361] Vander Haag's, Inc.
+  📍 405 MacLean Ave suite 5d, Louisville, KY 40209, USA (2.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 5 trucks, 3 trailers
+     Condition: 6/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[30/361] Republic Diesel Inc
+  📍 305 E College St, Louisville, KY 40203, USA (2.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 8
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (30 processed)
+
+[31/361] Soran's Truck Repair Inc.
+  📍 3821 Fitzgerald Rd, Louisville, KY 40216, USA (2.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 5 trucks, 10 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[32/361] Pendleton Trailer Services, Inc
+  📍 3820 Fitzgerald Rd, Louisville, KY 40216, USA (2.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 5, Bays: 10
+     Vehicles: 0 trucks, 20 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[33/361] SHOATS TIRES
+  📍 2323 Ralph Ave, Louisville, KY 40216, USA (2.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 10
+     Vehicles: 15 trucks, 20 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[34/361] Depot Connect International (PSC)
+  📍 3837 Fitzgerald Rd, Louisville, KY 40216, USA (2.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 0
+     Vehicles: 0 trucks, 6 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[35/361] Leo's Towing & Recovery
+  📍 715 S Jackson St, Louisville, KY 40203, USA (2.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 2, Bays: 3
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[36/361] Louisville Truck and Auto Sales
+  📍 535 E Broadway, Louisville, KY 40202, USA (2.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 5, Bays: 10
+     Vehicles: 15 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[37/361] Meineke Car Care Center
+  📍 701 E Broadway, Louisville, KY 40202, USA (2.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.6 acres
+     Buildings: 1, Bays: 4
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[38/361] Medley's Auto Truck Repair & Service
+  📍 633 S Campbell St, Louisville, KY 40204, USA (2.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[39/361] Global Parts - Traction
+  📍 4343 Sanita Ct, Louisville, KY 40213, USA (2.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 3, Bays: 15
+     Vehicles: 0 trucks, 75 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[40/361] SelecTrucks of Louisville
+  📍 4341 Sanita Ct, Louisville, KY 40213, USA (2.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 8
+     Vehicles: 15 trucks, 12 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (40 processed)
+
+[41/361] Ascendance Truck Centers
+  📍 4300 Poplar Level Rd, Louisville, KY 40213, USA (2.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 1, Bays: 15
+     Vehicles: 10 trucks, 8 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[42/361] Lua Truck Solution
+  📍 3030 Millers Ln, Louisville, KY 40216, USA (3.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 2 trucks, 10 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[43/361] Smith Imported Car Service
+  📍 1250 E Broadway, Louisville, KY 40204, USA (3.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[44/361] Kenworth of Louisville | Palmer Trucks
+  📍 4330 Poplar Level Rd, Louisville, KY 40213, USA (3.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 15
+     Vehicles: 20 trucks, 5 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[45/361] Elite R Fleet & Equipment Repair, LLC
+  📍 1821 Taylor Ave, Louisville, KY 40213, USA (3.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 5
+     Vehicles: 10 trucks, 15 trailers
+     Condition: 6/10, Cleanliness: 4/10
+  💾 Updating database...
+  ✅ Database updated
+
+[46/361] Lasco Truck Parts
+  📍 530 S 13th St, Louisville, KY 40203, USA (3.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 3 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[47/361] Louisville Auto Spring
+  📍 530 S 13th St, Louisville, KY 40203, USA (3.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 15
+     Vehicles: 5 trucks, 3 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[48/361] Box truck repair shop
+  📍 3811 Cane Run Rd, Louisville, KY 40211, USA (3.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[49/361] All-State Ford Truck Sales, LLC.
+  📍 1357 Gardiner Ln, Louisville, KY 40213, USA (3.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 8.5 acres
+     Buildings: 4, Bays: 20
+     Vehicles: 100 trucks, 50 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[50/361] All-State Ford Truck Sales, LLC. Service
+  📍 1357 Gardiner Ln, Louisville, KY 40213, USA (3.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 8.5 acres
+     Buildings: 4, Bays: 15
+     Vehicles: 75 trucks, 50 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (50 processed)
+
+[51/361] National Tank Services
+  📍 3710 Cane Run Rd, Louisville, KY 40211, USA (3.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 5 trucks, 35 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[52/361] Kentucky International Convention Center
+  📍 221 S 4th St, Louisville, KY 40202, USA (3.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 8/10, Cleanliness: 8/10
+  💾 Updating database...
+  ✅ Database updated
+
+[53/361] R&P Truck Service LLC
+  📍 3306 Camp Ground Rd, Louisville, KY 40211, USA (3.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 5, Bays: 10
+     Vehicles: 8 trucks, 15 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[54/361] The Trio Truck & Trailer Service-24/7 Road Service Louisville,KY
+  📍 2202 Walrich Dr, Louisville, KY 40211, USA (3.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.5 acres
+     Buildings: 1, Bays: 15
+     Vehicles: 15 trucks, 50 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[55/361] Acosta Truck Parts LLC
+  📍 3808 Cane Run Rd, Louisville, KY 40211, USA (3.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ❌ Gemini analysis failed: 429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyBFO39QMmgS2HeeWsc-ou8rbBW1hJChzWY
+  ⏭️  Skipping (analysis failed)
+
+[56/361] Axion Towing
+  📍 210 E Main St, Louisville, KY 40202, USA (3.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.8 acres
+     Buildings: 6, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[57/361] Depot Connect International (PSC)
+  📍 3808 Bells Ln, Louisville, KY 40211, USA (3.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 3 trucks, 40 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[58/361] Depot Connect International (Heil Tank Services)
+  📍 3808 Bells Ln, Louisville, KY 40211, USA (3.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 0 trucks, 60 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[59/361] Kentucky Trailer Services LLC
+  📍 3400 Robards Ln, Louisville, KY 40218, USA (3.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.0 acres
+     Buildings: 1, Bays: 10
+     Vehicles: 2 trucks, 5 trailers
+     Condition: 8/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[60/361] Advantage Towing & Recovery
+  📍 4534 Poplar Level Rd, Louisville, KY 40213, USA (3.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 5, Bays: 6
+     Vehicles: 3 trucks, 1 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (60 processed)
+
+[61/361] Total Truck Parts
+  📍 4525 Poplar Level Rd, Louisville, KY 40213, USA (3.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 7, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[62/361] Euro Imports
+  📍 1820 Bardstown Rd, Louisville, KY 40205, USA (3.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[63/361] Quality Truck & Trailer Repair
+  📍 1237 W Main St, Louisville, KY 40203, USA (3.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 6 trucks, 5 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[64/361] A & S TRUCK ROAD SERVICES LLC
+  📍 436 Downes Terrace, Louisville, KY 40214, USA (3.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 2 trucks, 4 trailers
+     Condition: 6/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[65/361] A U Diesel Electric Inc
+  📍 1833 W Market St, Louisville, KY 40203, USA (3.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 2, Bays: 4
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[66/361] Greg Coats Cars and Trucks
+  📍 5204 Preston Hwy, Louisville, KY 40213, USA (3.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[67/361] Mercer Transportation Safety Inspection Facilty
+  📍 1400 Rowan St, Louisville, KY 40203, USA (3.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 3 trucks, 30 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[68/361] Mills Automotive Inc
+  📍 1204 Vim Dr, Louisville, KY 40213, USA (3.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 6, Bays: 10
+     Vehicles: 3 trucks, 2 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[69/361] NAPA Auto Parts
+  📍 3901 Bishop Ln, Louisville, KY 40218, USA (3.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[70/361] Barnes Auto Service
+  📍 3800 Bishop Ln, Louisville, KY 40218, USA (3.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 4, Bays: 25
+     Vehicles: 5 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (70 processed)
+
+[71/361] Superior Truck and Trailer
+  📍 3816 Bishop Ln Building #1, Louisville, KY 40218, USA (3.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 6, Bays: 10
+     Vehicles: 5 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[72/361] Truck, Road Service 24/7
+  📍 4600 Pinewood Rd Ste B, Louisville, KY 40218, USA (3.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 5, Bays: 20
+     Vehicles: 3 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[73/361] All American Towing Inc.
+  📍 4600 Pinewood Rd Ste H, Louisville, KY 40218, USA (3.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 4, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[74/361] Clark Automotive LLC
+  📍 1515 Payne St, Louisville, KY 40206, USA (3.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.6 acres
+     Buildings: 1, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[75/361] Houston Equipment Services LLC
+  📍 4614 Astor Rd, Louisville, KY 40218, USA (3.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 6, Bays: 10
+     Vehicles: 8 trucks, 12 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[76/361] S&S Tire
+  📍 450 Kenwood Industrial Dr B, Louisville, KY 40214, USA (3.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.0 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 8/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[77/361] Boyd Truck Centers
+  📍 4350 Boyd Wy, Louisville, KY 40211, USA (3.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 15
+     Vehicles: 10 trucks, 12 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[78/361] 502 Towing & Recovery
+  📍 4120 Bishop Ln, Louisville, KY 40218, USA (4.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 5, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[79/361] Kentuckiana Heavy Diesel
+  📍 4124 Bishop Ln Suite 101 and 102, Louisville, KY 40218, USA (4.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 15
+     Vehicles: 5 trucks, 10 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[80/361] Lohden's Truck and Trailer Repair LLC.
+  📍 4107 Ralph Ave, Louisville, KY 40211, USA (4.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 4, Bays: 10
+     Vehicles: 15 trucks, 30 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (80 processed)
+
+[81/361] Dynamic Diesel Works
+  📍 4111 Ralph Ave, Louisville, KY 40211, USA (4.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 10 trucks, 25 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[82/361] Fleet Delivery Services And Expediting
+  📍 4419 Kiln Ct, Louisville, KY 40218, USA (4.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.0 acres
+     Buildings: 4, Bays: 20
+     Vehicles: 5 trucks, 2 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[83/361] FleetPride
+  📍 4670 Jennings Ln, Louisville, KY 40218, USA (4.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 4, Bays: 15
+     Vehicles: 5 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[84/361] Kentucky Truck Parts & service
+  📍 4519 Knopp Ave, Louisville, KY 40213, USA (4.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 4
+     Vehicles: 2 trucks, 2 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[85/361] GradeLane Tires
+  📍 7011 Grade Ln, Louisville, KY 40213, USA (4.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 5, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[86/361] Emergency Fleet Services
+  📍 4009 Contractors Ct, Louisville, KY 40213, USA (4.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 7, Bays: 20
+     Vehicles: 2 trucks, 1 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[87/361] Maximum Fleet Service LLC
+  📍 1103 S Clark Blvd, Clarksville, IN 47129, USA (4.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 5, Bays: 15
+     Vehicles: 25 trucks, 40 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[88/361] Redden's Fleet Maintenance
+  📍 4612 Knopp Ave, Louisville, KY 40213, USA (4.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 5, Bays: 10
+     Vehicles: 15 trucks, 20 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[89/361] Bluegrass Diesel truck repair sales
+  📍 4600 Knopp Ave, Louisville, KY 40213, USA (4.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 3, Bays: 12
+     Vehicles: 15 trucks, 30 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[90/361] Yoangel Mobile Tire & road Services
+  📍 7412 Lesane Dr, Louisville, KY 40214, USA (4.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.0 acres
+     Buildings: 0, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (90 processed)
+
+[91/361] Curtis Roadside & Towing
+  📍 1114 Ulrich Ave, Louisville, KY 40219, USA (4.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 6, Bays: 10
+     Vehicles: 3 trucks, 2 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[92/361] TruckPro
+  📍 3303 Fern Valley Rd, Louisville, KY 40213, USA (4.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 5, Bays: 20
+     Vehicles: 1 trucks, 1 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[93/361] Commonwealth Dodge
+  📍 6408 Preston Hwy, Louisville, KY 40219, USA (4.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[94/361] Dukes A & W Trailer Hitches
+  📍 1000 Industrial Blvd, Louisville, KY 40219, USA (4.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 8
+     Vehicles: 15 trucks, 40 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[95/361] Suburban Towing
+  📍 1006 Industrial Blvd, Louisville, KY 40219, USA (4.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 10 trucks, 15 trailers
+     Condition: 7/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[96/361] Clay’s Auto Repair & Food Truck/Trailer Building
+  📍 1122 Ulrich Ave, Louisville, KY 40219, USA (4.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 2 trucks, 6 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[97/361] Express Towing 24
+  📍 4914 Poplar Level Rd, Louisville, KY 40219, USA (4.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 4, Bays: 10
+     Vehicles: 10 trucks, 5 trailers
+     Condition: 5/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[98/361] U S Towing & Recovery
+  📍 4914 Poplar Level Rd, Louisville, KY 40219, USA (4.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 5 trucks, 3 trailers
+     Condition: 6/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[99/361] K O Towing Inc
+  📍 3210 Gilligan St, Louisville, KY 40212, USA (4.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 4
+     Vehicles: 5 trucks, 10 trailers
+     Condition: 5/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[100/361] Metro Fleet Services
+  📍 3515 Newburg Rd, Louisville, KY 40218, USA (5.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 1, Bays: 10
+     Vehicles: 0 trucks, 100 trailers
+     Condition: 7/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (100 processed)
+
+[101/361] Fraley's Fleet Services & Mobile Repair
+  📍 822 Meigs Ave, Jeffersonville, IN 47130, USA (5.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.8 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[102/361] Equine Motorcoach
+  📍 520 Marriott Dr, Clarksville, IN 47129, USA (5.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[103/361] Discount Tires Used & New
+  📍 7739 St Andrews Church Rd, Louisville, KY 40214, USA (5.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.0 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[104/361] Springdale Automotive Centers
+  📍 2816 Taylorsville Rd, Louisville, KY 40205, USA (5.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[105/361] NAPA Auto Parts
+  📍 5224 1/2 Dixie Hwy, Louisville, KY 40216, USA (5.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 1 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[106/361] RV Repair and Service Center at Campers Inn RV of Louisville
+  📍 520 Marriott Dr, Clarksville, IN 47129, USA (5.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.5 acres
+     Buildings: 4, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[107/361] Louisville Chrysler Dodge Jeep Ram
+  📍 5311 Dixie Hwy, Louisville, KY 40216, USA (5.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 1, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[108/361] Stuff for Trucks
+  📍 3912 Fern Valley Rd, Louisville, KY 40219, USA (5.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 5 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[109/361] Craig and Landreth Jeffersonville
+  📍 630 E 10th St, Jeffersonville, IN 47130, USA (5.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.6 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[110/361] Jeff Wyler Honda Auto Mall Service
+  📍 5244 Dixie Hwy, Louisville, KY 40216, USA (5.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.0 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 8/10, Cleanliness: 8/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (110 processed)
+
+[111/361] Sternberg Truck Equipment and Repair
+  📍 5340 Dixie Hwy, Louisville, KY 40258, USA (5.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 10
+     Vehicles: 4 trucks, 5 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[112/361] The Tire Station
+  📍 5031 Poplar Level Rd, Louisville, KY 40219, USA (5.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 1 trucks, 1 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[113/361] 44 Auto Mart Of Louisville
+  📍 5357 Dixie Hwy, Louisville, KY 40216, USA (5.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[114/361] Medley's Auto & Truck Repair Service
+  📍 3913 Shepherdsville Rd, Louisville, KY 40218, USA (5.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 3, Bays: 10
+     Vehicles: 2 trucks, 15 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[115/361] Yeyo Auto & Truck Service
+  📍 2101 Outer Loop, Louisville, KY 40219, USA (5.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 15 trucks, 25 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[116/361] TT Trucks service shop roadside assistance
+  📍 2105 Outer Loop, Louisville, KY 40219, USA (5.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 35 trucks, 25 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[117/361] FleetUnlimited
+  📍 1213 Outer Loop, Louisville, KY 40219, USA (5.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 4, Bays: 15
+     Vehicles: 0 trucks, 75 trailers
+     Condition: 5/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[118/361] Rescue Rangers Towing & Roadside Services
+  📍 2026 Old Shepherdsville Rd, Louisville, KY 40218, USA (5.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[119/361] I Deal Autos
+  📍 7304 Preston Hwy, Louisville, KY 40219, USA (5.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[120/361] Hoosier Brake & Exhaust
+  📍 1401 E 10th St, Jeffersonville, IN 47130, USA (5.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 2, Bays: 4
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (120 processed)
+
+[121/361] Traver Diesel Repair
+  📍 1501 E 8th St Apt#10B-1, Jeffersonville, IN 47130, USA (5.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[122/361] Voignier's Auto Repair
+  📍 1903 Dutch Ln, Jeffersonville, IN 47130, USA (5.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 7, Bays: 10
+     Vehicles: 4 trucks, 10 trailers
+     Condition: 5/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[123/361] Fairdale's Original Semi-Truck Wash
+  📍 8607 National Tpke, Fairdale, KY 40118, USA (5.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 5
+     Vehicles: 1 trucks, 1 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[124/361] Louisville Cars & Trucks
+  📍 7053 Dixie Hwy, Louisville, KY 40258, USA (5.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[125/361] Diesel Pickup Pros
+  📍 2207 Dutch Ln, Jeffersonville, IN 47130, USA (6.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 3 trucks, 5 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[126/361] Barrett Truck & Trailer Repair LLC
+  📍 55 Galt St, New Albany, IN 47150, USA (6.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 3, Bays: 4
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[127/361] Bennett's Towing & Recovery
+  📍 1620 E 10th St, Jeffersonville, IN 47130, USA (6.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 10 trucks, 5 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[128/361] Bob Hook Used Cars, Trucks, SUV's
+  📍 4144 Bardstown Rd, Louisville, KY 40218, USA (6.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 4, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[129/361] Bob Hook Commercial & Fleet Sales
+  📍 4155 Bardstown Rd, Louisville, KY 40218, USA (6.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 15
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[130/361] Fleet Services
+  📍 1983 S Park Rd, Louisville, KY 40219, USA (6.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 15.0 acres
+     Buildings: 1, Bays: 100
+     Vehicles: 10 trucks, 70 trailers
+     Condition: 6/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (130 processed)
+
+[131/361] T.A.P. Automotive Clarksville
+  📍 2507 Lincoln Dr, Clarksville, IN 47129, USA (6.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 2 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[132/361] Preston Truck Part LLC
+  📍 8107 Preston Hwy, Louisville, KY 40219, USA (6.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 3 trucks, 3 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[133/361] AJ's Towing Service
+  📍 6708 Shepherdsville Rd #3, Louisville, KY 40228, USA (6.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 3, Bays: 2
+     Vehicles: 2 trucks, 1 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[134/361] S & R Towing
+  📍 150 E Bell Ave, Clarksville, IN 47129, USA (6.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 0 trucks, 15 trailers
+     Condition: 6/10, Cleanliness: 4/10
+  💾 Updating database...
+  ✅ Database updated
+
+[135/361] Motor Max LLC
+  📍 6913 Shepherdsville Rd, Louisville, KY 40219, USA (6.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 2 trucks, 1 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[136/361] RNR Tire Express & Custom Wheels
+  📍 1207 Eastern Blvd, Clarksville, IN 47129, USA (6.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[137/361] Meineke Car Care Center
+  📍 1734 E 10th St, Jeffersonville, IN 47130, USA (6.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 1 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[138/361] American Trailer LLC
+  📍 1223 E 8th St, New Albany, IN 47150, USA (6.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 6 trailers
+     Condition: 4/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[139/361] Jim Butner Auto & RV Inc.
+  📍 125 W Lewis and Clark Pkwy, Clarksville, IN 47129, USA (6.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[140/361] Davis Service Center
+  📍 5503 Greenwood Rd, Louisville, KY 40258, USA (7.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 1, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (140 processed)
+
+[141/361] Ziegler Tire
+  📍 3131 Industrial Pkwy, Jeffersonville, IN 47130, USA (7.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 1, Bays: 12
+     Vehicles: 0 trucks, 1 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[142/361] Road service Benitez truck and trailers
+  📍 5400 Monaco Dr, Louisville, KY 40219, USA (7.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.0 acres
+     Buildings: 0, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 0/10, Cleanliness: 0/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[143/361] Isaacs Pre-Owned Autos
+  📍 2015 E 10th St, Jeffersonville, IN 47130, USA (7.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 3 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[144/361] Craig and Landreth Clarksville
+  📍 619 E Lewis and Clark Pkwy, Clarksville, IN 47129, USA (7.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 10
+     Vehicles: 1 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[145/361] NAPA Auto Parts - MBE LLC
+  📍 1514 Blackiston Mill Rd, Clarksville, IN 47129, USA (7.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 6 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[146/361] Best-One Giant Tire
+  📍 1417 Fabricon Blvd, Jeffersonville, IN 47130, USA (7.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 10 trucks, 5 trailers
+     Condition: 7/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[147/361] Oxmoor Chrysler Dodge Jeep Ram
+  📍 4520 Shelbyville Rd, Louisville, KY 40207, USA (7.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 4, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[148/361] Best-One Jeffersonville
+  📍 1402 Truckers Blvd, Jeffersonville, IN 47130, USA (7.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 0 trucks, 6 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[149/361] Kentucky Truck Sales
+  📍 1403 Truckers Blvd, Jeffersonville, IN 47130, USA (7.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 30 trucks, 25 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[150/361] TCi Tire Centers
+  📍 7101Intermodal Dr, Louisville, KY 40258, USA (7.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.0 acres
+     Buildings: 1, Bays: 10
+     Vehicles: 0 trucks, 15 trailers
+     Condition: 8/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (150 processed)
+
+[151/361] Alignrite, INC.
+  📍 1601 Truckers Blvd, Jeffersonville, IN 47130, USA (7.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 3 trucks, 1 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[152/361] B & B Truck Sales and Repairs
+  📍 1419 Truckers Blvd, Jeffersonville, IN 47130, USA (7.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 6 trucks, 6 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[153/361] Brent's Towing LLC
+  📍 9702 Polaris Dr, Louisville, KY 40229, USA (7.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.0 acres
+     Buildings: 0, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 0/10, Cleanliness: 0/10
+  💾 Updating database...
+  ✅ Database updated
+
+[154/361] Freightliner / Kentucky Truck Sales
+  📍 1403 Truckers Blvd, Jeffersonville, IN 47130, USA (7.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 2, Bays: 12
+     Vehicles: 20 trucks, 15 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[155/361] Goodyear Commercial Tire & Service Center
+  📍 East, 4121 US-31, Clarksville, IN 47129, USA (8.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.0 acres
+     Buildings: 2, Bays: 20
+     Vehicles: 2 trucks, 60 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[156/361] Louisville Switching Services Inc
+  📍 7400 Intermodal Dr, Louisville, KY 40258, USA (8.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 3, Bays: 15
+     Vehicles: 0 trucks, 20 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[157/361] A1 Truck And Trailer Repair
+  📍 6110 Princess Way, Louisville, KY 40219, USA (8.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.0 acres
+     Buildings: 0, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 0/10, Cleanliness: 0/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[158/361] Coyle Chevrolet Service Center
+  📍 1801 Broadway St, Clarksville, IN 47129, USA (8.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.0 acres
+     Buildings: 1, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[159/361] TLG Peterbilt - Louisville
+  📍 4415 Hamburg Pike, Jeffersonville, IN 47130, USA (8.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 3, Bays: 12
+     Vehicles: 25 trucks, 3 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[160/361] TLG Peterbilt - Leasing & Rental
+  📍 4415 Hamburg Pike, Jeffersonville, IN 47130, USA (8.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 15
+     Vehicles: 25 trucks, 10 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (160 processed)
+
+[161/361] Total Truck Parts
+  📍 1545 Progress Way, Clarksville, IN 47129, USA (8.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 1, Bays: 6
+     Vehicles: 0 trucks, 12 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[162/361] McMahon Truck Centers Louisville
+  📍 1606 Progress Way, Clarksville, IN 47129, USA (8.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 1, Bays: 20
+     Vehicles: 65 trucks, 15 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[163/361] Wheatley Truck Service Inc
+  📍 1719 Progress Way, Clarksville, IN 47129, USA (8.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 10
+     Vehicles: 15 trucks, 12 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[164/361] FleetPride
+  📍 5305 US-31, Clarksville, IN 47129, USA (8.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[165/361] W.W. Williams / CT Power: Carrier Transport Refrigeration
+  📍 2000 Coopers Ln G, Jeffersonville, IN 47130, USA (9.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.5 acres
+     Buildings: 3, Bays: 20
+     Vehicles: 0 trucks, 30 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[166/361] Hoke's Auto & Truck Repair
+  📍 2008 1/2 Coopers Ln, Jeffersonville, IN 47130, USA (9.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[167/361] Pappy's Truck & Trailer Repair
+  📍 2000 Coopers Ln suite f, Jeffersonville, IN 47130, USA (9.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 4, Bays: 30
+     Vehicles: 5 trucks, 20 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[168/361] NAPA Auto Parts
+  📍 717 Lyndon Ln, Louisville, KY 40222, USA (9.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 1 trucks, 2 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[169/361] Kentuckiana Towing
+  📍 9400 New Maple Rd, Louisville, KY 40229, USA (9.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.75 acres
+     Buildings: 4, Bays: 0
+     Vehicles: 2 trucks, 1 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[170/361] A Quickfast truck and trailer service
+  📍 4108 Mud Ln, Louisville, KY 40229, USA (9.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.0 acres
+     Buildings: 0, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 0/10, Cleanliness: 0/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (170 processed)
+
+[171/361] Blue Lick Truck & Van Parts, Inc.
+  📍 4222 E Blue Lick Rd, Louisville, KY 40229, USA (9.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 2 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 3/10
+  💾 Updating database...
+  ✅ Database updated
+
+[172/361] Cunningham Campers & RVs
+  📍 2200 Addmore Ln, Clarksville, IN 47129, USA (9.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 75 trailers
+     Condition: 8/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[173/361] Morton's Tire & Automotive - a Main Street Auto shop
+  📍 601 Mt Tabor Rd, New Albany, IN 47150, USA (9.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 1, Bays: 4
+     Vehicles: 1 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[174/361] Diesel Boys llc
+  📍 5601 US-31, Clarksville, IN 47129, USA (9.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.5 acres
+     Buildings: 6, Bays: 20
+     Vehicles: 25 trucks, 20 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[175/361] Bauer Built Tire & Service
+  📍 5601 US-31, Clarksville, IN 47129, USA (9.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 10
+     Vehicles: 1 trucks, 15 trailers
+     Condition: 5/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[176/361] Fern Creek Auto & Truck Repair
+  📍 5702 Bardstown Rd, Louisville, KY 40291, USA (9.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 1 trucks, 1 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[177/361] Toys For Trucks - Louisville, KY - Car, Truck, Jeep and Off-Road Accessories
+  📍 9502 Taylorsville Rd, Louisville, KY 40299, USA (9.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 25 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[178/361] Fastlane Auto Sales
+  📍 5717 Hamburg Pike, Jeffersonville, IN 47130, USA (9.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[179/361] River City Truck Parts Inc
+  📍 849 Barricks Rd, Louisville, KY 40229, USA (9.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 15.5 acres
+     Buildings: 4, Bays: 20
+     Vehicles: 10 trucks, 40 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[180/361] Volvo of Louisville Service & Parts
+  📍 5 Autocenter Dr, Louisville, KY 40299, USA (9.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 1, Bays: 12
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 8/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (180 processed)
+
+[181/361] Volvo Cars of Louisville
+  📍 5 Autocenter Dr, Louisville, KY 40299, USA (9.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 8/10, Cleanliness: 8/10
+  💾 Updating database...
+  ✅ Database updated
+
+[182/361] Ascendance Truck Centers
+  📍 635 Park E Blvd, New Albany, IN 47150, USA (9.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 1, Bays: 10
+     Vehicles: 15 trucks, 12 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[183/361] Bachman Chevrolet
+  📍 9650 Bluegrass Pkwy, Louisville, KY 40299, USA (9.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 12.0 acres
+     Buildings: 1, Bays: 10
+     Vehicles: 3 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[184/361] Mata Auto Sales Fern creek
+  📍 6203 Bardstown Rd, Louisville, KY 40291, USA (9.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[185/361] Anthonys Roadside
+  📍 Wilma Ave, Louisville, KY 40229, USA (10.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 3/10, Cleanliness: 3/10
+  💾 Updating database...
+  ✅ Database updated
+
+[186/361] Bachman Commercial
+  📍 9802 Bluegrass Pkwy, Louisville, KY 40299, USA (10.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 10.0 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 8/10, Cleanliness: 8/10
+  💾 Updating database...
+  ✅ Database updated
+
+[187/361] American Tank Wash Partners, LLC
+  📍 4870 Keystone Blvd, Jeffersonville, IN 47130, USA (10.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 12
+     Vehicles: 2 trucks, 30 trailers
+     Condition: 7/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[188/361] McGuffey's Truck Repair, Inc.
+  📍 4870 Keystone Blvd Suite 200, Jeffersonville, IN 47130, USA (10.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 3, Bays: 12
+     Vehicles: 3 trucks, 30 trailers
+     Condition: 7/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[189/361] Cummins Sales and Service
+  📍 9820 Bluegrass Pkwy, Louisville, KY 40299, USA (10.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 5 trucks, 20 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[190/361] Clarke Power Services, Inc.
+  📍 2697 Grassland Dr, Louisville, KY 40299, USA (10.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 10 trucks, 15 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (190 processed)
+
+[191/361] UNITED TRUCK & TRAILER REPAIR INC
+  📍 2111 Production Dr, Louisville, KY 40299, USA (10.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 15 trucks, 18 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[192/361] SouthEast Towing, LLC.
+  📍 2000 Production Dr, Louisville, KY 40299, USA (10.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 5, Bays: 10
+     Vehicles: 5 trucks, 5 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[193/361] NAPA Auto Parts
+  📍 2500 Plantside Dr, Louisville, KY 40299, USA (10.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[194/361] Kentuckiana Auto and Truck Supply
+  📍 2107 Production Dr, Louisville, KY 40299, USA (10.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 1, Bays: 20
+     Vehicles: 5 trucks, 30 trailers
+     Condition: 8/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[195/361] Millertime Trucking & Trailer LLC
+  📍 1673 W Hebron Ln, Shepherdsville, KY 40165, USA (10.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 7 trucks, 30 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[196/361] Kirk NationaLease Co.
+  📍 2520 Plantside Dr, Louisville, KY 40299, USA (10.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 15 trucks, 30 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[197/361] Kenworth of Sellersburg | Palmer Trucks
+  📍 1503 Avco Blvd, Sellersburg, IN 47172, USA (11.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 8
+     Vehicles: 15 trucks, 25 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[198/361] Get It Done -Truck and Trailer Service
+  📍 5050 N Preston Hwy, Shepherdsville, KY 40165, USA (11.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.0 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[199/361] On-Site Fleet Services
+  📍 7620 Old Hwy 60, Sellersburg, IN 47172, USA (11.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 5 trucks, 5 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[200/361] Roppel Industries
+  📍 11008 Decimal Dr, Louisville, KY 40299, USA (11.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 5, Bays: 15
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (200 processed)
+
+[201/361] Kearney Motorsports
+  📍 5400 N Preston Hwy, Shepherdsville, KY 40165, USA (11.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[202/361] Palmer Leasing Group | PacLease Commercial Trucks
+  📍 4330 Poplar Level Rd, Louisville, KY 40299, USA (11.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[203/361] Republic Truck Sales
+  📍 3155 Development Way, Sellersburg, IN 47172, USA (11.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 1, Bays: 10
+     Vehicles: 100 trucks, 20 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[204/361] E&J Truck Road Service LLC
+  📍 5022 N Preston Hwy, Shepherdsville, KY 40165, USA (11.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 6 trucks, 10 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[205/361] Suburban Towing Inc
+  📍 1227 Bringham Dr, Sellersburg, IN 47172, USA (11.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 5 trucks, 6 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[206/361] E&J Truck Road Service LLC
+  📍 217 Clear Run Dr, Shepherdsville, KY 40165, USA (11.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 5, Bays: 4
+     Vehicles: 10 trucks, 20 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[207/361] Bluegrass Fleet Care & Auto Repair
+  📍 12901 Dixie Hwy, Louisville, KY 40272, USA (11.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 5, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[208/361] Williams Brothers Big Truck, Automotive, and Fleet Repair LLC
+  📍 145 Rogers Dr, Shepherdsville, KY 40165, USA (12.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 3, Bays: 12
+     Vehicles: 0 trucks, 15 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[209/361] Dixon Racing Supply
+  📍 601 S Indiana Ave, Sellersburg, IN 47172, USA (12.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 4
+     Vehicles: 1 trucks, 1 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[210/361] A&B Trailer Service
+  📍 Mobile we come to you, Georgetown, IN 47122, USA (13.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.25 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (210 processed)
+
+[211/361] Abi's truck and trailer repair
+  📍 2025 W Blue Lick Rd, Shepherdsville, KY 40165, USA (13.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.0 acres
+     Buildings: 6, Bays: 0
+     Vehicles: 10 trucks, 10 trailers
+     Condition: 4/10, Cleanliness: 3/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[212/361] Bells diesel repair
+  📍 Atkins Rd, Floyds Knobs, IN 47119, USA (13.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[213/361] I64 Truck Sales and Service
+  📍 4498 HayDay Way Ne, Lanesville, IN 47136, USA (13.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.5 acres
+     Buildings: 7, Bays: 12
+     Vehicles: 5 trucks, 20 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[214/361] Fenwick fleet Services, tractor and truck repair (heavy truck and equipment)
+  📍 12900-A Fenwick Center Dr, Louisville, KY 40223, USA (13.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 10.5 acres
+     Buildings: 4, Bays: 0
+     Vehicles: 0 trucks, 50 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[215/361] Manning Equipment LLC
+  📍 12000 Westport Rd, Louisville, KY 40245, USA (14.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 4, Bays: 12
+     Vehicles: 4 trucks, 10 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[216/361] Millmine Truck and Trailer, LLC
+  📍 266 Mallard Pointe Blvd, Shepherdsville, KY 40165, USA (14.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.0 acres
+     Buildings: 0, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 0/10, Cleanliness: 0/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[217/361] Monroe Truck Equipment
+  📍 12001 Westport Rd, Louisville, KY 40245, USA (14.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 10.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 15 trucks, 10 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[218/361] Modocks Mobile 24hr Heavy Truck Repair
+  📍 294 Mallard Crossing Dr, Shepherdsville, KY 40165, USA (14.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.0 acres
+     Buildings: 0, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 0/10, Cleanliness: 0/10
+  💾 Updating database...
+  ✅ Database updated
+
+[219/361] Tony's Wrecker Services - Heavy Duty Towing
+  📍 3311 Collins Ln, Louisville, KY 40245, USA (14.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 5 trucks, 6 trailers
+     Condition: 7/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[220/361] Enterprise Fleet Management
+  📍 13425 Eastpoint Centre Dr, Louisville, KY 40223, USA (14.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 8/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (220 processed)
+
+[221/361] Wash & Go Inc
+  📍 12410 Old Lagrange Rd, Louisville, KY 40245, USA (14.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 1, Bays: 8
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[222/361] ALL IN TRUCK & TRAILER REPAIR SERVICES LLC
+  📍 2089 Hwy 44 E, Shepherdsville, KY 40165, USA (14.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 8 trucks, 12 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[223/361] Precision Diesel Repair LLC
+  📍 133 W Blue Lick Rd, Shepherdsville, KY 40165, USA (15.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 4, Bays: 8
+     Vehicles: 4 trucks, 1 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[224/361] Craig and Landreth Cars - Shepherdsville
+  📍 970 KY-44, Shepherdsville, KY 40165, USA (15.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 6, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[225/361] NAPA Auto Parts
+  📍 299 KY-44, Shepherdsville, KY 40165, USA (15.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[226/361] Hoosier Hills Performance Engineering LLC
+  📍 4694 Angel Run Rd NE, Corydon, IN 47112, USA (15.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[227/361] Danno's Towing, Recovery And Auto shop louisville ky
+  📍 520 N Bardstown Rd, Mt Washington, KY 40047, USA (15.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 5, Bays: 6
+     Vehicles: 3 trucks, 2 trailers
+     Condition: 5/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[228/361] A Cheap Towing Service
+  📍 9021 Hwy 44 E, Mt Washington, KY 40047, USA (15.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 3, Bays: 2
+     Vehicles: 0 trucks, 5 trailers
+     Condition: 5/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[229/361] American Mobile Heavy Truck Repair
+  📍 440 Valley View Dr, Shepherdsville, KY 40165, USA (16.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.5 acres
+     Buildings: 0, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 0/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[230/361] Love's Travel Stop
+  📍 1090 Cedar Grove Rd, Shepherdsville, KY 40165, USA (16.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 10.5 acres
+     Buildings: 5, Bays: 20
+     Vehicles: 10 trucks, 20 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (230 processed)
+
+[231/361] Love's Truck Care
+  📍 1090 Cedar Grove Rd, Shepherdsville, KY 40165, USA (16.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 15 trucks, 50 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[232/361] John Jones Automotive Outlet
+  📍 9249 US-150, Greenville, IN 47124, USA (16.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 4
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[233/361] Pomp's Tire Service
+  📍 1270 Preston Hwy, Shepherdsville, KY 40165, USA (16.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 3, Bays: 12
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 4/10
+  💾 Updating database...
+  ✅ Database updated
+
+[234/361] Bullitt County Auto & RV Sales, Inc.
+  📍 330 Sparrow Dr, Shepherdsville, KY 40165, USA (16.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 25 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[235/361] Browns Auto And Diesel Repair LLC
+  📍 7634 Celebration Way, Crestwood, KY 40014, USA (17.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.0 acres
+     Buildings: 0, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 0/10, Cleanliness: 0/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[236/361] NAPA Auto Parts - Charlestown Auto Parts LLC
+  📍 923 Market St, Charlestown, IN 47111, USA (17.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[237/361] Sunny Acres Towing
+  📍 11576 US-150, Greenville, IN 47124, USA (18.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[238/361] Interstate 65 Truck Sales Inc
+  📍 13108 Blue Lick Rd, Memphis, IN 47143, USA (19.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.0 acres
+     Buildings: 1, Bays: 15
+     Vehicles: 0 trucks, 20 trailers
+     Condition: 8/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[239/361] Hedge Fleet Service
+  📍 200 Lansdowne Cres, Louisville, KY 40245, USA (19.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.0 acres
+     Buildings: 0, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 0/10, Cleanliness: 0/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[240/361] Love's Truck Care
+  📍 13615 Blue Lick Rd, Memphis, IN 47143, USA (19.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.0 acres
+     Buildings: 2, Bays: 8
+     Vehicles: 12 trucks, 20 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (240 processed)
+
+[241/361] Love's Travel Stop
+  📍 13615 Blue Lick Rd, Memphis, IN 47143, USA (19.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 10.0 acres
+     Buildings: 3, Bays: 10
+     Vehicles: 5 trucks, 20 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[242/361] Kentucky Trailer Parts & Service, LLC
+  📍 7550 Beech Grv Rd, Lebanon Junction, KY 40150, USA (19.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 10.0 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 1 trailers
+     Condition: 5/10, Cleanliness: 3/10
+  💾 Updating database...
+  ✅ Database updated
+
+[243/361] Southern Tire Mart at Pilot
+  📍 14019 Blue Lick Rd, Memphis, IN 47143, USA (19.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 8
+     Vehicles: 5 trucks, 10 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[244/361] Plan B Fleet Service llc
+  📍 5658 E Priddy Rd, New Pekin, IN 47165, USA (20.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.75 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[245/361] NAPA Auto Parts - Wayne Auto Parts Inc
+  📍 840 West St #62, Corydon, IN 47112, USA (20.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[246/361] John Jones Commercial & Fleet Sales Corydon
+  📍 1735 Gardner Ln NW, Corydon, IN 47112, USA (20.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.0 acres
+     Buildings: 2, Bays: 18
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[247/361] John Jones Auto Group - Corydon GM Service & Parts
+  📍 1735 Gardner Ln NW, Corydon, IN 47112, USA (20.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.0 acres
+     Buildings: 2, Bays: 15
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 8/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[248/361] 62 Sales | RV & Boat Dealership | Charlestown IN
+  📍 7402 Westbrook Dr, Charlestown, IN 47111, USA (21.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[249/361] Tackett Total
+  📍 311 3rd St, Simpsonville, KY 40067, USA (22.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[250/361] Furnish Towing & Recovery
+  📍 101 S Ferguson St, Henryville, IN 47126, USA (23.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (250 processed)
+
+[251/361] Don's Trucks Sales
+  📍 402 Colonels Way, Henryville, IN 47126, USA (23.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 10 trucks, 40 trailers
+     Condition: 5/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[252/361] Ascendance Truck Centers
+  📍 13450 IN-135, Palmyra, IN 47164, USA (23.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 3, Bays: 15
+     Vehicles: 20 trucks, 10 trailers
+     Condition: 8/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[253/361] Kings Diesel LLC
+  📍 640 Main St, Palmyra, IN 47164, USA (23.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 2, Bays: 4
+     Vehicles: 2 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[254/361] NAPA Auto Parts
+  📍 405 Yager Ave, La Grange, KY 40031, USA (24.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[255/361] Shelby Diesel & Machine Repair
+  📍 400 Isaac Shelby Dr, Shelbyville, KY 40065, USA (26.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 4, Bays: 10
+     Vehicles: 3 trucks, 15 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[256/361] NAPA Auto Parts - Brandenburg Auto Parts
+  📍 140 Moremen Rd, Brandenburg, KY 40108, USA (26.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 5, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[257/361] Southern Tire Mart at Pilot
+  📍 264 Plaza Park Rd, Lebanon Junction, KY 40150, USA (26.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 10 trucks, 15 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[258/361] Quality 1st truck and trailer repair
+  📍 13345 Preston Hwy, Lebanon Junction, KY 40150, USA (26.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 5
+     Vehicles: 0 trucks, 2 trailers
+     Condition: 6/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[259/361] Bailey's Service Center
+  📍 490 Hill-N-Dale Dr, Shelbyville, KY 40065, USA (26.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.5 acres
+     Buildings: 0, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 0/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[260/361] Big M Chevrolet
+  📍 704 N Dixie Blvd, Radcliff, KY 40160, USA (26.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 1, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (260 processed)
+
+[261/361] U S Trailer Center, LLC
+  📍 102 Taylorsville Rd, Shelbyville, KY 40065, USA (27.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 3, Bays: 10
+     Vehicles: 0 trucks, 75 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[262/361] Ray's Ford Chrysler Dodge Jeep Ram
+  📍 385 Bypass Rd, Brandenburg, KY 40108, USA (27.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.0 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[263/361] Finny's Complete Auto Repair - Luxury Imports & Exotics Specialists - BMW, Mercedes & More
+  📍 466 N Dixie Blvd, Radcliff, KY 40160, USA (27.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[264/361] Virgilio's Auto and Diesel Repair
+  📍 215 Enterprise Ct, Shelbyville, KY 40065, USA (27.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 15 trailers
+     Condition: 8/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[265/361] Davidson Trailer Service
+  📍 1116 High St, Brandenburg, KY 40108, USA (27.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 0 trucks, 2 trailers
+     Condition: 5/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[266/361] Mount Motors Inc
+  📍 1954 S Old 60, Salem, IN 47167, USA (28.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[267/361] NAPA Auto Parts
+  📍 16 Village Plz, Shelbyville, KY 40065, USA (28.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.0 acres
+     Buildings: 1, Bays: 1
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 4/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[268/361] Billy's Towing and Recovery
+  📍 1690 S Dixie Blvd, Radcliff, KY 40160, USA (28.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[269/361] Central Truck & Trailer Repair
+  📍 1014 S Franklin School Rd, Salem, IN 47167, USA (28.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 4/10, Cleanliness: 3/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[270/361] Mosby’s Towing & Transport LLC
+  📍 202 Kentucky St, Shelbyville, KY 40065, USA (29.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 2
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (270 processed)
+
+[271/361] Boss Truck Shop
+  📍 203 Pendleton Rd, Pendleton, KY 40055, USA (30.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 1, Bays: 6
+     Vehicles: 5 trucks, 30 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[272/361] Speedco Truck Lube and Tires
+  📍 524 Pendleton Rd, Pendleton, KY 40055, USA (30.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 2 trucks, 2 trailers
+     Condition: 8/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[273/361] TC Auto and Performance, INC
+  📍 3033 S U.S. Hwy 31, Scottsburg, IN 47170, USA (30.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[274/361] John Jones Commercial & Fleet Sales Salem
+  📍 1450 IN-60, Salem, IN 47167, USA (30.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 8/10, Cleanliness: 8/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[275/361] Double A Fleet Service LLC
+  📍 219 IN-356, Scottsburg, IN 47170, USA (30.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 2 trucks, 10 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[276/361] Parris Auto, Truck, & RV Repair Services LLC
+  📍 219 IN-356 Suite 4, Scottsburg, IN 47170, USA (30.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 0 trucks, 2 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[277/361] 44 Auto Mart Bardstown
+  📍 104 W John Rowan Blvd, Bardstown, KY 40004, USA (30.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[278/361] Kentucky Jeep and Truck
+  📍 5796 N Dixie Hwy, Elizabethtown, KY 42701, USA (31.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[279/361] Car-Mart of Elizabethtown
+  📍 5730 N Dixie Hwy, Elizabethtown, KY 42701, USA (31.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[280/361] Ellis Towing LLC
+  📍 515 Old Bloomfield Rd, Bardstown, KY 40004, USA (31.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.75 acres
+     Buildings: 2, Bays: 3
+     Vehicles: 0 trucks, 1 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (280 processed)
+
+[281/361] Salem Fleet Service
+  📍 1313 S Jackson St, Salem, IN 47167, USA (32.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 5, Bays: 15
+     Vehicles: 12 trucks, 10 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[282/361] Speedco Truck Lube and Tires
+  📍 6582 IN-66, Leavenworth, IN 47137, USA (32.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.5 acres
+     Buildings: 1, Bays: 6
+     Vehicles: 15 trucks, 30 trailers
+     Condition: 8/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[283/361] Love's Travel Stop
+  📍 6582 IN-66, Leavenworth, IN 47137, USA (32.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 7.5 acres
+     Buildings: 3, Bays: 12
+     Vehicles: 15 trucks, 10 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[284/361] Wilcox Towing & Trucking, Inc
+  📍 202 W Joseph St, Salem, IN 47167, USA (32.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 4
+     Vehicles: 2 trucks, 3 trailers
+     Condition: 5/10, Cleanliness: 3/10
+  💾 Updating database...
+  ✅ Database updated
+
+[285/361] Weaver Brothers, LLC
+  📍 6948 S IN-66, Leavenworth, IN 47137, USA (32.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 12 trucks, 15 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[286/361] Bohannon Diesel & Transmission Repair
+  📍 6589 Main St, Eminence, KY 40019, USA (32.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[287/361] Right Way Diesel Service
+  📍 6948 S IN-66, Carefree, IN 47137, USA (32.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 12 trucks, 10 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[288/361] John Jones Auto Group - Scottsburg Service & Parts
+  📍 1351 IN-56, Scottsburg, IN 47170, USA (32.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.0 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 8/10, Cleanliness: 8/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[289/361] All Around Auto Care
+  📍 4740 Bardstown Rd, Elizabethtown, KY 42701, USA (32.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 0 trucks, 50 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[290/361] Big O Tires Scottsburg - McClain Ave
+  📍 1621 W McClain Ave, Scottsburg, IN 47170, USA (33.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (290 processed)
+
+[291/361] 5 Star Diesel Performance
+  📍 2706 N Old 56, Salem, IN 47167, USA (33.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[292/361] NAPA Auto Parts
+  📍 200 W Market St, Salem, IN 47167, USA (33.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.8 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[293/361] Bar J Truck Repair
+  📍 3322 IN-56, Scottsburg, IN 47170, USA (33.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 2 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[294/361] Midwest Tire & Service LLC
+  📍 906 E Hackberry St, Salem, IN 47167, USA (33.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 2, Bays: 2
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[295/361] Salem Wrecker Service
+  📍 307 Locust St, Salem, IN 47167, USA (33.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 5, Bays: 2
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[296/361] Washington Co Tire Shop
+  📍 101 E Progress Blvd, Salem, IN 47167, USA (33.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 1, Bays: 2
+     Vehicles: 1 trucks, 1 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[297/361] A.T.R Truck,Trailer&Fleet
+  📍 193 N Gardner St, Scottsburg, IN 47170, USA (33.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 3, Bays: 4
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[298/361] On the Way Mobile Truck and Trailer Repair LLC
+  📍 711 Houston St, Salem, IN 47167, USA (33.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 1 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[299/361] NAPA Auto Parts - Scottsburg Auto Parts
+  📍 376 N Gardner St, Scottsburg, IN 47170, USA (33.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[300/361] Goodin's Wrecker Services
+  📍 887 N Gardner St, Scottsburg, IN 47170, USA (33.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 5, Bays: 4
+     Vehicles: 3 trucks, 25 trailers
+     Condition: 5/10, Cleanliness: 4/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (300 processed)
+
+[301/361] First Fleet
+  📍 1755 Parkway Dr, Bardstown, KY 40004, USA (33.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 10.0 acres
+     Buildings: 1, Bays: 50
+     Vehicles: 15 trucks, 75 trailers
+     Condition: 8/10, Cleanliness: 8/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[302/361] Herb Jones Chevrolet GMC
+  📍 1605 Ring Rd, Elizabethtown, KY 42701, USA (33.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 3 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[303/361] Don Franklin Elizabethtown Lincoln
+  📍 1505 N Dixie Hwy, Elizabethtown, KY 42701, USA (34.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[304/361] 44 Auto Mart - Elizabethtown
+  📍 1403 N Dixie Hwy, Elizabethtown, KY 42701, USA (34.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[305/361] Bob Swope Ford, Inc.
+  📍 1307 N Dixie Hwy, Elizabethtown, KY 42701, USA (34.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 3, Bays: 10
+     Vehicles: 3 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[306/361] Big M Certified Pre-Owned
+  📍 1300 N Dixie Hwy, Elizabethtown, KY 42701, USA (34.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[307/361] RNR Tire Express (Elizabethtown, KY)
+  📍 3045 Dolphin Dr, Elizabethtown, KY 42701, USA (34.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.8 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[308/361] Swope Chrysler Dodge Jeep Ram
+  📍 1012 N Dixie Hwy, Elizabethtown, KY 42701, USA (34.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.0 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[309/361] Gregory's Garage LLC
+  📍 1222 US-42, Bedford, KY 40006, USA (34.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 4, Bays: 3
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 4/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[310/361] McKenzies mobile mechanic
+  📍 6625 Nelsonville Rd, Boston, KY 40107, USA (35.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 2/10, Cleanliness: 2/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (310 processed)
+
+[311/361] Tanners diesel service
+  📍 5570 NW Point Rd, Salem, IN 47167, USA (35.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 3, Bays: 5
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[312/361] Fat Boy Motorsports LLC
+  📍 314 N Mantle Ave, Elizabethtown, KY 42701, USA (35.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.5 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[313/361] Turnage Trailer Repair and Restoration
+  📍 7691 E County Rd 525 S, Hardinsburg, IN 47125, USA (35.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[314/361] Atlas Roadside Truck Trailer & Fleet Repair
+  📍 601 Westport Rd, Elizabethtown, KY 42701, USA (35.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 6, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[315/361] 4J Total Supply, LLC
+  📍 325 US-42, Bedford, KY 40006, USA (35.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 5, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[316/361] NAPA Auto Parts - E-TOWN AUTO PARTS
+  📍 202 S Mulberry St, Elizabethtown, KY 42701, USA (36.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[317/361] RightWay Diesel Service LLC
+  📍 6648 S Riddle Rd, English, IN 47118, USA (36.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 2, Bays: 4
+     Vehicles: 3 trucks, 2 trailers
+     Condition: 5/10, Cleanliness: 4/10
+  💾 Updating database...
+  ✅ Database updated
+
+[318/361] Truck Parts & Services Inc
+  📍 325 S Mulberry St, Elizabethtown, KY 42701, USA (36.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 2, Bays: 3
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[319/361] Certified Diesel Power, LLC
+  📍 615 E Dixie Ave Suite 100, Elizabethtown, KY 42701, USA (36.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 4, Bays: 5
+     Vehicles: 2 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[320/361] I-65 Truck & Equipment
+  📍 306 Steel Dr, Elizabethtown, KY 42701, USA (36.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 5, Bays: 15
+     Vehicles: 2 trucks, 18 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (320 processed)
+
+[321/361] TS Diesel Performance LLC
+  📍 4190 Murphy Ln, Mt Eden, KY 40046, USA (36.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 2 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[322/361] PALMER TRUCK & TRAILER REPAIR LLC
+  📍 22 S 4th St, Austin, IN 47102, USA (36.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 4, Bays: 3
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[323/361] Hardin County Truck & Trailer
+  📍 102 Magnet Dr, Elizabethtown, KY 42701, USA (37.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 15 trucks, 25 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[324/361] John Ray & Sons Automotive
+  📍 110 Catalog Dr, Elizabethtown, KY 42701, USA (37.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 5, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 5/10
+  💾 Updating database...
+  ✅ Database updated
+
+[325/361] Bestone Tire & Service
+  📍 900 Greenway Dr, Elizabethtown, KY 42701, USA (37.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[326/361] Ascendance Truck Centers
+  📍 3636 W Frontage Rd, Austin, IN 47102, USA (37.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 20 trucks, 15 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[327/361] Best-One Elizabethtown
+  📍 211 Valley Creek Rd, Elizabethtown, KY 42701, USA (37.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[328/361] T.A.P. Automotive Austin
+  📍 735 US-31, Austin, IN 47102, USA (37.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.7 acres
+     Buildings: 5, Bays: 2
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[329/361] Love's Truck Care
+  📍 1940 Waddy Rd, Waddy, KY 40076, USA (37.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 10.5 acres
+     Buildings: 3, Bays: 6
+     Vehicles: 6 trucks, 25 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[330/361] Love's Travel Stop
+  📍 1940 Waddy Rd, Waddy, KY 40076, USA (37.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 6.5 acres
+     Buildings: 4, Bays: 12
+     Vehicles: 5 trucks, 15 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (330 processed)
+
+[331/361] 60 West Truck & Trailer Repair, LLC
+  📍 6575 W Lost River Rd, Salem, IN 47167, USA (37.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 10 trucks, 30 trailers
+     Condition: 5/10, Cleanliness: 3/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[332/361] JDS Truck and Trailer repair
+  📍 1877 Hodgenville Rd, Elizabethtown, KY 42701, USA (38.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 5, Bays: 0
+     Vehicles: 1 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[333/361] Love's Truck Care
+  📍 601 Ring Rd, Elizabethtown, KY 42701, USA (38.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 1, Bays: 4
+     Vehicles: 5 trucks, 30 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[334/361] Headquarters Diesel & Fabrication LLC
+  📍 812 Peytona Beach Rd, Waddy, KY 40076, USA (38.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.0 acres
+     Buildings: 0, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 1/10, Cleanliness: 1/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[335/361] Love's Travel Stop
+  📍 601 Ring Rd, Elizabethtown, KY 42701, USA (38.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 3, Bays: 0
+     Vehicles: 5 trucks, 15 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[336/361] NAPA Auto Parts - Carman's Auto & Farm Supply
+  📍 304 Old Hwy 60, Hardinsburg, KY 40143, USA (41.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.0 acres
+     Buildings: 0, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 1/10, Cleanliness: 1/10
+  💾 Updating database...
+  ✅ Database updated
+
+[337/361] TA Truck Service
+  📍 554 Glendale Hodgenville Rd W, Glendale, KY 42740, USA (42.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 2, Bays: 15
+     Vehicles: 7 trucks, 10 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[338/361] Petro Travel Center
+  📍 554 Glendale Hodgenville Rd W, Glendale, KY 42740, USA (42.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 5 trucks, 10 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[339/361] Southern Tire Mart at Pilot
+  📍 108 Glendale Hodgenville Rd W, Glendale, KY 42740, USA (42.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 12 trucks, 10 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[340/361] Southern Indiana Diesel Service LLC
+  📍 1479 E U.S. Hwy 150, Paoli, IN 47454, USA (42.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (340 processed)
+
+[341/361] NAPA Auto Parts - River City Automotive Inc
+  📍 750 Jefferson Ct, Madison, IN 47250, USA (43.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[342/361] Lee's Tire and 4x4
+  📍 2561 1240 E, Crothersville, IN 47229, USA (44.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 4
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[343/361] Palmer Truck & Trailer Repair
+  📍 11772 IN-250, Crothersville, IN 47229, USA (44.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 2
+     Vehicles: 2 trucks, 0 trailers
+     Condition: 4/10, Cleanliness: 2/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[344/361] Paul's Tire Inc.
+  📍 107 US-42, Carrollton, KY 41008, USA (44.7 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.2 acres
+     Buildings: 4, Bays: 6
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[345/361] NAPA Auto Parts - Carrollton Auto Parts Inc
+  📍 618 Highland Ave, Carrollton, KY 41008, USA (45.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.75 acres
+     Buildings: 2, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[346/361] South Run Auto & Diesel
+  📍 2279 KY-227, Carrollton, KY 41008, USA (45.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 4, Bays: 8
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[347/361] KENTUCKY DIESEL SPECIALISTS, LLC
+  📍 1486 Alton Rd, Lawrenceburg, KY 40342, USA (46.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 2 trucks, 5 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[348/361] Cummings Towing & Recovery
+  📍 6541 KY-227, Worthville, KY 41098, USA (46.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 4.5 acres
+     Buildings: 2, Bays: 4
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 3/10
+  💾 Updating database...
+  ✅ Database updated
+
+[349/361] Tex's Transmissions Complete Auto & Truck Care
+  📍 1145 Alton Rd, Lawrenceburg, KY 40342, USA (46.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 4, Bays: 10
+     Vehicles: 2 trucks, 10 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+[350/361] NAPA Auto Parts - Springfield Auto & Farm Supply
+  📍 104 Depot St, Springfield, KY 40069, USA (46.6 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 4, Bays: 4
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ✅ Database updated
+
+  💾 Checkpoint saved (350 processed)
+
+[351/361] Premier Motors
+  📍 1241 Glensboro Rd suite 4, Lawrenceburg, KY 40342, USA (47.4 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[352/361] George Heavy Duty Towing
+  📍 317 W Campbell St, Frankfort, KY 40601, USA (47.8 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 0.2 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[353/361] Southern Tire Mart at Pilot
+  📍 450 E Western Ave, Sonora, KY 42776, USA (47.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 12
+     Vehicles: 4 trucks, 8 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[354/361] Sims Diesel Technologies
+  📍 1013 Crossroad Dr, Lawrenceburg, KY 40342, USA (47.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 3, Bays: 10
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[355/361] Hardinsburg Tire Service, Inc.
+  📍 307 Old State Rd 60, Hardinsburg, KY 40143, USA (47.9 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 5, Bays: 10
+     Vehicles: 2 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[356/361] Redden's Fleet Maintenance
+  📍 12230 S Dixie Hwy, Sonora, KY 42776, USA (48.0 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 2, Bays: 4
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[357/361] NAPA Auto Parts - Cain Auto Supply
+  📍 755 W Broadway St Suite 200B, Lawrenceburg, KY 40342, USA (48.1 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 1.5 acres
+     Buildings: 4, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 7/10
+  💾 Updating database...
+  ✅ Database updated
+
+[358/361] Best way truck and trailer repair
+  📍 1576 US-31, Seymour, IN 47274, USA (48.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 3.5 acres
+     Buildings: 2, Bays: 6
+     Vehicles: 4 trucks, 25 trailers
+     Condition: 6/10, Cleanliness: 5/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[359/361] Kendall Trucks & Parts
+  📍 7160 IN-337, Orleans, IN 47452, USA (48.3 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.5 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 10 trucks, 10 trailers
+     Condition: 5/10, Cleanliness: 3/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+[360/361] State Fleet Management
+  📍 Frankfort, KY 40601, USA (48.5 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 2.5 acres
+     Buildings: 1, Bays: 12
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 7/10, Cleanliness: 6/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+  💾 Checkpoint saved (360 processed)
+
+[361/361] Carey's Towing & Recovery Inc
+  📍 320 Rouse Ave, Frankfort, KY 40601, USA (49.2 mi)
+  📥 Downloading satellite image...
+  ✅ Image saved
+  🤖 Analyzing with Gemini Vision...
+  ✅ Analysis complete
+     Size: 5.0 acres
+     Buildings: 1, Bays: 0
+     Vehicles: 0 trucks, 0 trailers
+     Condition: 5/10, Cleanliness: 2/10
+  💾 Updating database...
+  ⚠️  No matching company found in database
+
+📤 Exporting results...
+  ✅ JSON: /Users/justinfagan/dev/reseller-intel/visual-analysis-results/visual_analysis_20260330_161005.json
+  ✅ CSV: /Users/justinfagan/dev/reseller-intel/visual-analysis-results/visual_analysis_20260330_161005.csv
+
+============================================================
+✅ VISUAL FACILITY ANALYSIS COMPLETE
+============================================================
+
+📊 Statistics:
+  Total in 50-mile radius: 361
+  Images downloaded: 361
+  Analysis completed: 360
+  Errors: 1
+  API cost: $0.73
+
+🏆 Top Facilities by Size:
+  1. River City Truck Parts Inc
+     15.5 acres, 20 bays
+  2. Fleet Services
+     15.0 acres, 100 bays
+  3. Bachman Chevrolet
+     12.0 acres, 10 bays
+  4. Fenwick fleet Services, tractor and truck repair (heavy truck and equipment)
+     10.5 acres, 0 bays
+  5. Monroe Truck Equipment
+     10.5 acres, 10 bays
+
+🧹 Cleanest Facilities:
+  1. Kentucky International Convention Center
+     Cleanliness: 8/10, Condition: 8/10
+  2. Jeff Wyler Honda Auto Mall Service
+     Cleanliness: 8/10, Condition: 8/10
+  3. Volvo Cars of Louisville
+     Cleanliness: 8/10, Condition: 8/10
+  4. Bachman Commercial
+     Cleanliness: 8/10, Condition: 8/10
+  5. Enterprise Fleet Management
+     Cleanliness: 8/10, Condition: 7/10
+
+============================================================
+✅ PIPELINE COMPLETE
+============================================================

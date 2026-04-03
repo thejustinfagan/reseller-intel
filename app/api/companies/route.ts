@@ -181,10 +181,21 @@ export async function GET(request: NextRequest) {
         company_detail_url,
         input_service_type,
         input_sub_service_type,
-        features
+        features,
+        primary_entity_type,
+        confidence_score,
+        confidence_label,
+        brands_served,
+        vehicle_types,
+        parts_capabilities,
+        service_capabilities,
+        ai_analyzed_at,
+        qa_approved,
+        qa_flagged,
+        qa_flag_note
       FROM companies 
       ${whereClause}
-      ORDER BY company_name
+      ORDER BY CASE WHEN ai_analyzed_at IS NOT NULL THEN 0 ELSE 1 END, confidence_score DESC, company_name
       LIMIT ? OFFSET ?
     `;
 
