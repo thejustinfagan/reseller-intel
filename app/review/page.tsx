@@ -1,28 +1,50 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import ProspectCard from './components/ProspectCard';
+import FlagSheet from './components/FlagSheet';
 
 interface Company {
   id: number;
   company_name: string;
   city: string;
   state: string;
-  primary_entity_type: string;
-  confidence_score: number;
-  confidence_label: string;
-  brands_served: string[];
-  parts_capabilities: string[];
-  service_capabilities: string[];
-  mobile_service: boolean;
-  fleet_focus: boolean;
-  dot_inspection: boolean;
-  roadside_service: boolean;
-  leasing_rental: boolean;
-  used_truck_sales: boolean;
-  new_truck_sales: boolean;
-  evidence_snippets: string[];
-  deep_analysis: any;
-  company_detail_url: string;
+  full_address?: string;
+  primary_phone?: string;
+  company_detail_url?: string;
+  place_id?: string;
+  rating?: number;
+  review_count?: number;
+  google_business_status?: string;
+  primary_entity_type?: string;
+  confidence_score?: number;
+  confidence_label?: string;
+  is_target_account?: boolean;
+  brands_served?: string[];
+  parts_capabilities?: string[];
+  service_capabilities?: string[];
+  mobile_service?: boolean;
+  fleet_focus?: boolean;
+  dot_inspection?: boolean;
+  roadside_service?: boolean;
+  leasing_rental?: boolean;
+  used_truck_sales?: boolean;
+  new_truck_sales?: boolean;
+  evidence_snippets?: string[];
+  deep_analysis?: any;
+  satellite_image_url?: string;
+  facility_type?: string;
+  facility_size_acres?: number;
+  bay_count?: number;
+  trucks_visible?: number;
+  trailers_visible?: number;
+  building_count?: number;
+  building_condition?: number;
+  cleanliness_score?: number;
+  has_signage?: boolean;
+  has_fencing?: boolean;
+  lot_organized?: boolean;
+  features?: string;
 }
 
 interface Stats {
@@ -32,306 +54,235 @@ interface Stats {
   total_flagged: number;
 }
 
+type CardState = 'visible' | 'exiting-approve' | 'exiting-flag' | 'exiting-skip' | 'entering';
+
 export default function ReviewPage() {
   const [company, setCompany] = useState<Company | null>(null);
+  const [nextCompany, setNextCompany] = useState<Company | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [showFlagInput, setShowFlagInput] = useState(false);
-  const [flagNote, setFlagNote] = useState('');
-  const [showAnalysis, setShowAnalysis] = useState(false);
+  const [cardState, setCardState] = useState<CardState>('visible');
+  const [showFlagSheet, setShowFlagSheet] = useState(false);
+  const [done, setDone] = useState(false);
 
-  useEffect(() => {
-    loadNext();
-    loadStats();
-  }, []);
-
-  async function loadStats() {
+  const loadStats = useCallback(async () => {
     try {
       const res = await fetch('/api/qa/stats');
       const data = await res.json();
       setStats(data);
-    } catch (error) {
-      console.error('Failed to load stats:', error);
+    } catch (err) {
+      console.error('Failed to load stats:', err);
     }
-  }
+  }, []);
 
-  async function loadNext() {
-    setLoading(true);
-    setShowFlagInput(false);
-    setFlagNote('');
-    setShowAnalysis(false);
-    
+  const fetchCompany = useCallback(async (): Promise<Company | null> => {
     try {
       const res = await fetch('/api/qa/next');
       const data = await res.json();
-      setCompany(data.company);
-    } catch (error) {
-      console.error('Failed to load next company:', error);
-    } finally {
+      return data.company ?? null;
+    } catch {
+      return null;
+    }
+  }, []);
+
+  // Initial load
+  useEffect(() => {
+    async function init() {
+      setLoading(true);
+      const [c, s] = await Promise.all([fetchCompany(), fetch('/api/qa/stats').then(r => r.json())]);
+      setCompany(c);
+      setStats(s);
+      if (!c) setDone(true);
       setLoading(false);
     }
+    init();
+  }, [fetchCompany]);
+
+  // Prefetch next card whenever current changes
+  useEffect(() => {
+    if (!company) return;
+    // small delay to not block current render
+    const t = setTimeout(async () => {
+      const next = await fetchCompany();
+      setNextCompany(next);
+    }, 500);
+    return () => clearTimeout(t);
+  }, [company, fetchCompany]);
+
+  function transitionToNext(exitClass: CardState) {
+    setCardState(exitClass);
+    setTimeout(() => {
+      setCompany(nextCompany);
+      setNextCompany(null);
+      if (!nextCompany) {
+        setDone(true);
+      } else {
+        setCardState('entering');
+        setTimeout(() => setCardState('visible'), 50);
+      }
+      loadStats();
+    }, 300);
   }
 
   async function handleApprove() {
     if (!company) return;
-    
     try {
       await fetch('/api/qa/approve', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: company.id }),
       });
-      
-      loadNext();
-      loadStats();
-    } catch (error) {
-      console.error('Failed to approve:', error);
+    } catch (err) {
+      console.error(err);
     }
+    transitionToNext('exiting-approve');
   }
 
-  async function handleFlag() {
+  function handleFlagClick() {
+    setShowFlagSheet(true);
+  }
+
+  async function handleFlagSubmit(reason: string, note: string) {
     if (!company) return;
-    
+    setShowFlagSheet(false);
+    // Combine reason + optional note into a single note string (flag route stores qa_flag_note)
+    const combinedNote = note ? `${reason} — ${note}` : reason;
     try {
       await fetch('/api/qa/flag', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: company.id, note: flagNote }),
+        body: JSON.stringify({ id: company.id, note: combinedNote }),
       });
-      
-      loadNext();
-      loadStats();
-    } catch (error) {
-      console.error('Failed to flag:', error);
+    } catch (err) {
+      console.error(err);
     }
+    transitionToNext('exiting-flag');
   }
 
   async function handleSkip() {
-    loadNext();
+    if (!company) return;
+    try {
+      await fetch('/api/qa/skip', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: company.id }),
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    transitionToNext('exiting-skip');
   }
 
-  function getConfidenceBadgeColor(score: number) {
-    if (score >= 80) return 'bg-green-600';
-    if (score >= 50) return 'bg-yellow-600';
-    return 'bg-red-600';
-  }
+  const progressPct = stats
+    ? Math.round((stats.total_reviewed / Math.max(stats.total_enriched, 1)) * 100)
+    : 0;
+
+  const remaining = stats
+    ? stats.total_enriched - stats.total_reviewed
+    : null;
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-white text-xl">Loading...</div>
-      </div>
-    );
-  }
-
-  if (!company) {
-    return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-white mb-4">All Done! 🎉</h1>
-          <p className="text-gray-400">No more unreviewed enriched records.</p>
-          {stats && (
-            <div className="mt-6 text-gray-300">
-              <p>Reviewed: {stats.total_reviewed} / {stats.total_enriched}</p>
-              <p>Approved: {stats.total_approved}</p>
-              <p>Flagged: {stats.total_flagged}</p>
-            </div>
-          )}
+      <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+          <span className="text-gray-500 text-sm">Loading intel...</span>
         </div>
       </div>
     );
   }
 
-  const services = [
-    ...(company.parts_capabilities || []),
-    ...(company.service_capabilities || []),
-  ];
-
-  const flags = [
-    company.mobile_service && { label: 'Mobile Service', icon: '🚐' },
-    company.fleet_focus && { label: 'Fleet Focus', icon: '🚛' },
-    company.dot_inspection && { label: 'DOT Inspection', icon: '✅' },
-    company.roadside_service && { label: 'Roadside Service', icon: '🛣️' },
-    company.leasing_rental && { label: 'Leasing/Rental', icon: '📋' },
-    company.used_truck_sales && { label: 'Used Truck Sales', icon: '🚚' },
-    company.new_truck_sales && { label: 'New Truck Sales', icon: '✨' },
-  ].filter(Boolean);
+  if (done || !company) {
+    return (
+      <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center px-6">
+        <div className="text-center max-w-xs">
+          <div className="text-6xl mb-4">🎯</div>
+          <h1 className="text-3xl font-bold text-white mb-2">Queue Clear</h1>
+          <p className="text-gray-400 mb-6">All prospects have been reviewed.</p>
+          {stats && (
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-5 text-left space-y-2">
+              <Stat label="Total Enriched" value={String(stats.total_enriched)} />
+              <Stat label="Reviewed" value={String(stats.total_reviewed)} />
+              <Stat label="Approved" value={String(stats.total_approved)} color="text-green-400" />
+              <Stat label="Flagged" value={String(stats.total_flagged)} color="text-red-400" />
+            </div>
+          )}
+          <a
+            href="/"
+            className="mt-6 inline-block text-sm text-gray-500 hover:text-gray-300 transition-colors"
+          >
+            ← Back to dashboard
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-8 px-4">
-      <div className="max-w-2xl mx-auto">
-        {/* Progress */}
-        {stats && (
-          <div className="mb-6 text-center text-gray-400">
-            {stats.total_reviewed} of {stats.total_enriched} reviewed
+    <div className="min-h-screen bg-[#0f0f0f]">
+      {/* ── STICKY TOP PROGRESS BAR ───────────────────────────────────── */}
+      <div className="sticky top-0 z-30 bg-[#0f0f0f]/95 backdrop-blur-sm border-b border-white/8 px-4 py-2.5">
+        <div className="max-w-[430px] mx-auto">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-xs text-gray-500 font-medium">
+              {stats ? `${stats.total_reviewed} reviewed` : 'QA Review'}
+            </span>
+            <span className="text-xs font-semibold text-gray-300">
+              {remaining != null ? `${remaining} remaining` : ''}
+            </span>
           </div>
-        )}
-
-        {/* Card */}
-        <div className="bg-gray-800 rounded-lg shadow-xl border border-gray-700 p-6 space-y-6">
-          {/* Header */}
-          <div>
-            <h1 className="text-2xl font-bold mb-2">{company.company_name}</h1>
-            <p className="text-gray-400">{company.city}, {company.state}</p>
-            <p className="text-gray-400 mt-1">{company.primary_entity_type}</p>
-            <div className="mt-3">
-              <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${getConfidenceBadgeColor(company.confidence_score)}`}>
-                {company.confidence_score}% - {company.confidence_label}
-              </span>
-            </div>
-          </div>
-
-          {/* Brands */}
-          <div>
-            <h2 className="text-lg font-semibold mb-2">Brands Detected</h2>
-            {company.brands_served && company.brands_served.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {company.brands_served.map((brand, i) => (
-                  <span key={i} className="px-3 py-1 bg-blue-900 text-blue-200 rounded-full text-sm">
-                    {brand}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <p className="text-gray-500">None detected</p>
-            )}
-          </div>
-
-          {/* Services */}
-          <div>
-            <h2 className="text-lg font-semibold mb-2">Services</h2>
-            {services.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {services.map((service, i) => (
-                  <span key={i} className="px-3 py-1 bg-purple-900 text-purple-200 rounded-full text-sm">
-                    {service}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <p className="text-gray-500">None detected</p>
-            )}
-          </div>
-
-          {/* Flags */}
-          {flags.length > 0 && (
-            <div>
-              <h2 className="text-lg font-semibold mb-2">Flags</h2>
-              <div className="flex flex-wrap gap-2">
-                {flags.map((flag: any, i) => (
-                  <span key={i} className="px-3 py-1 bg-gray-700 text-gray-200 rounded-full text-sm">
-                    {flag.icon} {flag.label}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Evidence Snippets */}
-          <div>
-            <h2 className="text-lg font-semibold mb-2">Evidence Snippets</h2>
-            {company.evidence_snippets && company.evidence_snippets.length > 0 ? (
-              <ul className="list-disc list-inside space-y-1 text-gray-300 text-sm">
-                {company.evidence_snippets.map((snippet, i) => (
-                  <li key={i}>{snippet}</li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-gray-500">No evidence provided</p>
-            )}
-          </div>
-
-          {/* AI Analysis (collapsible) */}
-          <div>
-            <button
-              onClick={() => setShowAnalysis(!showAnalysis)}
-              className="flex items-center justify-between w-full text-left"
-            >
-              <h2 className="text-lg font-semibold">AI Analysis</h2>
-              <span className="text-gray-400">{showAnalysis ? '▼' : '▶'}</span>
-            </button>
-            {showAnalysis && company.deep_analysis && (
-              <pre className="mt-3 p-4 bg-gray-900 rounded text-xs text-gray-300 overflow-x-auto">
-                {JSON.stringify(company.deep_analysis, null, 2)}
-              </pre>
-            )}
-          </div>
-
-          {/* Source Link */}
-          {company.company_detail_url && (
-            <div>
-              <h2 className="text-lg font-semibold mb-2">Source</h2>
-              <a
-                href={company.company_detail_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 hover:text-blue-300 underline"
-              >
-                View Company Details →
-              </a>
-            </div>
-          )}
-
-          {/* Flag Input (conditional) */}
-          {showFlagInput && (
-            <div>
-              <label className="block text-sm font-medium mb-2">Flag Note</label>
-              <textarea
-                value={flagNote}
-                onChange={(e) => setFlagNote(e.target.value)}
-                className="w-full px-3 py-2 bg-gray-900 border border-gray-600 rounded text-white focus:outline-none focus:ring-2 focus:ring-red-500"
-                rows={3}
-                placeholder="Why are you flagging this record?"
-              />
-            </div>
-          )}
-
-          {/* Actions */}
-          <div className="flex gap-3 pt-4">
-            {!showFlagInput ? (
-              <>
-                <button
-                  onClick={handleApprove}
-                  className="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-md transition-colors"
-                >
-                  Approve
-                </button>
-                <button
-                  onClick={() => setShowFlagInput(true)}
-                  className="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-6 rounded-md transition-colors"
-                >
-                  Flag
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={handleFlag}
-                  className="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-6 rounded-md transition-colors"
-                >
-                  Submit Flag
-                </button>
-                <button
-                  onClick={() => setShowFlagInput(false)}
-                  className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-medium py-3 px-6 rounded-md transition-colors"
-                >
-                  Cancel
-                </button>
-              </>
-            )}
-          </div>
-
-          {/* Skip Button */}
-          <div className="text-center">
-            <button
-              onClick={handleSkip}
-              className="text-gray-400 hover:text-gray-300 text-sm underline"
-            >
-              Skip this one
-            </button>
+          <div className="w-full h-1 bg-white/8 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full transition-all duration-500"
+              style={{ width: `${progressPct}%` }}
+            />
           </div>
         </div>
       </div>
+
+      {/* ── CARD CONTAINER ────────────────────────────────────────────── */}
+      <div className="max-w-[430px] mx-auto px-3 py-4">
+        <div
+          style={{
+            opacity: cardState === 'visible' ? 1 : cardState === 'entering' ? 0 : 0,
+            transform:
+              cardState === 'exiting-approve'
+                ? 'translateX(110%) rotate(8deg)'
+                : cardState === 'exiting-flag'
+                ? 'translateX(-110%) rotate(-8deg)'
+                : cardState === 'exiting-skip'
+                ? 'translateY(-40px) scale(0.95)'
+                : cardState === 'entering'
+                ? 'translateY(16px) scale(0.98)'
+                : 'none',
+            transition: 'opacity 0.28s ease, transform 0.28s ease',
+          }}
+        >
+          <ProspectCard
+            company={company}
+            onApprove={handleApprove}
+            onFlag={handleFlagClick}
+            onSkip={handleSkip}
+          />
+        </div>
+      </div>
+
+      {/* ── FLAG SHEET ────────────────────────────────────────────────── */}
+      {showFlagSheet && (
+        <FlagSheet
+          onSubmit={handleFlagSubmit}
+          onCancel={() => setShowFlagSheet(false)}
+        />
+      )}
+    </div>
+  );
+}
+
+function Stat({ label, value, color = 'text-white' }: { label: string; value: string; color?: string }) {
+  return (
+    <div className="flex justify-between items-center">
+      <span className="text-gray-500 text-sm">{label}</span>
+      <span className={`font-bold text-sm ${color}`}>{value}</span>
     </div>
   );
 }
